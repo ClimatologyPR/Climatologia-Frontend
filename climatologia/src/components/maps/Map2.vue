@@ -181,6 +181,7 @@
                                                
                                             <v-col class="pa-0 pt-1 pr-1">
                                             <v-img
+                                            class="ml-1"
                                             style="float:left;"
                                             :src="require('../../assets/nullicon.png')"
                                             height="10px"
@@ -205,7 +206,7 @@
                                             width='10px'
                                             />
                                             </v-col>
-                                            <h4>USGS </h4>
+                                            <h4 class="mr-1">USGS</h4>
                                         </v-row>
                                         </v-card>
                                 </l-control>    
@@ -671,9 +672,6 @@ export default {
     };
   },
   computed: {
-    //   selectedFilters: function () {
-    //       return ['Interior oriental', 'Costa del norte', 'Laderas del norte', 'Islas periféricas', 'Costa del sur', 'Laderas del sur', 'Interior occidental']
-    //   },
       filters: function () {
           return ['Interior oriental', 'Costa del norte', 'Laderas del norte', 'Islas periféricas', 'Costa del sur', 'Laderas del sur', 'Interior occidental']
       },
@@ -703,24 +701,7 @@ export default {
       });
   },
   watch: {
-    //   date (val) {
-    //   this.dateFormatted = this.formatDate(this.date)
-    // },
-    // currentPinView: function () {
-    //     if (this.currentPinView === 'prcp') {
-    //         this.setButtonUnpressed(this.currentPressButton)
-    //         this.setButtonPressed('btn1')
-    //         this.currentPressButton = 'btn1'    
-    //     } else if ( this.currentPinView === 'tmax') {
-    //         this.setButtonUnpressed(this.currentPressButton)
-    //         this.setButtonPressed('btn2')
-    //         this.currentPressButton = 'btn2' 
-    //     } else if (this.currentPinView === 'tmin') {
-    //         this.setButtonUnpressed(this.currentPressButton)
-    //         this.setButtonPressed('btn3')
-    //         this.currentPressButton = 'btn3' 
-    //     }
-    // },
+
      hideMenu: function () {
          if (this.hideMenu) {
             this.menuControl = true
@@ -973,7 +954,7 @@ export default {
             // set the global variable currentPinView with the current type of pin display on map
             this.currentPinView = type;
             // array instance to hold the new values for the pins to be add to the map
-            let myPins = [];
+            // let myPins = [];
             // response of the api call to be generated
             var response = null;
             // holds the json array of the api call response 
