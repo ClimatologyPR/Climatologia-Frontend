@@ -10,7 +10,8 @@ The suggested workspace for the project are [Visual Studio Code](https://code.vi
 The project frame work used for the project is [Vue 2.0](https://vuejs.org/v2/guide/) 
 
 ## Dependencies
-
+[vue2leaflet](https://vue2-leaflet.netlify.app/quickstart/#installation)
+[Chartjs](https://www.chartjs.org/)
 ## ViewModel
 
 ## Project structure
