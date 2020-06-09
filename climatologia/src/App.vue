@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import HomePage from './components/HomePage';
+import HomePage from './components/maps/Map2';
 
 export default {
   name: 'App',
