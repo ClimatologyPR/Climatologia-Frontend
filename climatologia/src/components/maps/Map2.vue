@@ -9,7 +9,23 @@
                 right
                 class="menu-drawer pt-0 pb-0"        
             >
-              
+              <Sidebar
+                    :defaultDate="date" 
+                    :minDate ="minDate"
+                    :maxDate ="maxDate"
+                    :calendarLng ="calendarLng"
+                    :calendarColor="calendarColor"
+                    :selectedFilters="selectedFilters"
+                    :filters="filters"
+                    :disable="disable"
+                    :rangeDate="rangeDate"
+                    :singleDatePicker="singleDatePicker"
+                    :rangeDatePicker="rangeDatePicker"
+                    :SingleDateText="SingleDateText"
+                    :rangeDateText="rangeDateText"
+                    :overlay="overlay"
+                    :hideMenu="hideMenu" />
+
             </v-navigation-drawer>
             <v-row style="background-color: #e1e2e1;">
                 <v-col class="7" >
@@ -266,7 +282,7 @@
                         </v-dialog>
                     </v-row>
                 </v-col>
-                <v-col v-if="!hideMenu" cols="12"  sm="12" md="4" lg="4" xl="4" style="background-color:#e1e2e1; ">
+                <!-- <v-col v-if="!hideMenu" cols="12"  sm="12" md="4" lg="4" xl="4" style="background-color:#e1e2e1; ">
 
                     <Sidebar
                     :defaultDate="date" 
@@ -284,7 +300,7 @@
                     :rangeDateText="rangeDateText"
                     :overlay="overlay"
                     :hideMenu="hideMenu" />
-                </v-col>
+                </v-col> -->
             </v-row>
         </v-col>
   </v-row>
@@ -321,7 +337,7 @@ export default {
     return {
         calendarLng: 'es-ES',
         calendarColor: '#562f',  
-        menuControl: false,
+        menuControl: true,
         hideMenu: false,
         overlay: false,
       bounds: latLngBounds([
