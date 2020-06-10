@@ -1,7 +1,6 @@
 <template>
   <v-row no-gutters style="height: 100%;">
         <v-col cols="12"   style="background-color:#ecfffd;">
-            <NavBar/>
             <v-navigation-drawer
                 v-model="drawer"
                 absolute
@@ -10,147 +9,23 @@
                 right
                 class="menu-drawer pt-0 pb-0"        
             >
-                <v-row no-gutters style="height: 100%;">
-                    <v-col cols="12"  class="pa-3" >
-                        <v-card hover  height="100%" width="100%" color="#f5f5f6">
-                        <v-col cols="12" >
-                            <hr>
-                            <h3 class="fontsz">Zonas Climáticas:</h3>
-                            <v-combobox
-                                v-model="selectedFilters"
-                                :items="filters"
-                                label="Filtros"
-                                prepend-icon="mdi-layers"
-                                 multiple
-                                small-chips
-                                clearable
-                                chips
-                                solo
-                                :disabled="disable"
-                            ></v-combobox>
-                            <hr>
-                        </v-col>
-                        <v-col cols="12" >
-                            <h3 class="fontsz">Fecha:</h3>
-                            <v-row class="pl-3 pr-3">
-                                <v-col cols="5" >
-                                    <v-select
-                                        v-model="selectedDateType"
-                                        prepend-icon="mdi-menu"
-                                        :items="['Día', 'Rango']"
-                                        label="Fecha"
-                                        dense
-                                        @change="overlay = !overlay"
-                                        solo
-                                        outlined
-                                        :disabled="disable"
-                                    ></v-select>
-                                </v-col>
-                                <v-col v-if="selectedDateType === 'Día'" cols="5" >
-                                    <v-dialog
-                                        ref="dialog"
-                                        v-model="modal1"   
-                                        width="290px"
-                                        style="z-index: 1000;"
-                                    >
-                                        <template v-slot:activator="{ on }">
-                                            <v-text-field
-                                                v-model="SingleDateText"
-                                                label="Fecha"
-                                                prepend-icon="mdi-calendar"
-                                                v-on="on"
-                                                outlined
-                                                solo
-                                                dense
-                                                :disabled="disable"
-                                            ></v-text-field>
-                                        </template>
-                                        <v-date-picker locale="es-ES"  v-model="date" color="#82ada9" @input="validate('modal1')" no-title  :show-current="false" scrollable min="2000-08-15" max="2019-03-20">
-                                        </v-date-picker>
-                                    </v-dialog>
-                                </v-col>
-                                <v-col v-else-if="selectedDateType === 'Rango'" cols="7">
-                                    <v-dialog
-                                        ref="dialog"
-                                        v-model="modal2"
-                                        width="290px"
-                                        style="z-index: 1000;"
-                                    >
-                                        <template v-slot:activator="{ on }">
-                                            <v-text-field
-                                                v-model="dateRangeText"
-                                                label="Fecha"
-                                                prepend-icon="mdi-calendar"
-                                                v-on="on"
-                                                solo
-                                                dense
-                                                outlined
-                                                readonly
-                                                :disabled="disable"
-                                            ></v-text-field>
-                                        </template>
-                                        <v-date-picker  locale="es-ES" @input="validate('modal2')" no-title color="#82ada9"  v-model="date" scrollable range :min="minDate" :max="maxDate">
-                                        </v-date-picker>
-                                        </v-dialog>
-                                </v-col>        
-                            </v-row>
-                        </v-col>
-                        <v-col  class="col-12 pt-0 pb-0" >
-                            <h3 class="fontsz">Variables:</h3>
-                            <v-tooltip top>
-                                <template v-slot:activator="{ on }">
-                                    <v-btn
-                                        id="btn1"
-                                        v-on="on"
-                                        :class="btnPrcpClass"
-                                        :loading="loading"
-                                        :disabled="disable"
-                                        @click="setButtonPressed('btn1'), overlay = !overlay, fetchStations('prcp', (rangeDate?   date[0] :  date ), (rangeDate? date[1] :   date ))"
-                                    >
-                                        <v-icon>  mdi-weather-pouring</v-icon>
-                                            <!-- Precipitación -->
-                                    </v-btn>
-                                </template>
-                                    <span>Precipitación</span>
-                            </v-tooltip>
-                            <v-tooltip top>
-                                <template v-slot:activator="{ on }">
-                                    <v-btn
-                                        id="btn2"
-                                        v-on="on"
-                                        :class="btnTmaxClass"
-                                        :loading="loading1"
-                                        :disabled="disable"
-                                        @click="setButtonPressed('btn2'), overlay = !overlay, fetchStations('tmax', (selectedDateType === 'Rango'?   date[0] :   date ), (rangeDate? date[1] :   date ))"
-                                    >
-                                        <v-icon>mdi-thermometer-lines</v-icon>
-                                    </v-btn>
-                                </template>
-                                    <span>Temperatura Máxima</span>
-                            </v-tooltip>            
-                            <v-tooltip top>
-                                <template v-slot:activator="{ on }">
-                                    <v-btn
-                                        id="btn3"
-                                        v-on="on"
-                                         :class="btnTminClass"
-                                        :loading="loading2"
-                                        :disabled="disable"
-                                        @click="setButtonPressed('btn3'), overlay = !overlay, fetchStations('tmin', (rangeDate?  date[0] :  date ), (rangeDate? date[1] :  date ))"
-                                    >
-                                        <v-icon>mdi-thermometer-lines</v-icon>
-                                    </v-btn>
-                                </template>
-                                    <span>Temperatura Mínima</span>
-                            </v-tooltip>
-                            <hr>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-checkbox dense :disabled="disable" v-model="hideMenu" label="Menu Oculto" hide-details></v-checkbox>
-                        </v-col>
-                        </v-card>
-                    </v-col>
-                </v-row>
+              <Sidebar
+                    :defaultDate="date" 
+                    :minDate ="minDate"
+                    :maxDate ="maxDate"
+                    :calendarLng ="calendarLng"
+                    :calendarColor="calendarColor"
+                    :selectedFilters="selectedFilters"
+                    :filters="filters"
+                    :disable="disable"
+                    :rangeDate="rangeDate"
+                    :singleDatePicker="singleDatePicker"
+                    :rangeDatePicker="rangeDatePicker"
+                    :SingleDateText="SingleDateText"
+                    :rangeDateText="rangeDateText"
+                    :overlay="overlay"
+                    :hideMenu="hideMenu" />
+
             </v-navigation-drawer>
             <v-row style="background-color: #e1e2e1;">
                 <v-col class="7" >
@@ -217,7 +92,7 @@
                                 >
                                     <v-card class="ml-4 " style="background-color: white;">
                                         <v-row dense class="pl-2 pr-2" >
-                                    <h2>{{(date && selectedDateType === 'Día'? SingleDateText : dateRangeText)}}</h2>
+                                    <h2>{{(date && selectedDateType === 'Día'? SingleDateText : rangeDateText)}}</h2>
                                         </v-row>
                                     </v-card>
                                 </l-control>
@@ -227,7 +102,6 @@
                                         :key="`${station.DATE}-${Math.floor(Math.random() * Math.floor(100000))}-${station.STATIONID}`"
                                     >
                                         <l-marker
-                                            :visible ="markerOpacity"
                                             :lat-lng="coordinates(station.LATITUDE, station.LONGITUDE)"
                                             :icon="iconList[i]"
                                         >
@@ -262,7 +136,7 @@
                                                     <strong>Error Estándar: </strong>{{(station.STDERRVALUE).toString()}}
                                                     <br>
                                                     <v-col>
-                                                    <v-btn @click="setChart( 'rangeModal', 'close','line', '  Estación: ' + station.STATIONID + ',  Municipio: ' + station.MUNICIPALITY + ',  Rango de Fecha: ' + dateRangeText + 
+                                                    <v-btn @click="setChart( 'rangeModal', 'close','line', '  Estación: ' + station.STATIONID + ',  Municipio: ' + station.MUNICIPALITY + ',  Rango de Fecha: ' + rangeDateText + 
                                                             ',  Máximo: ' + station.MAXVALUE + (currentPinView == 'prcp'? ' in' : ' ºF') + ',  Mínimo: ' + station.MINVALUE + (currentPinView == 'prcp'? ' in' : ' ºF') +',  Desviación Estándar: ' + station.STDERRVALUE + (currentPinView == 'prcp'? ' in' : ' ºF') + ',  Error Estándar: ' + station.STDERRVALUE + (currentPinView == 'prcp'? ' in' : ' ºF'),(currentPinView === 'prcp' ? 'Precipitación ' : currentPinView === 'tmax'? 'Temperatura Máxima' : 'Temperatura Mínima'), station.STATIONID , (currentPinView === 'prcp'? '#191970 ' :currentPinView === 'tmax'? '#ad2121' : '#52ad21'))">
                                                         <v-icon>{{(currentPinView === 'prcp'? 'mdi-chart-bar' : 'mdi-chart-line')}}</v-icon>
                                                         Graficar
@@ -386,9 +260,7 @@
                                     </v-container>
                                 </v-container>
                             </l-map>
-                            <v-overlay  absolute :value="overlay">
-                                <v-progress-circular indeterminate size="64"></v-progress-circular>
-                            </v-overlay>
+                            
                     </v-card> 
                     <v-row justify="center">
                         <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition" >
@@ -410,155 +282,37 @@
                         </v-dialog>
                     </v-row>
                 </v-col>
-                <v-col v-if="!hideMenu" cols="12"  sm="12" md="4" lg="4" xl="4" style="background-color:#e1e2e1; ">
-                    <v-card  hover  height="100%" width="100%" color="#f5f5f6">
-                    <v-col cols="12" >
-                        <hr>
-                        <h3 class="fontsz">Zonas Climáticas:</h3>
-                        <v-combobox
-                            v-model="selectedFilters"
-                            :items="filters"
-                            label="Filtros"
-                            prepend-icon="mdi-layers"
-                            multiple
-                            small-chips
-                            clearable
-                            chips
-                            solo
-                            :disabled="disable"
-                        ></v-combobox>
-                        <hr>
-                    </v-col>
-                    <v-col>
-                        <h3 class="fontsz">Fecha:</h3>
-                        <v-row class="pl-3 pr-3">
-                            <v-col cols="12"  sm="5" md="5" lg="5" xl="5">
-                                <v-select
-                                    v-model="selectedDateType"
-                                    prepend-icon="mdi-menu"
-                                    :items="['Día', 'Rango']"
-                                    label="Fecha"
-                                    dense
-                                    @change="overlay = !overlay"
-                                    solo
-                                    outlined
-                                    :disabled="disable"
-                                ></v-select>
-                            </v-col>
-                            <v-col v-if="selectedDateType === 'Día'" cols="12"  sm="5" md="5" lg="5" xl="5" >
-                                <v-dialog
-                                    ref="dialog"
-                                    v-model="modal3"  
-                                    width="290px"
-                                    style="z-index: 1000;"
-                                    persistent
-                                >
-                                    <template v-slot:activator="{ on }">
-                                        <v-text-field
-                                            v-model="SingleDateText"
-                                            label="Fecha"
-                                            prepend-icon="mdi-calendar"
-                                            v-on="on"
-                                            outlined
-                                            solo
-                                            dense
-                                            readonly
-                                            :disabled="disable"
-                                        ></v-text-field>
-                                    </template>
-                                    <v-date-picker  locale="es-ES" @input="validate('modal3')" v-model="date" color="#82ada9"  no-title  :show-current="false" scrollable :min="minDate" :max="maxDate">
-                                    </v-date-picker>
-                                </v-dialog>
-                            </v-col>
-                            <v-col v-else-if="selectedDateType === 'Rango'" cols="12"  sm="7" md="7" lg="7" xl="7">
-                                <v-dialog
-                                    ref="dialog2"
-                                    v-model="modal4"
-                                    width="290px"
-                                    persistent
-                                    style="z-index: 1000;"
-                                >
-                                    <template v-slot:activator="{ on }">
-                                          <v-text-field :disabled="disable" v-on="on" solo dense outlined v-model="dateRangeText" label="Date range" prepend-icon="mdi-calendar" readonly></v-text-field>
-                                    </template>
-                                    <v-date-picker locale="es-ES" no-title @input="validate('modal4')" color="#82ada9" v-model="date" range :min="minDate" :max="maxDate"></v-date-picker>
-                                </v-dialog>
-                            </v-col>     
-                        </v-row>
-                        <hr>
-                    </v-col>    
-                    <v-col  class="col-12 pt-0 pb-0" >
-                        <h3 class="fontsz">Variables:</h3>
-                        <v-tooltip top>
-                            <template v-slot:activator="{ on }">
-                                <v-btn
-                                    id="btn1"
-                                    v-on="on"
-                                    :class="btnPrcpClass"
-                                    :loading="loading"
-                                    :disabled="disable"
-                                    @click="setButtonPressed('btn1'),  overlay = !overlay, fetchStations('prcp', (rangeDate?   date[0] :  date ), (rangeDate? date[1] :   date ))"
-                                >
-                                    <v-icon>  mdi-weather-pouring</v-icon>
-                                </v-btn>
-                            </template>
-                                <span>Precipitación</span>
-                        </v-tooltip>
-                        <v-tooltip top>
-                            <template v-slot:activator="{ on }">
-                                <v-btn
-                                    id="btn2"
-                                    v-on="on"
-                                    :class="btnTmaxClass"
-                                    :loading="loading1"
-                                    :disabled="disable"
-                                    @click="setButtonPressed('btn2'), overlay = !overlay, fetchStations('tmax', (selectedDateType === 'Rango'?   date[0] :   date ), (rangeDate? date[1] :   date ))"
-                                >
-                                    <v-icon>mdi-thermometer-lines</v-icon>
-                                </v-btn>
-                            </template>
-                                <span>Temperatura Máxima</span>
-                        </v-tooltip>            
-                        <v-tooltip top>
-                            <template v-slot:activator="{ on }">
-                                <v-btn
-                                    id="btn3"
-                                    v-on="on"
-                                    :class="btnTminClass"
-                                    :loading="loading2"
-                                    :disabled="disable"
-                                    @click="setButtonPressed('btn3'),  overlay = !overlay, fetchStations('tmin', (rangeDate?  date[0] :  date ), (rangeDate? date[1] :  date ))"
-                                >
-                                    <v-icon>mdi-thermometer-lines</v-icon>
-                                </v-btn>
-                            </template>
-                                <span>Temperatura Mínima</span>
-                        </v-tooltip>
-                        <hr>
-                    </v-col>
-                    <v-col cols="12">
-                        <v-checkbox :disabled="disable" dense v-model="hideMenu" @change="recenter()" label="Menu Oculto" hide-details></v-checkbox>
-                    </v-col>
-                    </v-card>
-                </v-col>
+                <!-- <v-col v-if="!hideMenu" cols="12"  sm="12" md="4" lg="4" xl="4" style="background-color:#e1e2e1; ">
+
+                    <Sidebar
+                    :defaultDate="date" 
+                    :minDate ="minDate"
+                    :maxDate ="maxDate"
+                    :calendarLng ="calendarLng"
+                    :calendarColor="calendarColor"
+                    :selectedFilters="selectedFilters"
+                    :filters="filters"
+                    :disable="disable"
+                    :rangeDate="rangeDate"
+                    :singleDatePicker="singleDatePicker"
+                    :rangeDatePicker="rangeDatePicker"
+                    :SingleDateText="SingleDateText"
+                    :rangeDateText="rangeDateText"
+                    :overlay="overlay"
+                    :hideMenu="hideMenu" />
+                </v-col> -->
             </v-row>
         </v-col>
   </v-row>
 </template>
 
 <script>
-//Nav Bar
-import NavBar from '../navigation/NavBar';
-import MenuButton from '../navigation/MenuButton';
-import MapMenu from '../navigation/MapMenu';
-
 /* eslint-disable */
+import { eventBus } from '../../main.js'
 import { latLngBounds, latLng } from "leaflet";
 import { LPolygon, LMap, LTileLayer, LMarker, LPopup, LControl } from "vue2-leaflet";
 import leaflet from 'leaflet'
 import L from 'leaflet';
-// import { climateZones } from '../layers/ClimateZones.js'
-// import { EasternInterior, NorthernCoastal, NorthernSlopes, OutlyingIsland, OutlyingIsland1, OutlyingIsland2, OutlyingIsland3, OutlyingIsland4, SouthernCoastal, SouthernSlopes, WesternInterior } from '../layers/ClimateZones2.js'
 import { EasternInterior } from '../layers/climatezones/EasternInterior.js'
 import { NorthernCoastal } from '../layers/climatezones/NorthernCoastal.js'
 import { NorthernSlopes } from '../layers/climatezones/NorthernSlopes.js'
@@ -567,6 +321,7 @@ import { SouthernCoastal } from '../layers/climatezones/SouthernCoastal.js'
 import { SouthernSlopes } from '../layers/climatezones/SouthernSlopes.js'
 import { WesternInterior} from '../layers/climatezones/WesternInterior.js'
 import Chart from 'chart.js'
+import Sidebar from '../navbars/sidebar'
 export default {
   name: "Example",
   components: {
@@ -576,17 +331,13 @@ export default {
     LPopup,
     LPolygon,
     LControl,
-    NavBar,
-    MapMenu,
-    MenuButton
+    Sidebar
   },
   data() {
     return {
-        btnPrcpClass: 'ma-2 btn1',
-        btnTmaxClass: 'ma-2 btn2',
-        btnTminClass: 'ma-2 btn3',
-        
-        menuControl: false,
+        calendarLng: 'es-ES',
+        calendarColor: '#562f',  
+        menuControl: true,
         hideMenu: false,
         overlay: false,
       bounds: latLngBounds([
@@ -605,8 +356,6 @@ export default {
       attribution:
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
       
-    //   withPopup: latLng(18.135412,-66.450806),
-    //   withTooltip: latLng(47.41422, -1.250482),
       currentZoom: 11.5,
       currentCenter: latLng(47.41322, -1.219482),
       showParagraph: false,
@@ -625,27 +374,18 @@ export default {
         modal2: false,
         modal3: false,
         modal4: false,
-        menu2: false,
+        singleDatePicker: false,
+        rangeDatePicker: false,
         selectedDateType: 'Día',
-        // date: new Date().toISOString().substr(0, 10),
-        // dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
         minDate:'2000-01-01',
         maxDate:'2019-08-31',
         date: '2018-04-13',
-        dateFormatted: ['2018-04-13','2018-04-13'],
         drawer: false,
-        // group: null,
 
-        formatedDate: '13/04/2018',
-        toogled:null,
-        // calculation: null,
         startdate: null,
         enddate: null,
-        showStations: false,
-        markerOpacity: true,
         currentPinView: null,
         pins: null,
-        map: null,
         tileLayer: null,
         singleDate: true,
         rangeDate:false,
@@ -654,6 +394,7 @@ export default {
         currentPressButton: '',
         stationsList: [],
         iconList: [],
+        // Layers
         EasternInterior,
         NorthernCoastal,
         NorthernSlopes,
@@ -673,135 +414,64 @@ export default {
         SS: true,
         WI: true,
         selectedFilters: ['Interior oriental', 'Costa del norte', 'Laderas del norte', 'Islas periféricas', 'Costa del sur', 'Laderas del sur', 'Interior occidental'],
-        // filters: ['Eastern Interior', 'Northern Coastal', 'Northern Slopes', 'Outlying Island', 'Southern Coastal', 'Southern Slopes', 'Western Interior'],
-        // selectedFilters: ['Eastern Interior', 'Northern Coastal', 'Northern Slopes', 'Outlying Island', 'Southern Coastal', 'Southern Slopes', 'Western Interior'],
-        // filters: ['Eastern Interior', 'Northern Coastal', 'Northern Slopes', 'Outlying Island', 'Southern Coastal', 'Southern Slopes', 'Western Interior'],
-        mychart: null 
+        mychart: null
     };
   },
   computed: {
+      /**
+       * return: filter list of climate zones
+       * can be use to return different filter lists
+       */
       filters: function () {
           return ['Interior oriental', 'Costa del norte', 'Laderas del norte', 'Islas periféricas', 'Costa del sur', 'Laderas del sur', 'Interior occidental']
       },
-      computedDateFormatted () {
-      return this.formatDate(this.date)
-    },
-    dateRangeText () {
+    /**
+     * return: the current selected range date in the format
+     * mm/dd/yyyy~mm/dd/yyyy
+     */
+    rangeDateText () {
         if (this.date[0] && this.date[1]) {
             const [year, month, day] = this.date[0].split('-')
           const [year1, month1, day1] = this.date[1].split('-')
         return `${month}/${day}/${year}~${month1}/${day1}/${year1}`
         }
-        
-    //   return this.date.join(' ~ ')
     },
+    /**
+     * return: the current selected date in the format
+     * mm/dd/yyyy
+     */
     SingleDateText(){
-        if (!this.date) return ''
-        const [year, month, day] = this.date.split('-')
+        if (!this.date && this.selectedDateType === 'Día') return ''
+        else if (this.date && this.selectedDateType === 'Día') {
+            const [year, month, day] = this.date.split('-')
         return `${month}/${day}/${year}`
+        }
+        
     }
   },
+  created () {
+      eventBus.$on('fetchStationRequest', (type, start, end) => {
+          this.fetchStations(type, start, end)
+      })
+      eventBus.$on('dateTypeChange', (selectedDateType) => {
+        //   console.log(`date type changed ${selectedDateType}`)
+          this.selectedDateType = selectedDateType
+      })
+      eventBus.$on('dateChange', (date) => {
+          this.date = date
+      })
+      eventBus.$on('selectedFiltersChange', (selected) => {
+          this.selectedFilters = selected
+      })
+      eventBus.$on('hideMenuChange', (newValue) => {
+          this.hideMenu = newValue
+      })
+  },
   mounted: async function () {
-      this.overlay = !this.overlay
-      this.setButtonPressed('btn1')
-        await this.fetchStations('prcp', (this.rangeDate?   this.date[0] :   this.date ), (this.rangeDate? this.date[1] :   this.date ));
-      this.$nextTick(() => {
-      });
+
   },
   watch: {
-
-     hideMenu: function () {
-         if (this.hideMenu) {
-            this.menuControl = true
-            this.drawer = !this.drawer
-         } else {
-             this.menuControl = false
-             this.drawer = !this.drawer
-         }
-     },
-      overlay (val) { 
-        //   this.markerOpacity = false
-        //   this.markerOpacity = true 
-        this.disable = !this.disable   
-      val && setTimeout(() => {
-        this.overlay = false
-        // this.markerOpacity = true\
-        // this.setButtonUnpressed()
-        // if (this.currentPinView === 'prcp' && this.currentPressButton != 'btn1') {
-        //     this.setButtonPressed('btn1')   
-        // } else if ( this.currentPinView === 'tmax' && this.currentPressButton != 'btn2') {
-        //     this.setButtonPressed('btn2')
-        // } else if (this.currentPinView === 'tmin' && this.currentPressButton != 'btn3') {
-        //     this.setButtonPressed('btn3')
-        // }
-      }, 3500)
-      
-      
-    },
-    disable (val) {
-        val && setTimeout(() => {
-        this.disable = false
-        // this.drawer = !this.drawer
-        console.log('disable done waiting')
-      }, 3500)
-    },
-    loader () {
-        const l = this.loader
-        this[l] = !this[l]
-
-        setTimeout(() => (this[l] = false), 3000)
-
-        this.loader = null
-    },
-    //   group () {
-    //     this.drawer = false
-    //   },
-        selectedFilters: function () {
-                if (this.selectedFilters.includes("Eastern Interior") || this.selectedFilters.includes("Interior oriental")) {
-                    this.EI = true
-                    console.log('EI true')
-                } else if (!this.selectedFilters.includes("Eastern Interior") || !this.selectedFilters.includes("Interior oriental")) {
-                    console.log('EI false')
-                    this.EI = false
-                }
-
-                if (this.selectedFilters.includes("Northern Coastal") || this.selectedFilters.includes("Costa del norte")) {
-                    this.NC = true
-                } else if (!this.selectedFilters.includes("Northern Coastal") || !this.selectedFilters.includes("Costa del norte")) {
-                    this.NC = false
-                }
-
-                if (this.selectedFilters.includes("Northern Slopes") || this.selectedFilters.includes("Laderas del norte")) {
-                    this.NS = true
-                } else if (!this.selectedFilters.includes("Northern Slopes") || !this.selectedFilters.includes("Laderas del norte")) {
-                    this.NS = false
-                }
-
-                if (this.selectedFilters.includes("Outlying Island") || this.selectedFilters.includes("Islas periféricas")) {
-                    this.OI = true
-                } else if (!this.selectedFilters.includes("Outlying Island") || !this.selectedFilters.includes("Islas periféricas")) {
-                    this.OI = false
-                }
-
-                if (this.selectedFilters.includes("Southern Coastal") || this.selectedFilters.includes("Costa del sur")) {
-                    this.SC = true
-                } else if (!this.selectedFilters.includes("Southern Coastal") || !this.selectedFilters.includes("Costa del sur")) {
-                    this.SC = false
-                }
-
-                if (this.selectedFilters.includes("Southern Slopes") || this.selectedFilters.includes("Laderas del sur")) {
-                    this.SS = true
-                } else if (!this.selectedFilters.includes("Southern Slopes") || !this.selectedFilters.includes("Laderas del sur")) {
-                    this.SS = false
-                }
-
-                if (this.selectedFilters.includes("Western Interior") || this.selectedFilters.includes("Interior occidental")) {
-                    this.WI = true
-                } else if (!this.selectedFilters.includes("Western Interior") || !this.selectedFilters.includes("Interior occidental")) {
-                    this.WI = false
-                }
-        },
-        selectedDateType: function () {
+    selectedDateType: function () {
             if (this.selectedDateType === 'Día') {
                 this.dateType('singleDate')
                 this.date = '2018-04-04'
@@ -809,96 +479,96 @@ export default {
                 this.dateType('rangeDate')
                 this.date = ['2018-04-01', '2018-04-07']
             }
+            eventBus.$emit('defaultDate', this.date)
         },
-        date: function () {
-            if (this.selectedDateType === 'Rango' && this.date[0] && this.date[1]) {
-                this.iconList=[]
-                this.fetchStations(this.currentPinView, this.date[0],  this.date[1]);
-            } else if (this.selectedDateType === 'Día') {
-                this.iconList=[]
-                this.fetchStations(this.currentPinView, this.date , this.date);
+     hideMenu: function () {
+        if (this.hideMenu) {
+            this.menuControl = true
+            this.drawer = !this.drawer
+        } else {
+            this.menuControl = false
+            this.drawer = !this.drawer
+        }
+     },
+    selectedFilters: function () {
+        if (this.selectedFilters.includes("Eastern Interior") || this.selectedFilters.includes("Interior oriental")) {
+            this.EI = true
+        } else if (!this.selectedFilters.includes("Eastern Interior") || !this.selectedFilters.includes("Interior oriental")) {
+            this.EI = false
+        }
+
+        if (this.selectedFilters.includes("Northern Coastal") || this.selectedFilters.includes("Costa del norte")) {
+            this.NC = true
+        } else if (!this.selectedFilters.includes("Northern Coastal") || !this.selectedFilters.includes("Costa del norte")) {
+            this.NC = false
+        }
+
+        if (this.selectedFilters.includes("Northern Slopes") || this.selectedFilters.includes("Laderas del norte")) {
+            this.NS = true
+        } else if (!this.selectedFilters.includes("Northern Slopes") || !this.selectedFilters.includes("Laderas del norte")) {
+            this.NS = false
+        }
+
+        if (this.selectedFilters.includes("Outlying Island") || this.selectedFilters.includes("Islas periféricas")) {
+            this.OI = true
+        } else if (!this.selectedFilters.includes("Outlying Island") || !this.selectedFilters.includes("Islas periféricas")) {
+            this.OI = false
+        }
+
+        if (this.selectedFilters.includes("Southern Coastal") || this.selectedFilters.includes("Costa del sur")) {
+            this.SC = true
+        } else if (!this.selectedFilters.includes("Southern Coastal") || !this.selectedFilters.includes("Costa del sur")) {
+            this.SC = false
+        }
+
+        if (this.selectedFilters.includes("Southern Slopes") || this.selectedFilters.includes("Laderas del sur")) {
+            this.SS = true
+        } else if (!this.selectedFilters.includes("Southern Slopes") || !this.selectedFilters.includes("Laderas del sur")) {
+            this.SS = false
+        }
+
+        if (this.selectedFilters.includes("Western Interior") || this.selectedFilters.includes("Interior occidental")) {
+            this.WI = true
+        } else if (!this.selectedFilters.includes("Western Interior") || !this.selectedFilters.includes("Interior occidental")) {
+            this.WI = false
+        }
+    },
+    date: function () {
+        if (this.selectedDateType === 'Rango' && this.date[0] && this.date[1]) {
+            this.iconList=[]
+            this.fetchStations(this.currentPinView, this.date[0],  this.date[1]);
+        } else if (this.selectedDateType === 'Día') {
+            this.iconList=[]
+            this.fetchStations(this.currentPinView, this.date , this.date);
+        }    
+    },
+  },
+  methods: {
+        remove (item) {
+        this.selectedFilters.splice(this.selectedFilters.indexOf(item), 1)
+        this.selectedFilters = [...this.selectedFilters]
+        },
+        icon: function (value, agency) {
+            var rgb = { r: 0, g: 0, b: 0 }
+            var nullIcon
+            if (this.currentPinView == 'tmin' || this.currentPinView == "tmax") {
+                // set the rgb value of the current station element using the average value for range date  or the value  single date type with a ternary operator 
+                this.getTemperaturePinColors(rgb, value);
+            }  else if (this.currentPinView == "prcp") {
+                this.getPrecipitationPinColors(rgb, value);
             }
             
+            if (value !== null || value === undefined){
+                var style = (agency === 'USGS'? ` height:10px; width:10px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});` : `width: 10px; height: 10px; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});`)
+                return L.divIcon({ iconSize: new L.Point(20, 20), className: 'my-div-icon', iconAnchor: [0, 0], html: "<div style='"+ style +"'>"+ "</div>" })
+            } 
+            else if (value === null){      
+                return L.divIcon({ iconSize: new L.Point(20, 20), className: 'my-div-icon', iconAnchor: [0, 0], html: "<div style=' height:10px; width:10px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb(" + rgb.r.toString() + "," + rgb.g.toString() + " ," + rgb.b.toString() + ");'>"+ "<img style='float: left; width: 11px; height: 11px; marging-bottom:-15px; margin-left: -1px; margin-top: -1px;' src='" +  require('../../assets/nullicon.png') +"' id='null-div-icon'/>" +"</div>" })
+            }
         },
-    },
-  methods: {
-    formatDate (date) {
-      if(date.length === 2 && date[0]!=null && date[1]!=null) {
-          const [year, month, day] = date[0].split('-')
-          const [year1, month1, day1] = date[1].split('-')
-        return `${month}/${day}/${year}~${month1}/${day1}/${year1}`
-      } 
-    //   else {
-    //     const [year, month, day] = date.split('-')
-    //     return `${month}/${day}/${year}`
-    //   }
-      
-    },
-    formatSingleDate(date){
-        if (!date) return ''
-        const [year, month, day] = date.split('-')
-        return `${month}/${day}/${year}`
-    },
-    parseDate (date) {
-      if (!date) return null
-
-      const [month, day, year] = date.split('/')
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    },
-      validate: function (modal) {
-        if (this.date[0] && this.date[1] && this.date.length ===2 && modal === 'modal2') {
-            this.overlay = !this.overlay
-            this.modal2 = false
-        } 
-        else if (this.date[0] && this.date[1] && this.date.length ===2 && modal === 'modal4') {
-          this.overlay = !this.overlay
-          this.modal4 = false
-        }
-        else if (this.date && modal === 'modal1' ) {
-            this.overlay = !this.overlay
-          this.modal1 = false
-        } else if (this.date && modal === 'modal3' ) {
-          this.overlay = !this.overlay
-          this.modal3 = false
-        }
-    },
-    validate2: function () {
-        this.disable = !this.disable
-        this.overlay = !this.overlay
-
-          this.modal = false 
-    },
-    remove (item) {
-      this.selectedFilters.splice(this.selectedFilters.indexOf(item), 1)
-      this.selectedFilters = [...this.selectedFilters]
-    },
-    icon: function (value, agency) {
-        var rgb = { r: 0, g: 0, b: 0 }
-        var nullIcon
-        if (this.currentPinView == 'tmin') {
-            // set the rgb value of the current station element using the average value for range date  or the value  single date type with a ternary operator 
-            this.getTemperaturePinColors(rgb, value);
-        } else if (this.currentPinView == "tmax") {
-            this.getTemperaturePinColors(rgb, value);
-        } else if (this.currentPinView == "prcp") {
-            this.getPrecipitationPinColors(rgb, value);
-        }
-        
-        if (value !== null || value === undefined){
-            // nullIcon = "<img style='float: left; width: 11px; height: 11px; marging-bottom:-15px; margin-left: -1px; margin-top: -1px;' src='http://climatologia.uprm.edu/img/nullicon2.svg' id='null-div-icon'/>"
-            // var style = (agency === 'USGS'? " height:10px; width:10px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb(" + rgb.r.toString() + "," + rgb.g.toString() + " ," + rgb.b.toString() + ");" : "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid " +  "rgb(" + rgb.r.toString() + "," + rgb.g.toString() + " ," + rgb.b.toString() + ")" +";")
-            var style = (agency === 'USGS'? ` height:10px; width:10px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});` : `width: 10px; height: 10px; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});`)
-            
-            return L.divIcon({ iconSize: new L.Point(20, 20), className: 'my-div-icon', iconAnchor: [0, 0], html: "<div style='"+ style +"'>"+ "</div>" })
-        } 
-        else if (value === null){      
-        return L.divIcon({ iconSize: new L.Point(20, 20), className: 'my-div-icon', iconAnchor: [0, 0], html: "<div style=' height:10px; width:10px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb(" + rgb.r.toString() + "," + rgb.g.toString() + " ," + rgb.b.toString() + ");'>"+ "<img style='float: left; width: 11px; height: 11px; marging-bottom:-15px; margin-left: -1px; margin-top: -1px;' src='" +  require('../../assets/nullicon.png') +"' id='null-div-icon'/>" +"</div>" })
-        }
-        
-    },
-      coordinates: function (latitude, longitude) {
-        return latLng(latitude,longitude)
-    },
+        coordinates: function (latitude, longitude) {
+            return latLng(latitude,longitude)
+        },
         /**
         * get pin colors rgb values for temperature 
         * rgb: object instance consisting of key value of the rgb ({r,g,b})
@@ -949,12 +619,11 @@ export default {
         },
 
         fetchStations: async function (type, start, end) {
+            this.disable = !this.disable
+            this.overlay = !this.overlay
+            
             //removes the current pins instnace in the map instance
             this.iconList = []  
-            if (this.pins != null) {
-                // console.log('removing pins')
-                this.$refs.map.mapObject.removeLayer(this.pins);
-            }
             // set the global startdate variable instance to the start date value send in the params, selected in the date picker 
             this.startdate = start;
             // set the global startdate variable instance to the end date value send in the params, selected in the date picker 
@@ -975,30 +644,17 @@ export default {
                  response = await fetch('http://climatologia.uprm.edu:8008/api?' + 'q=data&' + 'calc=all' + '&startdate=' + this.startdate + '&enddate=' + this.enddate + '&elem=' + this.currentPinView).catch(function (error) { alert (error); });
                 // console.log('http://climatologia.uprm.edu:8008/api?' + 'q=data&' + 'calc=all' + '&startdate=' + this.startdate + '&enddate=' + this.enddate + '&elem=' + this.currentPinView)
             }
-                stations = await response.json();
-                this.stationsList = stations
+            stations = await response.json();
+            this.overlay = !this.overlay
+            this.disable = !this.disable 
+            this.stationsList = stations
 
-                for (var i =0; i < this.stationsList.length; i++) {
-                    this.iconList.push(this.icon((this.selectedDateType === 'Día' ? this.stationsList[i].VALUE :this.selectedDateType === 'Rango' ? this.stationsList[i].AVGVALUE : null), this.stationsList[i].AGENCYID))
-                }
+            for (var i =0; i < this.stationsList.length; i++) {
+                this.iconList.push(this.icon((this.selectedDateType === 'Día' ? this.stationsList[i].VALUE :this.selectedDateType === 'Rango' ? this.stationsList[i].AVGVALUE : null), this.stationsList[i].AGENCYID))
+            }
             return;
         },
-        /**
-        * change a button propeties to make it look pressed
-        **/
-        // toogle: function (id,btnlist) {
-        //     for(var i = 0; i< btnlist.length;i++){
-        //     document.getElementById(btnlist[i]).classList.remove('selectedbtn');
-        //     document.getElementById(btnlist[i]).classList.add(btnlist[i]);
-        //     }
-        //     document.getElementById(id).classList.remove(id);
-        //     document.getElementById(id).classList.add('selectedbtn');
-        // },
-        /**
-        * set the type of date to true 
-        **/
         dateType: function(type) {
-            // console.log('change: ' + type);
             if (type == 'singleDate') { 
                 this.rangeDate = false
                 this.singleDate = true
@@ -1032,130 +688,50 @@ export default {
                 }
             }
         },
-    setChart: async function (modalId, spanClass, charttype, title, labelName, stationID, color) {
-        this.dialog = !this.dialog
-        //since the button is in the HTML dialog  intances are used instead of passing parameters throught a function call 
-        // var modal = document.getElementById(modalId);
-        // modal.style.display = 'block';
-        // var span = document.getElementsByClassName(spanClass)[0];
+        setChart: async function (modalId, spanClass, charttype, title, labelName, stationID, color) {
+            this.dialog = !this.dialog
 
-        var config=null;
-        var stationLabels =[]
-        var dataSetResponse = await fetch('http://climatologia.uprm.edu:8008/api?' + 'q=data&' + 'calc=none' + '&station='+ stationID + '&startdate='  + this.startdate + '&enddate=' + this.enddate + '&elem=' + this.currentPinView).catch(function (error) { alert (error); });
-        var yLabel = (this.currentPinView === 'prcp' ? 'Precipitación (in)' : this.currentPinView === 'tmax' ? 'Temperatura Máxima (ºF)' : 'Temperatura Mínima (ºF)')
-        var stationsDataSet = await dataSetResponse.json();
+            var config=null;
+            var stationLabels =[]
+            var dataSetResponse = await fetch('http://climatologia.uprm.edu:8008/api?' + 'q=data&' + 'calc=none' + '&station='+ stationID + '&startdate='  + this.startdate + '&enddate=' + this.enddate + '&elem=' + this.currentPinView).catch(function (error) { alert (error); });
+            var yLabel = (this.currentPinView === 'prcp' ? 'Precipitación (in)' : this.currentPinView === 'tmax' ? 'Temperatura Máxima (ºF)' : 'Temperatura Mínima (ºF)')
+            var stationsDataSet = await dataSetResponse.json();
+                
+
+            const date1 = new Date(this.startdate);
+            const date2 = new Date(this.enddate);
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
             
+            var maxTickX = 20;
 
-        const date1 = new Date(this.startdate);
-        const date2 = new Date(this.enddate);
-        const diffTime = Math.abs(date2 - date1);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-        
-        var maxTickX = 20;
+            if (diffDays/7 <= 1) {
+                    maxTickX = diffDays;
+            } else if (diffDays/30 >= 1 && diffDays/30 <= 12) {
+                maxTickX = Math.ceil(diffDays / 30) * 12;
+            } else if (diffDays / 365 >= 1) {
+                maxTickX = Math.ceil(diffDays / 365)*12*2;
+            }
+            var formatedDataSet = []
 
-        if (diffDays/7 <= 1) {
-                maxTickX = diffDays;
-        } else if (diffDays/30 >= 1 && diffDays/30 <= 12) {
-            maxTickX = Math.ceil(diffDays / 30) * 12;
-        } else if (diffDays / 365 >= 1) {
-            maxTickX = Math.ceil(diffDays / 365)*12*2;
-        }
-        var formatedDataSet = []
-
-        for (var i = 0; i < stationsDataSet.length; i ++) {
-            var temp = new Object();
-            stationLabels.push(stationsDataSet[i].DATE.substring(0, 16));
-            temp['y'] = stationsDataSet[i].VALUE;
-            formatedDataSet.push(temp);
-        }
-        switch(this.currentPinView) {
-            case 'prcp':
-                config =  {
-                    type: 'bar',
-                    data: {
-                        labels: stationLabels,
-                        datasets: [{
-                        label: labelName,
-                        backgroundColor: color,
-                        borderColor: color,
-                        data: formatedDataSet,
-                        // backgroundColor: "rgba(25, 25, 112, 1)"
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        title: {
-                            display: true,
-                            text: title,
-                            fontColor: '#000',
-                            fontSize: 14
-                        },
-                        tooltips: {
-                            mode: 'index',
-                            intersect: false,
-                        },
-                        animation: {
-                            duration: 0 
-                        },
-                        hover: {
-                            // mode: 'nearest',
-                            // intersect: true
-                            animationDuration: 0
-                        },
-                        responsiveAnimationDuration: 0,
-                        scales: {
-                            xAxes: [{
-                                display: true,
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: 'Día',
-                                    fontStyle: 'bold',
-                                    fontColor: '#000'
-                                },
-                                    ticks: {
-                                        source: 'labels',
-                                        autoSkip: true,
-                                        autoSkipPadding: 20,
-                                        maxRotation: 90,
-                                        maxTicksLimit: maxTickX,
-                                        // stepSize: diffDays / maxTickX,
-                                        callback: function (tick, index) {
-                                            // console.log(Math.ceil(diffDays / 10) % (index + 1));
-                                            // return ((index + 1) % (Math.ceil(diffDays / 10)))  ? '' : index + 1;
-                                             return index + 1;
-                                        }
-                                    }
-                                }],
-                                yAxes: [{ 
-                                    display: true,
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: yLabel,
-                                        fontStyle: 'bold',
-                                        fontColor: '#000',
-                                        ticks: {
-                                            beginAtZero: true,
-                                            steps: 10,
-                                            stepValue: 10,
-                                            max: 100
-                                        }
-                                    }
-                                }]
-                            }
-                        }
-                    };
-                    break;
-                default: 
-                config = {
-                        type: 'line',
+            for (var i = 0; i < stationsDataSet.length; i ++) {
+                var temp = new Object();
+                stationLabels.push(stationsDataSet[i].DATE.substring(0, 16));
+                temp['y'] = stationsDataSet[i].VALUE;
+                formatedDataSet.push(temp);
+            }
+            switch(this.currentPinView) {
+                case 'prcp':
+                    config =  {
+                        type: 'bar',
                         data: {
                             labels: stationLabels,
                             datasets: [{
-                                label: labelName,
-                                backgroundColor: color,
-                                borderColor: color,
-                                data: formatedDataSet,
-                                fill: false
+                            label: labelName,
+                            backgroundColor: color,
+                            borderColor: color,
+                            data: formatedDataSet,
+                            // backgroundColor: "rgba(25, 25, 112, 1)"
                             }]
                         },
                         options: {
@@ -1171,7 +747,7 @@ export default {
                                 intersect: false,
                             },
                             animation: {
-                                duration: 0
+                                duration: 0 
                             },
                             hover: {
                                 // mode: 'nearest',
@@ -1188,97 +764,131 @@ export default {
                                         fontStyle: 'bold',
                                         fontColor: '#000'
                                     },
-                                    ticks: {
-                                        source: 'labels',
-                                        autoSkip: true,
-                                        autoSkipPadding: 4,
-                                        maxRotation: 0,
-                                        maxTicksLimit: maxTickX,
-                                        stepSize: 3,
-                                        callback: function (value, index) {
-                                            return index + 1;
-                                        }
-                                    }
-                                }],
-                                yAxes: [{
-                                    display: true,
-                                    scaleLabel: {
-                                        display: true,
-                                        labelString: yLabel,
-                                        fontStyle: 'bold',
-                                        fontColor: '#000',
                                         ticks: {
-                                            steps: 10,
-                                            stepValue: 10,
-                                            max: 100
+                                            source: 'labels',
+                                            autoSkip: true,
+                                            autoSkipPadding: 20,
+                                            maxRotation: 90,
+                                            maxTicksLimit: maxTickX,
+                                            // stepSize: diffDays / maxTickX,
+                                            callback: function (tick, index) {
+                                                // console.log(Math.ceil(diffDays / 10) % (index + 1));
+                                                // return ((index + 1) % (Math.ceil(diffDays / 10)))  ? '' : index + 1;
+                                                return index + 1;
+                                            }
                                         }
-                                    }
-                                }]
+                                    }],
+                                    yAxes: [{ 
+                                        display: true,
+                                        scaleLabel: {
+                                            display: true,
+                                            labelString: yLabel,
+                                            fontStyle: 'bold',
+                                            fontColor: '#000',
+                                            ticks: {
+                                                beginAtZero: true,
+                                                steps: 10,
+                                                stepValue: 10,
+                                                max: 100
+                                            }
+                                        }
+                                    }]
+                                }
                             }
-                        }
-                    };
+                        };
+                        break;
+                    default: 
+                    config = {
+                            type: 'line',
+                            data: {
+                                labels: stationLabels,
+                                datasets: [{
+                                    label: labelName,
+                                    backgroundColor: color,
+                                    borderColor: color,
+                                    data: formatedDataSet,
+                                    fill: false
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                title: {
+                                    display: true,
+                                    text: title,
+                                    fontColor: '#000',
+                                    fontSize: 14
+                                },
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false,
+                                },
+                                animation: {
+                                    duration: 0
+                                },
+                                hover: {
+                                    // mode: 'nearest',
+                                    // intersect: true
+                                    animationDuration: 0
+                                },
+                                responsiveAnimationDuration: 0,
+                                scales: {
+                                    xAxes: [{
+                                        display: true,
+                                        scaleLabel: {
+                                            display: true,
+                                            labelString: 'Día',
+                                            fontStyle: 'bold',
+                                            fontColor: '#000'
+                                        },
+                                        ticks: {
+                                            source: 'labels',
+                                            autoSkip: true,
+                                            autoSkipPadding: 4,
+                                            maxRotation: 0,
+                                            maxTicksLimit: maxTickX,
+                                            stepSize: 3,
+                                            callback: function (value, index) {
+                                                return index + 1;
+                                            }
+                                        }
+                                    }],
+                                    yAxes: [{
+                                        display: true,
+                                        scaleLabel: {
+                                            display: true,
+                                            labelString: yLabel,
+                                            fontStyle: 'bold',
+                                            fontColor: '#000',
+                                            ticks: {
+                                                steps: 10,
+                                                stepValue: 10,
+                                                max: 100
+                                            }
+                                        }
+                                    }]
+                                }
+                            }
+                        };
 
-            }
-            
-            var ctx = document.getElementById('myChart').getContext('2d');
-            this.myChart = new Chart(ctx, config);
+                }
+                
+                var ctx = document.getElementById('myChart').getContext('2d');
+                this.myChart = new Chart(ctx, config);
 
-            // span.onclick = function () {
-            //   modal.style.display = 'none';
-            //   myChart.destroy();
-            // }
-            // When the user clicks anywhere outside of the modal, close it
-            // window.onclick = function (event) {
-            //     if (event.target == modal) {
-            //         modal.style.display = 'none';
-            //         myChart.destroy();
-            //     }
-            // }
-            // myChart.destroy();
         },
-    setButtonPressed: function (id) {
-        // this.toogled = id
-        console.log(`pressed button with id '${id}'`)
-        // if (this.currentPressButton !== id) {
-        //     document.getElementById(id).classList.remove(id)
-        // }
-        // document.getElementById(id).classList.add('selectedbtn')
-        this.setButtonUnpressed()
-        if(id === 'btn1') {
-            this.btnPrcpClass = 'ma-2 selectedbtn'
-            this.currentPressButton = 'btn1'
-        } else if (id === 'btn2') {
-            this.btnTmaxClass = 'ma-2 selectedbtn'
-            this.currentPressButton = 'btn2'
-        } else if (id === 'btn3') {
-            this.btnTminClass = 'ma-2 selectedbtn'
-            this.currentPressButton = 'btn3'
+        zoomUpdate(zoom) {
+        this.currentZoom = zoom;
+        },
+        centerUpdate(center) {
+        this.currentCenter = center;
+        },
+        showLongText() {
+        this.showParagraph = !this.showParagraph;
+        },
+        recenter: function () {
+            this.currentCenter = this.center
+            this.currentZoom = this.zoom
         }
-        
-        this.currentPressButton = id
-    },
-    setButtonUnpressed: function () {
-        if(this.currentPressButton === 'btn1') {
-            this.btnPrcpClass = 'ma-2 btn1'
-        } else if (this.currentPressButton === 'btn2') {
-            this.btnTmaxClass = 'ma-2 btn2'
-        } else if (this.currentPressButton === 'btn3') {
-            this.btnTminClass = 'ma-2 btn3'
-        }
-    },
-    zoomUpdate(zoom) {
-      this.currentZoom = zoom;
-    },
-    centerUpdate(center) {
-      this.currentCenter = center;
-    },
-    showLongText() {
-      this.showParagraph = !this.showParagraph;
-    },
-    recenter: function () {
-        this.currentCenter = this.center
-        this.currentZoom = this.zoom
-    }
   }
 };
 /* eslint-enable */
