@@ -33,7 +33,7 @@
     </v-app-bar>
     <v-col  class="ma-0 pa-0 pb-2">
         <v-img
-          aspect-ratio="4"
+          aspect-ratio="7"
           :src="require('./assets/wenhao-ryan-jEUEpfjpe6Q-unsplash.jpg')"
           cover
         />

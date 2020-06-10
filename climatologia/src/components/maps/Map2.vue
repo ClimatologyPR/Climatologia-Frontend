@@ -1,6 +1,7 @@
 <template>
   <v-row no-gutters style="height: 100%;">
         <v-col cols="12"   style="background-color:#ecfffd;">
+            <NavBar/>
             <v-navigation-drawer
                 v-model="drawer"
                 absolute
@@ -546,6 +547,10 @@
 </template>
 
 <script>
+//Nav Bar
+import NavBar from '../navigation/NavBar';
+import MenuButton from '../navigation/MenuButton';
+import MapMenu from '../navigation/MapMenu';
 
 /* eslint-disable */
 import { latLngBounds, latLng } from "leaflet";
@@ -570,7 +575,10 @@ export default {
     LMarker,
     LPopup,
     LPolygon,
-    LControl
+    LControl,
+    NavBar,
+    MapMenu,
+    MenuButton
   },
   data() {
     return {
