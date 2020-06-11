@@ -17,6 +17,7 @@
         </div>
 
         <l-map
+          :key="mapChanged"
           class="map"
           ref="map"
           v-if="showMap"
@@ -27,6 +28,9 @@
           @update:center="centerUpdate"
           @update:zoom="zoomUpdate"
         >
+        <l-control>
+          <v-btn @click="recenter()">center</v-btn>
+        </l-control>
           <l-tile-layer :url="url" />
           <l-control position="bottomleft">
             <v-card class="ml-4" style="background-color: white;">
@@ -504,6 +508,7 @@ export default {
         "Interior occidental",
       ],
       mychart: null,
+      mapChanged: 0
     };
   },
   computed: {
@@ -563,7 +568,9 @@ export default {
       this.hideMenu = newValue;
     });
   },
-  mounted: async function() {},
+  mounted: async function() {
+    
+  },
   watch: {
     selectedDateType: function() {
       if (this.selectedDateType === "Día") {
@@ -1112,8 +1119,9 @@ export default {
       this.showParagraph = !this.showParagraph;
     },
     recenter: function() {
-      this.currentCenter = this.center;
-      this.currentZoom = this.zoom;
+      this.mapChanged = this.mapChanged + 1
+       this.zoom = 9.2
+      this.center = latLng(18.135412, -66.450806)
     },
   },
 };
