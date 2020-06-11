@@ -9,38 +9,16 @@
         <h1 style=" color:white; font-weight: bold;" class="bar-title">Climatología de Puerto Rico</h1>
 
     </div>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src=""
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src=""
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
     </v-app-bar>
-    <v-col  class="ma-0 pa-0 pb-2">
         <v-img
           aspect-ratio="7"
           :src="require('./assets/wenhao-ryan-jEUEpfjpe6Q-unsplash.jpg')"
           cover
         />
-    </v-col>
-    <v-content class="  pl-2 pr-2 pb-2 pt-0">
-      <HomePage class=" ml-2 mr-2 pt-0"/>
-    </v-content>
+        <v-content class="ma-0 pa-0">
+      <HomePage/>
+        </v-content>
+    
     <!-- <v-footer
       color="#00251a"
       padless

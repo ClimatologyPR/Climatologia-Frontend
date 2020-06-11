@@ -1,9 +1,8 @@
 <template>
-  <v-row no-gutters style="height: 100%;">
-    <v-col cols="12" class="pa-3">
-      <v-card hover height="100%" width="100%" color="#f5f5f6">
+  <v-row no-gutters style="height: 100%; width: 80%;">
+    <v-col cols="12">
+      <v-card  height="auto" width="auto" color="rgba(255,255,255,0.85)">
         <v-col cols="12">
-          <hr />
           <h3 class="fontsz">Zonas Climáticas:</h3>
           <v-combobox
             v-model="selectedFilters"
@@ -38,7 +37,7 @@
               <v-dialog
                 ref="dialog"
                 v-model="singleDatePicker"
-                width="290px"
+                width="200px"
                 style="z-index: 1000;"
               >
                 <template v-slot:activator="{ on }">
@@ -67,6 +66,7 @@
                 </v-date-picker>
               </v-dialog>
             </v-col>
+
             <v-col v-else-if="selectedDateType === 'Rango'" cols="7">
               <v-dialog
                 ref="dialog"
@@ -168,16 +168,6 @@
             </template>
             <span>Temperatura Mínima</span>
           </v-tooltip>
-          <hr />
-        </v-col>
-        <v-col cols="12">
-          <v-checkbox
-            dense
-            :disabled="disable"
-            v-model="hideMenu"
-            label="Menu Oculto"
-            hide-details
-          ></v-checkbox>
         </v-col>
       </v-card>
     </v-col>
@@ -276,7 +266,7 @@ export default {
      */
     setButtonPressed: function(id) {
       this.setButtonUnpressed(); // unpress the current pressed button
-      this.buttons[id].class = "ma-2 selectedbtn"; // set te class of the new pressed button to the selected button class
+      this.buttons[id].class = `ma-2 ${id} selectedbtn`; // set te class of the new pressed button to the selected button class
       this.currentPressButton = id; // set the variable to the recent pressed button
     },
     /**
@@ -299,17 +289,20 @@ export default {
 
 <style scoped>
 .btn1 {
-  background-color: blue !important;
+  background-color: rgb(82, 164, 211) !important;
 }
 .btn2 {
-  background-color: red !important;
+  background-color: rgb(248, 79, 79) !important;
 }
 .btn3 {
-  background-color: green !important;
+  background-color: rgb(93, 185, 93) !important;
 }
 .selectedbtn {
-  /* background-color: grey; */
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+  /* background-color: grey; 
+  */
+  background-color: rgb(255, 255, 255) !important;
+  box-shadow: 0px 0px 5px rgba(108, 110, 109, 0.836),
+    0px 0px 10px 0 rgba(67, 68, 67, 0.678) !important;
   border: 2px solid grey !important; /* Green */
   /* color: white; */
 }

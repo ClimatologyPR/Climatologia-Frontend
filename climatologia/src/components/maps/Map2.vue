@@ -1,391 +1,379 @@
 <template>
-  <v-row no-gutters style="height: 100%;">
-    <v-col cols="12" style="background-color:#ecfffd;">
-      <div class="navbar">
-        <a class="nav-button" @mouseover="drawer = !drawer">
-          <v-icon icon color="white">mdi-menu</v-icon>
-        </a>
-      </div>
-      <v-navigation-drawer
-        v-model="drawer"
-        absolute
-        temporary
-        right
-        class="menu-drawer pt-0 pb-0"
-        width='10'
-      >
-        <Menu
-          :defaultDate="date"
-          :minDate="minDate"
-          :maxDate="maxDate"
-          :calendarLng="calendarLng"
-          :calendarColor="calendarColor"
-          :selectedFilters="selectedFilters"
-          :filters="filters"
-          :disable="disable"
-          :rangeDate="rangeDate"
-          :singleDatePicker="singleDatePicker"
-          :rangeDatePicker="rangeDatePicker"
-          :SingleDateText="SingleDateText"
-          :rangeDateText="rangeDateText"
-          :overlay="overlay"
-          :hideMenu="hideMenu"
-        />
-      </v-navigation-drawer>
-      
-      <v-row style="background-color: #e1e2e1;">
-          <v-card tile elevation="1" height="100%" width="100%">
-            <l-map
-              class="map"
-              ref="map"
-              v-if="showMap"
-              :zoom="zoom"
-              :center="center"
-              :options="mapOptions"
-              style="z-index: 0;"
-              @update:center="centerUpdate"
-              @update:zoom="zoomUpdate"
-            >
-              <l-tile-layer :url="url" :attribution="attribution" />
-              <v-container>
-                <l-control class="example-custom-control">
-                  <v-btn v-if="menuControl" @click.stop="drawer = !drawer"
-                    ><v-icon dark>mdi-menu</v-icon></v-btn
-                  >
-                </l-control>
-              </v-container>
-              <l-control position="bottomleft">
-                <v-card class="ml-4 " style="background-color: white;">
-                  <h3>Leyenda</h3>
-                  <v-row dense class="pl-2 pr-2">
-                    <v-col class="pa-0 pt-1 pr-1">
-                      <v-img
-                        class="ml-1"
-                        style="float:left;"
-                        :src="require('../../assets/nullicon.png')"
-                        height="10px"
-                        width="10px"
-                      />
-                    </v-col>
-                    <h4 class="mr-1">Valor Nulo</h4>
-                    <v-col class="pl-1 pt-1 pr-1">
-                      <v-img
-                        style="float:left;"
-                        :src="require('../../assets/noaa.png')"
-                        height="10px"
-                        width="10px"
-                      />
-                    </v-col>
-                    <h4 class="mr-1">NOAA</h4>
-                    <v-col class="pl-1 pt-1 pr-1">
-                      <v-img
-                        style="float:left;"
-                        :src="require('../../assets/usgs.png')"
-                        height="10px"
-                        width="10px"
-                      />
-                    </v-col>
-                    <h4 class="mr-1">USGS</h4>
-                  </v-row>
-                </v-card>
-              </l-control>
-              <l-control
-                :position="'bottomleft'"
-                class="custom-control-watermark"
-              >
-                <v-card class="ml-4 " style="background-color: white;">
-                  <v-row dense class="pl-2 pr-2">
-                    <h2>
-                      {{
-                        date && selectedDateType === "Día"
-                          ? SingleDateText
-                          : dateRangeText
-                      }}
-                    </h2>
-                  </v-row>
-                </v-card>
-              </l-control>
+  <div style="height: auto;display:flex;">
+    <div
+      style="background-color: #e1e2e1; display:flex; height:100%; width:100%;"
+    >
+      <v-card tile elevation="1" height="auto" width="100%">
+        <div class="date">
+          <div class="date2">
+            <h2>
+              {{
+                date && selectedDateType === "Día"
+                  ? SingleDateText
+                  : dateRangeText
+              }}
+            </h2>
+          </div>
+        </div>
 
-              <v-container v-model="stationsList">
-                <div
-                  v-for="(station, i) in stationsList"
-                  :key="
-                    `${station.DATE}-${Math.floor(
-                      Math.random() * Math.floor(100000)
-                    )}-${station.STATIONID}`
-                  "
-                >
-                  <l-marker
-                    :visible="markerOpacity"
-                    :lat-lng="coordinates(station.LATITUDE, station.LONGITUDE)"
-                    :icon="iconList[i]"
+        <l-map
+          class="map"
+          ref="map"
+          v-if="showMap"
+          :zoom="zoom"
+          :center="center"
+          :options="mapOptions"
+          style="z-index: 0;"
+          @update:center="centerUpdate"
+          @update:zoom="zoomUpdate"
+        >
+          <l-tile-layer :url="url" />
+          <l-control position="bottomleft">
+            <v-card class="ml-4" style="background-color: white;">
+              <h3>Leyenda</h3>
+              <v-row dense class="pl-2 pr-2">
+                <v-col class="pa-0 pt-1 pr-1">
+                  <v-img
+                    class="ml-1"
+                    style="float:left;"
+                    :src="require('../../assets/nullicon.png')"
+                    height="10px"
+                    width="10px"
+                  />
+                </v-col>
+                <h4 class="mr-1">Valor Nulo</h4>
+                <v-col class="pl-1 pt-1 pr-1">
+                  <v-img
+                    style="float:left;"
+                    :src="require('../../assets/noaa.png')"
+                    height="10px"
+                    width="10px"
+                  />
+                </v-col>
+                <h4 class="mr-1">NOAA</h4>
+                <v-col class="pl-1 pt-1 pr-1">
+                  <v-img
+                    style="float:left;"
+                    :src="require('../../assets/usgs.png')"
+                    height="10px"
+                    width="10px"
+                  />
+                </v-col>
+                <h4 class="mr-1">USGS</h4>
+              </v-row>
+            </v-card>
+          </l-control>
+          <v-container v-model="stationsList">
+            <div
+              v-for="(station, i) in stationsList"
+              :key="
+                `${station.DATE}-${Math.floor(
+                  Math.random() * Math.floor(100000)
+                )}-${station.STATIONID}`
+              "
+            >
+              <l-marker
+                :visible="markerOpacity"
+                :lat-lng="coordinates(station.LATITUDE, station.LONGITUDE)"
+                :icon="iconList[i]"
+              >
+                <l-popup>
+                  <strong> Agencia: </strong>
+                  {{ station.AGENCYID }}
+                  <br />
+                  <strong>ID de Estación: </strong>
+                  {{ station.STATIONID.toString() }}
+                  <br />
+                  <strong>Municipio: </strong>
+                  {{ station.MUNICIPALITY.toString() }}
+                  <br />
+                  <strong>Zona Climática: </strong>
+                  {{ station.CLIMATEZONE.toString() }}
+                  <br />
+                  <div v-if="selectedDateType === 'Día'">
+                    <strong>
+                      {{
+                        currentPinView === "prcp"
+                          ? "Precipitación:"
+                          : currentPinView === "tmax"
+                          ? "Temperatura Máxima"
+                          : "Temperatura Mínima"
+                      }}</strong
+                    >
+                    {{
+                      station.VALUE === null || station.VALUE === undefined
+                        ? "NULL"
+                        : station.VALUE.toString()
+                    }}
+                    {{
+                      currentPinView === "prcp" && station.VALUE !== null
+                        ? '"'
+                        : station.VALUE !== null
+                        ? "°F"
+                        : ""
+                    }}
+                    <br />
+                  </div>
+                  <div
+                    v-else-if="
+                      selectedDateType === 'Rango' &&
+                        station.AVGVALUE != undefined
+                    "
                   >
-                    <l-popup>
-                      <strong> Agencia: </strong>
-                      {{ station.AGENCYID }}
-                      <br />
-                      <strong>ID de Estación: </strong>
-                      {{ station.STATIONID.toString() }}
-                      <br />
-                      <strong>Municipio: </strong>
-                      {{ station.MUNICIPALITY.toString() }}
-                      <br />
-                      <strong>Zona Climática: </strong>
-                      {{ station.CLIMATEZONE.toString() }}
-                      <br />
-                      <div v-if="selectedDateType === 'Día'">
-                        <strong>
-                          {{
-                            currentPinView === "prcp"
-                              ? "Precipitación:"
-                              : currentPinView === "tmax"
-                              ? "Temperatura Máxima"
-                              : "Temperatura Mínima"
-                          }}</strong
-                        >
-                        {{
-                          station.VALUE === null || station.VALUE === undefined
-                            ? "NULL"
-                            : station.VALUE.toString()
-                        }}
-                        {{
-                          currentPinView === "prcp" && station.VALUE !== null
-                            ? '"'
-                            : station.VALUE !== null
-                            ? "°F"
-                            : ""
-                        }}
-                        <br />
-                      </div>
-                      <div
-                        v-else-if="
-                          selectedDateType === 'Rango' &&
-                            station.AVGVALUE != undefined
+                    <strong> Precipitación Promedio: </strong>
+                    {{ station.AVGVALUE.toString() }} "
+                    <br />
+                    <strong>Máximo: </strong>
+                    {{ station.MAXVALUE.toString() }}
+                    <br />
+                    <strong>Mínimo: </strong>
+                    {{ station.MINVALUE.toString() }}
+                    <br />
+                    <strong>Desviación Estándar: </strong
+                    >{{ station.STDDEVVALUE.toString() }}
+                    <br />
+                    <strong>Error Estándar: </strong
+                    >{{ station.STDERRVALUE.toString() }}
+                    <br />
+                    <v-col>
+                      <v-btn
+                        @click="
+                          setChart(
+                            'rangeModal',
+                            'close',
+                            'line',
+                            '  Estación: ' +
+                              station.STATIONID +
+                              ',  Municipio: ' +
+                              station.MUNICIPALITY +
+                              ',  Rango de Fecha: ' +
+                              dateRangeText +
+                              ',  Máximo: ' +
+                              station.MAXVALUE +
+                              (currentPinView == 'prcp' ? ' in' : ' ºF') +
+                              ',  Mínimo: ' +
+                              station.MINVALUE +
+                              (currentPinView == 'prcp' ? ' in' : ' ºF') +
+                              ',  Desviación Estándar: ' +
+                              station.STDERRVALUE +
+                              (currentPinView == 'prcp' ? ' in' : ' ºF') +
+                              ',  Error Estándar: ' +
+                              station.STDERRVALUE +
+                              (currentPinView == 'prcp' ? ' in' : ' ºF'),
+                            currentPinView === 'prcp'
+                              ? 'Precipitación '
+                              : currentPinView === 'tmax'
+                              ? 'Temperatura Máxima'
+                              : 'Temperatura Mínima',
+                            station.STATIONID,
+                            currentPinView === 'prcp'
+                              ? '#191970 '
+                              : currentPinView === 'tmax'
+                              ? '#ad2121'
+                              : '#52ad21'
+                          )
                         "
                       >
-                        <strong> Precipitación Promedio: </strong>
-                        {{ station.AVGVALUE.toString() }} "
-                        <br />
-                        <strong>Máximo: </strong>
-                        {{ station.MAXVALUE.toString() }}
-                        <br />
-                        <strong>Mínimo: </strong>
-                        {{ station.MINVALUE.toString() }}
-                        <br />
-                        <strong>Desviación Estándar: </strong
-                        >{{ station.STDDEVVALUE.toString() }}
-                        <br />
-                        <strong>Error Estándar: </strong
-                        >{{ station.STDERRVALUE.toString() }}
-                        <br />
-                        <v-col>
-                          <v-btn
-                            @click="
-                              setChart(
-                                'rangeModal',
-                                'close',
-                                'line',
-                                '  Estación: ' +
-                                  station.STATIONID +
-                                  ',  Municipio: ' +
-                                  station.MUNICIPALITY +
-                                  ',  Rango de Fecha: ' +
-                                  dateRangeText +
-                                  ',  Máximo: ' +
-                                  station.MAXVALUE +
-                                  (currentPinView == 'prcp' ? ' in' : ' ºF') +
-                                  ',  Mínimo: ' +
-                                  station.MINVALUE +
-                                  (currentPinView == 'prcp' ? ' in' : ' ºF') +
-                                  ',  Desviación Estándar: ' +
-                                  station.STDERRVALUE +
-                                  (currentPinView == 'prcp' ? ' in' : ' ºF') +
-                                  ',  Error Estándar: ' +
-                                  station.STDERRVALUE +
-                                  (currentPinView == 'prcp' ? ' in' : ' ºF'),
-                                currentPinView === 'prcp'
-                                  ? 'Precipitación '
-                                  : currentPinView === 'tmax'
-                                  ? 'Temperatura Máxima'
-                                  : 'Temperatura Mínima',
-                                station.STATIONID,
-                                currentPinView === 'prcp'
-                                  ? '#191970 '
-                                  : currentPinView === 'tmax'
-                                  ? '#ad2121'
-                                  : '#52ad21'
-                              )
-                            "
-                          >
-                            <v-icon>{{
-                              currentPinView === "prcp"
-                                ? "mdi-chart-bar"
-                                : "mdi-chart-line"
-                            }}</v-icon>
-                            Graficar
-                          </v-btn>
-                        </v-col>
-                      </div>
-                    </l-popup>
-                  </l-marker>
-                </div>
-              </v-container>
-              <v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="EI"
-                    :lat-lngs="EasternInterior.latlngs"
-                    :color="EasternInterior.color"
-                    :fillColor="EasternInterior.color"
-                  >
-                    <l-popup content="Interior oriental" />
-                  </l-polygon>
-                </v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="NC"
-                    :lat-lngs="NorthernCoastal.latlngs"
-                    :color="NorthernCoastal.color"
-                    :fillColor="NorthernCoastal.color"
-                  >
-                    <l-popup content="Costa del norte" />
-                  </l-polygon>
-                </v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="NS"
-                    :lat-lngs="NorthernSlopes.latlngs"
-                    :color="NorthernSlopes.color"
-                    :fillColor="NorthernSlopes.color"
-                  >
-                    <l-popup content="Laderas del norte" />
-                  </l-polygon>
-                </v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="OI"
-                    :lat-lngs="OutlyingIsland.latlngs"
-                    :color="OutlyingIsland.color"
-                    :fillColor="OutlyingIsland.color"
-                  >
-                    <l-popup content="Islas periféricas" />
-                  </l-polygon>
-                </v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="OI"
-                    :lat-lngs="OutlyingIsland1.latlngs"
-                    :color="OutlyingIsland1.color"
-                    :fillColor="OutlyingIsland1.color"
-                  >
-                    <l-popup content="Islas periféricas" />
-                  </l-polygon>
-                </v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="OI"
-                    :lat-lngs="OutlyingIsland2.latlngs"
-                    :color="OutlyingIsland2.color"
-                    :fillColor="OutlyingIsland2.color"
-                  >
-                    <l-popup content="Islas periféricas" />
-                  </l-polygon>
-                </v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="OI"
-                    :lat-lngs="OutlyingIsland3.latlngs"
-                    :color="OutlyingIsland3.color"
-                    :fillColor="OutlyingIsland3.color"
-                  >
-                    <l-popup content="Islas periféricas" />
-                  </l-polygon>
-                </v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="OI"
-                    :lat-lngs="OutlyingIsland4.latlngs"
-                    :color="OutlyingIsland4.color"
-                    :fillColor="OutlyingIsland4.color"
-                  >
-                    <l-popup content="Islas periféricas" />
-                  </l-polygon>
-                </v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="SC"
-                    :lat-lngs="SouthernCoastal.latlngs"
-                    :color="SouthernCoastal.color"
-                    :fillColor="SouthernCoastal.color"
-                  >
-                    <l-popup content="Costa del sur" />
-                  </l-polygon>
-                </v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="SS"
-                    :lat-lngs="SouthernSlopes.latlngs"
-                    :color="SouthernSlopes.color"
-                    :fillColor="SouthernSlopes.color"
-                  >
-                    <l-popup content="Laderas del sur" />
-                  </l-polygon>
-                </v-container>
-                <v-container>
-                  <l-polygon
-                    v-if="WI"
-                    :lat-lngs="WesternInterior.latlngs"
-                    :color="WesternInterior.color"
-                    :fillColor="WesternInterior.color"
-                  >
-                    <l-popup content="Interior occidental" />
-                  </l-polygon>
-                </v-container>
-              </v-container>
-            </l-map>
-            <v-overlay absolute :value="overlay">
-              <v-progress-circular
-                indeterminate
-                size="64"
-              ></v-progress-circular>
-            </v-overlay>
-          </v-card>
-          <v-row justify="center">
-            <v-dialog
-              v-model="dialog"
-              fullscreen
-              hide-overlay
-              transition="dialog-bottom-transition"
-            >
-              <v-card style="z-index: 20000; position: absolute;">
-                <v-toolbar dark color="#82ada9">
-                  <v-btn icon dark @click="(dialog = false), myChart.destroy()">
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
-                  <v-toolbar-title
-                    >Grafica para rango de fecha seleccionado</v-toolbar-title
-                  >
-                  <!-- <v-spacer></v-spacer>
+                        <v-icon>{{
+                          currentPinView === "prcp"
+                            ? "mdi-chart-bar"
+                            : "mdi-chart-line"
+                        }}</v-icon>
+                        Graficar
+                      </v-btn>
+                    </v-col>
+                  </div>
+                </l-popup>
+              </l-marker>
+            </div>
+          </v-container>
+          <v-container>
+            <v-container>
+              <l-polygon
+                v-if="EI"
+                :lat-lngs="EasternInterior.latlngs"
+                :color="EasternInterior.color"
+                :fillColor="EasternInterior.color"
+              >
+                <l-popup content="Interior oriental" />
+              </l-polygon>
+            </v-container>
+            <v-container>
+              <l-polygon
+                v-if="NC"
+                :lat-lngs="NorthernCoastal.latlngs"
+                :color="NorthernCoastal.color"
+                :fillColor="NorthernCoastal.color"
+              >
+                <l-popup content="Costa del norte" />
+              </l-polygon>
+            </v-container>
+            <v-container>
+              <l-polygon
+                v-if="NS"
+                :lat-lngs="NorthernSlopes.latlngs"
+                :color="NorthernSlopes.color"
+                :fillColor="NorthernSlopes.color"
+              >
+                <l-popup content="Laderas del norte" />
+              </l-polygon>
+            </v-container>
+            <v-container>
+              <l-polygon
+                v-if="OI"
+                :lat-lngs="OutlyingIsland.latlngs"
+                :color="OutlyingIsland.color"
+                :fillColor="OutlyingIsland.color"
+              >
+                <l-popup content="Islas periféricas" />
+              </l-polygon>
+            </v-container>
+            <v-container>
+              <l-polygon
+                v-if="OI"
+                :lat-lngs="OutlyingIsland1.latlngs"
+                :color="OutlyingIsland1.color"
+                :fillColor="OutlyingIsland1.color"
+              >
+                <l-popup content="Islas periféricas" />
+              </l-polygon>
+            </v-container>
+            <v-container>
+              <l-polygon
+                v-if="OI"
+                :lat-lngs="OutlyingIsland2.latlngs"
+                :color="OutlyingIsland2.color"
+                :fillColor="OutlyingIsland2.color"
+              >
+                <l-popup content="Islas periféricas" />
+              </l-polygon>
+            </v-container>
+            <v-container>
+              <l-polygon
+                v-if="OI"
+                :lat-lngs="OutlyingIsland3.latlngs"
+                :color="OutlyingIsland3.color"
+                :fillColor="OutlyingIsland3.color"
+              >
+                <l-popup content="Islas periféricas" />
+              </l-polygon>
+            </v-container>
+            <v-container>
+              <l-polygon
+                v-if="OI"
+                :lat-lngs="OutlyingIsland4.latlngs"
+                :color="OutlyingIsland4.color"
+                :fillColor="OutlyingIsland4.color"
+              >
+                <l-popup content="Islas periféricas" />
+              </l-polygon>
+            </v-container>
+            <v-container>
+              <l-polygon
+                v-if="SC"
+                :lat-lngs="SouthernCoastal.latlngs"
+                :color="SouthernCoastal.color"
+                :fillColor="SouthernCoastal.color"
+              >
+                <l-popup content="Costa del sur" />
+              </l-polygon>
+            </v-container>
+            <v-container>
+              <l-polygon
+                v-if="SS"
+                :lat-lngs="SouthernSlopes.latlngs"
+                :color="SouthernSlopes.color"
+                :fillColor="SouthernSlopes.color"
+              >
+                <l-popup content="Laderas del sur" />
+              </l-polygon>
+            </v-container>
+            <v-container>
+              <l-polygon
+                v-if="WI"
+                :lat-lngs="WesternInterior.latlngs"
+                :color="WesternInterior.color"
+                :fillColor="WesternInterior.color"
+              >
+                <l-popup content="Interior occidental" />
+              </l-polygon>
+            </v-container>
+          </v-container>
+        </l-map>
+        <v-overlay absolute :value="overlay">
+          <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
+      </v-card>
+      <v-row justify="center">
+        <v-dialog
+          v-model="dialog"
+          fullscreen
+          hide-overlay
+          transition="dialog-bottom-transition"
+        >
+          <v-card style="z-index: 20000; position: absolute;">
+            <v-toolbar dark color="#82ada9">
+              <v-btn icon dark @click="(dialog = false), myChart.destroy()">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+              <v-toolbar-title
+                >Grafica para rango de fecha seleccionado</v-toolbar-title
+              >
+              <!-- <v-spacer></v-spacer>
                                     <v-toolbar-items>
                                     <v-btn dark text @click="dialog = false">Save</v-btn>
                                     </v-toolbar-items> -->
-                </v-toolbar>
-                <v-col>
-                  <canvas id="myChart" width="400" height="150"></canvas>
-                </v-col>
-              </v-card>
-            </v-dialog>
-          </v-row>
-        
+            </v-toolbar>
+            <v-col>
+              <canvas id="myChart" width="400" height="150"></canvas>
+            </v-col>
+          </v-card>
+        </v-dialog>
       </v-row>
+    </div>
+    <v-navigation-drawer
+      v-model="drawer"
+      temporary
+      absolute
+      right
+      class="menu-drawer pt-0 pb-0"
+      hide-overlay
+      floating
+      color="rgba(0,0,0,0)"
+      clipped
+      style="z-index:1; box-shadow:none; z-index:1;"
+      height="auto"
+    >
+      <Menu
+        :defaultDate="date"
+        :minDate="minDate"
+        :maxDate="maxDate"
+        :calendarLng="calendarLng"
+        :calendarColor="calendarColor"
+        :selectedFilters="selectedFilters"
+        :filters="filters"
+        :disable="disable"
+        :rangeDate="rangeDate"
+        :singleDatePicker="singleDatePicker"
+        :rangeDatePicker="rangeDatePicker"
+        :SingleDateText="SingleDateText"
+        :rangeDateText="rangeDateText"
+        :overlay="overlay"
+        :hideMenu="hideMenu"
+      />
+    </v-navigation-drawer>
+    <v-col class="navbar">
+      <a class="nav-button" @mouseover="drawer = true">
+        <v-icon icon color="white">mdi-menu</v-icon>
+      </a>
     </v-col>
-  </v-row>
+  </div>
 </template>
 
 <script>
 import Menu from "../navigation/Menu";
-
 /* eslint-disable */
+import { eventBus } from "../../main.js";
 import { latLngBounds, latLng } from "leaflet";
 import {
   LPolygon,
@@ -397,8 +385,6 @@ import {
 } from "vue2-leaflet";
 import leaflet from "leaflet";
 import L from "leaflet";
-// import { climateZones } from '../layers/ClimateZones.js'
-// import { EasternInterior, NorthernCoastal, NorthernSlopes, OutlyingIsland, OutlyingIsland1, OutlyingIsland2, OutlyingIsland3, OutlyingIsland4, SouthernCoastal, SouthernSlopes, WesternInterior } from '../layers/ClimateZones2.js'
 import { EasternInterior } from "../layers/climatezones/EasternInterior.js";
 import { NorthernCoastal } from "../layers/climatezones/NorthernCoastal.js";
 import { NorthernSlopes } from "../layers/climatezones/NorthernSlopes.js";
@@ -426,12 +412,10 @@ export default {
   },
   data() {
     return {
-      btnPrcpClass: "ma-2 btn1",
-      btnTmaxClass: "ma-2 btn2",
-      btnTminClass: "ma-2 btn3",
-
+      calendarLng: "es-ES",
+      calendarColor: "#562f",
       menuControl: true,
-
+      hideMenu: false,
       overlay: false,
       bounds: latLngBounds([
         [18.453116, -64.987199],
@@ -448,8 +432,6 @@ export default {
       attribution:
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
 
-      //   withPopup: latLng(18.135412,-66.450806),
-      //   withTooltip: latLng(47.41422, -1.250482),
       currentZoom: 11.5,
       currentCenter: latLng(47.41322, -1.219482),
       showParagraph: false,
@@ -468,27 +450,17 @@ export default {
       modal2: false,
       modal3: false,
       modal4: false,
-      menu2: false,
+      singleDatePicker: false,
+      rangeDatePicker: false,
       selectedDateType: "Día",
-      // date: new Date().toISOString().substr(0, 10),
-      // dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       minDate: "2000-01-01",
       maxDate: "2019-08-31",
       date: "2018-04-13",
-      dateFormatted: ["2018-04-13", "2018-04-13"],
       drawer: false,
-      // group: null,
-
-      formatedDate: "13/04/2018",
-      toogled: null,
-      // calculation: null,
       startdate: null,
       enddate: null,
-      showStations: false,
-      markerOpacity: true,
       currentPinView: null,
       pins: null,
-      map: null,
       tileLayer: null,
       singleDate: true,
       rangeDate: false,
@@ -497,6 +469,7 @@ export default {
       currentPressButton: "",
       stationsList: [],
       iconList: [],
+      // Layers
       EasternInterior,
       NorthernCoastal,
       NorthernSlopes,
@@ -524,13 +497,14 @@ export default {
         "Laderas del sur",
         "Interior occidental",
       ],
-      // filters: ['Eastern Interior', 'Northern Coastal', 'Northern Slopes', 'Outlying Island', 'Southern Coastal', 'Southern Slopes', 'Western Interior'],
-      // selectedFilters: ['Eastern Interior', 'Northern Coastal', 'Northern Slopes', 'Outlying Island', 'Southern Coastal', 'Southern Slopes', 'Western Interior'],
-      // filters: ['Eastern Interior', 'Northern Coastal', 'Northern Slopes', 'Outlying Island', 'Southern Coastal', 'Southern Slopes', 'Western Interior'],
       mychart: null,
     };
   },
   computed: {
+    /**
+     * return: filter list of climate zones
+     * can be use to return different filter lists
+     */
     filters: function() {
       return [
         "Interior oriental",
@@ -542,35 +516,59 @@ export default {
         "Interior occidental",
       ];
     },
-    computedDateFormatted() {
-      return this.formatDate(this.date);
-    },
-    dateRangeText() {
+    /**
+     * return: the current selected range date in the format
+     * mm/dd/yyyy~mm/dd/yyyy
+     */
+    rangeDateText() {
       if (this.date[0] && this.date[1]) {
         const [year, month, day] = this.date[0].split("-");
         const [year1, month1, day1] = this.date[1].split("-");
         return `${month}/${day}/${year}~${month1}/${day1}/${year1}`;
       }
-
-      //   return this.date.join(' ~ ')
     },
+    /**
+     * return: the current selected date in the format
+     * mm/dd/yyyy
+     */
     SingleDateText() {
-      if (!this.date) return "";
-      const [year, month, day] = this.date.split("-");
-      return `${month}/${day}/${year}`;
+      if (!this.date && this.selectedDateType === "Día") return "";
+      else if (this.date && this.selectedDateType === "Día") {
+        const [year, month, day] = this.date.split("-");
+        return `${month}/${day}/${year}`;
+      }
     },
   },
-  mounted: async function() {
-    this.overlay = !this.overlay;
-    this.setButtonPressed("btn1");
-    await this.fetchStations(
-      "prcp",
-      this.rangeDate ? this.date[0] : this.date,
-      this.rangeDate ? this.date[1] : this.date
-    );
-    this.$nextTick(() => {});
+  created() {
+    eventBus.$on("fetchStationRequest", (type, start, end) => {
+      this.fetchStations(type, start, end);
+    });
+    eventBus.$on("dateTypeChange", (selectedDateType) => {
+      //   console.log(`date type changed ${selectedDateType}`)
+      this.selectedDateType = selectedDateType;
+    });
+    eventBus.$on("dateChange", (date) => {
+      this.date = date;
+    });
+    eventBus.$on("selectedFiltersChange", (selected) => {
+      this.selectedFilters = selected;
+    });
+    eventBus.$on("hideMenuChange", (newValue) => {
+      this.hideMenu = newValue;
+    });
   },
+  mounted: async function() {},
   watch: {
+    selectedDateType: function() {
+      if (this.selectedDateType === "Día") {
+        this.dateType("singleDate");
+        this.date = "2018-04-04";
+      } else if (this.selectedDateType === "Rango") {
+        this.dateType("rangeDate");
+        this.date = ["2018-04-01", "2018-04-07"];
+      }
+      eventBus.$emit("defaultDate", this.date);
+    },
     hideMenu: function() {
       if (this.hideMenu) {
         this.menuControl = true;
@@ -580,58 +578,18 @@ export default {
         this.drawer = !this.drawer;
       }
     },
-    overlay(val) {
-      //   this.markerOpacity = false
-      //   this.markerOpacity = true
-      this.disable = !this.disable;
-      val &&
-        setTimeout(() => {
-          this.overlay = false;
-          // this.markerOpacity = true\
-          // this.setButtonUnpressed()
-          // if (this.currentPinView === 'prcp' && this.currentPressButton != 'btn1') {
-          //     this.setButtonPressed('btn1')
-          // } else if ( this.currentPinView === 'tmax' && this.currentPressButton != 'btn2') {
-          //     this.setButtonPressed('btn2')
-          // } else if (this.currentPinView === 'tmin' && this.currentPressButton != 'btn3') {
-          //     this.setButtonPressed('btn3')
-          // }
-        }, 3500);
-    },
-    disable(val) {
-      val &&
-        setTimeout(() => {
-          this.disable = false;
-          // this.drawer = !this.drawer
-          console.log("disable done waiting");
-        }, 3500);
-    },
-    loader() {
-      const l = this.loader;
-      this[l] = !this[l];
-
-      setTimeout(() => (this[l] = false), 3000);
-
-      this.loader = null;
-    },
-    //   group () {
-    //     this.drawer = false
-    //   },
     selectedFilters: function() {
       if (
         this.selectedFilters.includes("Eastern Interior") ||
         this.selectedFilters.includes("Interior oriental")
       ) {
         this.EI = true;
-        console.log("EI true");
       } else if (
         !this.selectedFilters.includes("Eastern Interior") ||
         !this.selectedFilters.includes("Interior oriental")
       ) {
-        console.log("EI false");
         this.EI = false;
       }
-
       if (
         this.selectedFilters.includes("Northern Coastal") ||
         this.selectedFilters.includes("Costa del norte")
@@ -643,7 +601,6 @@ export default {
       ) {
         this.NC = false;
       }
-
       if (
         this.selectedFilters.includes("Northern Slopes") ||
         this.selectedFilters.includes("Laderas del norte")
@@ -655,7 +612,6 @@ export default {
       ) {
         this.NS = false;
       }
-
       if (
         this.selectedFilters.includes("Outlying Island") ||
         this.selectedFilters.includes("Islas periféricas")
@@ -667,7 +623,6 @@ export default {
       ) {
         this.OI = false;
       }
-
       if (
         this.selectedFilters.includes("Southern Coastal") ||
         this.selectedFilters.includes("Costa del sur")
@@ -679,7 +634,6 @@ export default {
       ) {
         this.SC = false;
       }
-
       if (
         this.selectedFilters.includes("Southern Slopes") ||
         this.selectedFilters.includes("Laderas del sur")
@@ -691,7 +645,6 @@ export default {
       ) {
         this.SS = false;
       }
-
       if (
         this.selectedFilters.includes("Western Interior") ||
         this.selectedFilters.includes("Interior occidental")
@@ -702,15 +655,6 @@ export default {
         !this.selectedFilters.includes("Interior occidental")
       ) {
         this.WI = false;
-      }
-    },
-    selectedDateType: function() {
-      if (this.selectedDateType === "Día") {
-        this.dateType("singleDate");
-        this.date = "2018-04-04";
-      } else if (this.selectedDateType === "Rango") {
-        this.dateType("rangeDate");
-        this.date = ["2018-04-01", "2018-04-07"];
       }
     },
     date: function() {
@@ -724,59 +668,6 @@ export default {
     },
   },
   methods: {
-    formatDate(date) {
-      if (date.length === 2 && date[0] != null && date[1] != null) {
-        const [year, month, day] = date[0].split("-");
-        const [year1, month1, day1] = date[1].split("-");
-        return `${month}/${day}/${year}~${month1}/${day1}/${year1}`;
-      }
-      //   else {
-      //     const [year, month, day] = date.split('-')
-      //     return `${month}/${day}/${year}`
-      //   }
-    },
-    formatSingleDate(date) {
-      if (!date) return "";
-      const [year, month, day] = date.split("-");
-      return `${month}/${day}/${year}`;
-    },
-    parseDate(date) {
-      if (!date) return null;
-
-      const [month, day, year] = date.split("/");
-      return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-    },
-    validate: function(modal) {
-      if (
-        this.date[0] &&
-        this.date[1] &&
-        this.date.length === 2 &&
-        modal === "modal2"
-      ) {
-        this.overlay = !this.overlay;
-        this.modal2 = false;
-      } else if (
-        this.date[0] &&
-        this.date[1] &&
-        this.date.length === 2 &&
-        modal === "modal4"
-      ) {
-        this.overlay = !this.overlay;
-        this.modal4 = false;
-      } else if (this.date && modal === "modal1") {
-        this.overlay = !this.overlay;
-        this.modal1 = false;
-      } else if (this.date && modal === "modal3") {
-        this.overlay = !this.overlay;
-        this.modal3 = false;
-      }
-    },
-    validate2: function() {
-      this.disable = !this.disable;
-      this.overlay = !this.overlay;
-
-      this.modal = false;
-    },
     remove(item) {
       this.selectedFilters.splice(this.selectedFilters.indexOf(item), 1);
       this.selectedFilters = [...this.selectedFilters];
@@ -784,23 +675,18 @@ export default {
     icon: function(value, agency) {
       var rgb = { r: 0, g: 0, b: 0 };
       var nullIcon;
-      if (this.currentPinView == "tmin") {
+      if (this.currentPinView == "tmin" || this.currentPinView == "tmax") {
         // set the rgb value of the current station element using the average value for range date  or the value  single date type with a ternary operator
-        this.getTemperaturePinColors(rgb, value);
-      } else if (this.currentPinView == "tmax") {
         this.getTemperaturePinColors(rgb, value);
       } else if (this.currentPinView == "prcp") {
         this.getPrecipitationPinColors(rgb, value);
       }
 
       if (value !== null || value === undefined) {
-        // nullIcon = "<img style='float: left; width: 11px; height: 11px; marging-bottom:-15px; margin-left: -1px; margin-top: -1px;' src='http://climatologia.uprm.edu/img/nullicon2.svg' id='null-div-icon'/>"
-        // var style = (agency === 'USGS'? " height:10px; width:10px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb(" + rgb.r.toString() + "," + rgb.g.toString() + " ," + rgb.b.toString() + ");" : "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid " +  "rgb(" + rgb.r.toString() + "," + rgb.g.toString() + " ," + rgb.b.toString() + ")" +";")
         var style =
           agency === "USGS"
             ? ` height:10px; width:10px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});`
             : `width: 10px; height: 10px; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});`;
-
         return L.divIcon({
           iconSize: new L.Point(20, 20),
           className: "my-div-icon",
@@ -890,14 +776,12 @@ export default {
         rgb.b = 0;
       }
     },
-
     fetchStations: async function(type, start, end) {
+      this.disable = !this.disable;
+      this.overlay = !this.overlay;
+
       //removes the current pins instnace in the map instance
       this.iconList = [];
-      if (this.pins != null) {
-        // console.log('removing pins')
-        this.$refs.map.mapObject.removeLayer(this.pins);
-      }
       // set the global startdate variable instance to the start date value send in the params, selected in the date picker
       this.startdate = start;
       // set the global startdate variable instance to the end date value send in the params, selected in the date picker
@@ -942,8 +826,9 @@ export default {
         // console.log('http://climatologia.uprm.edu:8008/api?' + 'q=data&' + 'calc=all' + '&startdate=' + this.startdate + '&enddate=' + this.enddate + '&elem=' + this.currentPinView)
       }
       stations = await response.json();
+      this.overlay = !this.overlay;
+      this.disable = !this.disable;
       this.stationsList = stations;
-
       for (var i = 0; i < this.stationsList.length; i++) {
         this.iconList.push(
           this.icon(
@@ -958,22 +843,7 @@ export default {
       }
       return;
     },
-    /**
-     * change a button propeties to make it look pressed
-     **/
-    // toogle: function (id,btnlist) {
-    //     for(var i = 0; i< btnlist.length;i++){
-    //     document.getElementById(btnlist[i]).classList.remove('selectedbtn');
-    //     document.getElementById(btnlist[i]).classList.add(btnlist[i]);
-    //     }
-    //     document.getElementById(id).classList.remove(id);
-    //     document.getElementById(id).classList.add('selectedbtn');
-    // },
-    /**
-     * set the type of date to true
-     **/
     dateType: function(type) {
-      // console.log('change: ' + type);
       if (type == "singleDate") {
         this.rangeDate = false;
         this.singleDate = true;
@@ -998,7 +868,6 @@ export default {
       span.onclick = function() {
         modal.style.display = "none";
       };
-
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
         if (event.target == modal) {
@@ -1016,11 +885,6 @@ export default {
       color
     ) {
       this.dialog = !this.dialog;
-      //since the button is in the HTML dialog  intances are used instead of passing parameters throught a function call
-      // var modal = document.getElementById(modalId);
-      // modal.style.display = 'block';
-      // var span = document.getElementsByClassName(spanClass)[0];
-
       var config = null;
       var stationLabels = [];
       var dataSetResponse = await fetch(
@@ -1052,7 +916,6 @@ export default {
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
 
       var maxTickX = 20;
-
       if (diffDays / 7 <= 1) {
         maxTickX = diffDays;
       } else if (diffDays / 30 >= 1 && diffDays / 30 <= 12) {
@@ -1061,7 +924,6 @@ export default {
         maxTickX = Math.ceil(diffDays / 365) * 12 * 2;
       }
       var formatedDataSet = [];
-
       for (var i = 0; i < stationsDataSet.length; i++) {
         var temp = new Object();
         stationLabels.push(stationsDataSet[i].DATE.substring(0, 16));
@@ -1233,49 +1095,6 @@ export default {
 
       var ctx = document.getElementById("myChart").getContext("2d");
       this.myChart = new Chart(ctx, config);
-
-      // span.onclick = function () {
-      //   modal.style.display = 'none';
-      //   myChart.destroy();
-      // }
-      // When the user clicks anywhere outside of the modal, close it
-      // window.onclick = function (event) {
-      //     if (event.target == modal) {
-      //         modal.style.display = 'none';
-      //         myChart.destroy();
-      //     }
-      // }
-      // myChart.destroy();
-    },
-    setButtonPressed: function(id) {
-      // this.toogled = id
-      console.log(`pressed button with id '${id}'`);
-      // if (this.currentPressButton !== id) {
-      //     document.getElementById(id).classList.remove(id)
-      // }
-      // document.getElementById(id).classList.add('selectedbtn')
-      this.setButtonUnpressed();
-      if (id === "btn1") {
-        this.btnPrcpClass = "ma-2 selectedbtn";
-        this.currentPressButton = "btn1";
-      } else if (id === "btn2") {
-        this.btnTmaxClass = "ma-2 selectedbtn";
-        this.currentPressButton = "btn2";
-      } else if (id === "btn3") {
-        this.btnTminClass = "ma-2 selectedbtn";
-        this.currentPressButton = "btn3";
-      }
-
-      this.currentPressButton = id;
-    },
-    setButtonUnpressed: function() {
-      if (this.currentPressButton === "btn1") {
-        this.btnPrcpClass = "ma-2 btn1";
-      } else if (this.currentPressButton === "btn2") {
-        this.btnTmaxClass = "ma-2 btn2";
-      } else if (this.currentPressButton === "btn3") {
-        this.btnTminClass = "ma-2 btn3";
-      }
     },
     zoomUpdate(zoom) {
       this.currentZoom = zoom;
@@ -1296,17 +1115,10 @@ export default {
 </script>
 <style scoped>
 .navbar {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  width: 100px;
-  overflow: auto;
   z-index: 1;
-  min-width: 80px;
-  box-shadow: inset 0px 0px 200px rgba(10, 10, 10, 0.377),
-    -5px 0px 25px rgba(0, 0, 0, 0.493);
-  backdrop-filter: blur(10px);
+  width: 90px;
+  min-width: 90px;
+  background: #2c2f33;
 }
 .nav-button {
   width: 100%;
@@ -1317,6 +1129,28 @@ export default {
 }
 .navbar a:hover {
   background: #2c2f3371;
+}
+
+.date {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+  cursor: none;
+}
+.date2 {
+  padding: 5px;
+  padding-left: 50px;
+  padding-right: 50px;
+  background: #ffffffd3;
+  box-shadow: 0px 0px 2px black;
+  color: black;
+  border-radius: 30px;
+  margin-top: 5px;
 }
 /*
 This witll be the end of the nav bar
