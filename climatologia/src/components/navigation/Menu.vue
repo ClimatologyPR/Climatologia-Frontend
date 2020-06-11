@@ -1,5 +1,5 @@
 <template>
-  <v-row no-gutters style="height: 100%; width: 80%;">
+  <v-row no-gutters style="height: 100%; width: 430px; min-width:430px;">
     <v-col cols="12">
       <v-card  height="auto" width="auto" color="rgba(255,255,255,0.85)">
         <v-col cols="12">

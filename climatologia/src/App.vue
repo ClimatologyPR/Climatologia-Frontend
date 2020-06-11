@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="overflow:hidden;">
     <v-app-bar
       app
       color="#82ada9"
@@ -11,9 +11,8 @@
     </div>
     </v-app-bar>
         <v-img
-          aspect-ratio="7"
+          max-height="300px"
           :src="require('./assets/wenhao-ryan-jEUEpfjpe6Q-unsplash.jpg')"
-          cover
         />
         <v-content class="ma-0 pa-0">
       <HomePage/>

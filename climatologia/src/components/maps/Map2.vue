@@ -1,16 +1,16 @@
 <template>
-  <div style="height: auto;display:flex;">
+  <div style="height: 100%;display:flex;">
     <div
       style="background-color: #e1e2e1; display:flex; height:100%; width:100%;"
     >
-      <v-card tile elevation="1" height="auto" width="100%">
+      <v-card tile elevation="1" height="100%" width="100%">
         <div class="date">
           <div class="date2">
             <h2>
               {{
                 date && selectedDateType === "Día"
                   ? SingleDateText
-                  : dateRangeText
+                  : rangeDateText
               }}
             </h2>
           </div>
@@ -65,8 +65,8 @@
           </l-control>
           <l-control position="bottomleft">
             <v-card class="ml-4" style="background-colo:white;">
-              <v-img :src="require('../../assets/logo.png')"/>
-              <v-img :src="require('../../assets/logo.png')"/>
+              <v-img :src="require('../../assets/logo.png')" />
+              <v-img :src="require('../../assets/logo.png')" />
             </v-card>
           </l-control>
           <v-container v-model="stationsList">
@@ -152,7 +152,7 @@
                               ',  Municipio: ' +
                               station.MUNICIPALITY +
                               ',  Rango de Fecha: ' +
-                              dateRangeText +
+                              rangeDateText +
                               ',  Máximo: ' +
                               station.MAXVALUE +
                               (currentPinView == 'prcp' ? ' in' : ' ºF') +
@@ -348,6 +348,7 @@
       clipped
       style="z-index:1; box-shadow:none; z-index:1;"
       height="auto"
+      width="480px"
     >
       <Menu
         :defaultDate="date"
@@ -529,7 +530,7 @@ export default {
       if (this.date[0] && this.date[1]) {
         const [year, month, day] = this.date[0].split("-");
         const [year1, month1, day1] = this.date[1].split("-");
-        return `${month}/${day}/${year}~${month1}/${day1}/${year1}`;
+        return `${month}/${day}/${year} ➜ ${month1}/${day1}/${year1}`;
       }
     },
     /**
@@ -1157,30 +1158,28 @@ export default {
   border-radius: 30px;
   margin-top: 5px;
 }
+
+.map {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.menu-drawer {
+  width: 525px !important;
+}
 /*
 This witll be the end of the nav bar
 */
 
 @media only screen and (min-width: 360px) and (max-width: 768px) {
   .map {
-    height: 58vh;
+    
     margin: 0;
     padding: 0;
   }
-  .drawer-icon {
-    border-radius: 8% !important;
-    border: 2px solid #a6babc;
-    background-color: #ffffff;
-    float: right;
-    position: absolute;
-    z-index: 1001;
-    top: 20%;
-    left: 5.12%;
-    font-size: 5vh;
-  }
-  .menu-drawer {
-    width: 30% !important;
-  }
+
   .my-div-icon {
     background-color: #fd8424;
     border-radius: 3px;
@@ -1210,11 +1209,6 @@ This witll be the end of the nav bar
   }
 }
 @media only screen and (min-width: 1024px) and (max-width: 1440px) {
-  .map {
-    height: 68vh;
-    margin: 0;
-    padding: 0;
-  }
   .drawer-icon {
     border-radius: 8% !important;
     border: 2px solid #a6babc;
@@ -1225,9 +1219,6 @@ This witll be the end of the nav bar
     top: 20%;
     left: 1.12%;
     font-size: 5vh;
-  }
-  .menu-drawer {
-    width: 30% !important;
   }
   .my-div-icon {
     background-color: #fd8424;
@@ -1259,11 +1250,6 @@ This witll be the end of the nav bar
 }
 
 @media only screen and (min-width: 1440px) and (max-width: 1680px) {
-  .map {
-    height: 76vh;
-    margin: 0;
-    padding: 0;
-  }
   .drawer-icon {
     border-radius: 8% !important;
     border: 2px solid #a6babc;
@@ -1274,9 +1260,6 @@ This witll be the end of the nav bar
     top: 20%;
     left: 1.12%;
     font-size: 5vh;
-  }
-  .menu-drawer {
-    width: 30% !important;
   }
   .my-div-icon {
     background-color: #fd8424;
@@ -1307,12 +1290,7 @@ This witll be the end of the nav bar
   }
 }
 @media only screen and (min-width: 1680px) and (max-width: 1920px) {
-  .map {
-    height: 76vh;
-    margin: 0;
-    padding: 0;
-  }
-  .drawer-icon {
+drawer-icon {
     border-radius: 8% !important;
     border: 2px solid #a6babc;
     background-color: #ffffff;
@@ -1322,9 +1300,6 @@ This witll be the end of the nav bar
     top: 20%;
     left: 1.12%;
     font-size: 5vh;
-  }
-  .menu-drawer {
-    width: 30% !important;
   }
   .my-div-icon {
     background-color: #fd8424;
@@ -1355,11 +1330,6 @@ This witll be the end of the nav bar
   }
 }
 @media only screen and (min-width: 1920px) and (max-width: 32560px) {
-  .map {
-    height: 68vh;
-    margin: 0;
-    padding: 0;
-  }
   .drawer-icon {
     border-radius: 8% !important;
     border: 2px solid #a6babc;
@@ -1370,9 +1340,6 @@ This witll be the end of the nav bar
     top: 10%;
     left: 0.9%;
     font-size: 5vh;
-  }
-  .menu-drawer {
-    width: 30% !important;
   }
   .my-div-icon {
     background-color: #fd8424;
