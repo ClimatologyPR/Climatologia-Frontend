@@ -63,6 +63,12 @@
               </v-row>
             </v-card>
           </l-control>
+          <l-control position="bottomleft">
+            <v-card class="ml-4" style="background-colo:white;">
+              <v-img :src="require('../../assets/logo.png')"/>
+              <v-img :src="require('../../assets/logo.png')"/>
+            </v-card>
+          </l-control>
           <v-container v-model="stationsList">
             <div
               v-for="(station, i) in stationsList"
@@ -73,7 +79,6 @@
               "
             >
               <l-marker
-                :visible="markerOpacity"
                 :lat-lng="coordinates(station.LATITUDE, station.LONGITUDE)"
                 :icon="iconList[i]"
               >

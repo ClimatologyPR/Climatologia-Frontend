@@ -66,8 +66,7 @@
                 </v-date-picker>
               </v-dialog>
             </v-col>
-
-            <v-col v-else-if="selectedDateType === 'Rango'" cols="7">
+            <v-col v-else-if="selectedDateType === 'Rango'" cols="11">
               <v-dialog
                 ref="dialog"
                 v-model="rangeDatePicker"
