@@ -16,6 +16,9 @@
           </div>
         </div>
 
+          <a @click="recenter()" class="centerBtn"><v-icon color="white">mdi-map-marker-radius</v-icon></a>
+        
+
         <l-map
           :key="mapChanged"
           class="map"
@@ -28,9 +31,6 @@
           @update:center="centerUpdate"
           @update:zoom="zoomUpdate"
         >
-        <l-control>
-          <v-btn @click="recenter()">center</v-btn>
-        </l-control>
           <l-tile-layer :url="url" />
           <l-control position="bottomleft">
             <v-card class="ml-4" style="background-color: white;">
@@ -69,8 +69,8 @@
           </l-control>
           <l-control position="bottomleft">
             <v-card class="ml-4" style="background-colo:white;">
-              <v-img :src="require('../../assets/logo.png')" />
-              <v-img :src="require('../../assets/logo.png')" />
+              <v-img v-if="currentPinView==='prcp'" :src="require('../../assets/legendPres.png')" />
+              <v-img v-else :src="require('../../assets/legendTemp.png')" />
             </v-card>
           </l-control>
           <v-container v-model="stationsList">
@@ -350,7 +350,7 @@
       floating
       color="rgba(0,0,0,0)"
       clipped
-      style="z-index:1; box-shadow:none; z-index:1;"
+      style="z-index:1; box-shadow:none;"
       height="auto"
       width="480px"
     >
@@ -1129,7 +1129,7 @@ export default {
 </script>
 <style scoped>
 .navbar {
-  z-index: 1;
+  z-index: 2;
   width: 90px;
   min-width: 90px;
   background: #2c2f33;
@@ -1176,6 +1176,32 @@ export default {
 }
 .menu-drawer {
   width: 525px !important;
+}
+
+.centerBtn{
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background: #1fc2b4;
+  color: rgb(255, 255, 255);
+  border-radius: 100px;
+  text-align: center;
+  font-weight: bold;
+  font-style:normal;
+  font-family: sans-serif;
+  font-size: 20px;
+  box-shadow: 0px 3px 10px rgb(95, 95, 95);
+  z-index: 1;
+}
+
+.centerBtn:hover{
+  transition: 0.3s;
+  background: #56ddd2;
+  transform: translateY(-5px);
 }
 /*
 This witll be the end of the nav bar
