@@ -170,9 +170,9 @@
         </v-col>
       </v-card>
     </v-col>
-    <v-overlay absolute :value="overlay">
+    <!-- <v-overlay absolute :value="overlay">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
-    </v-overlay>
+    </v-overlay> -->
   </v-row>
 </template>
 
