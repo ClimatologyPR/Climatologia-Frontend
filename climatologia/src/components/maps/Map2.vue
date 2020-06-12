@@ -69,8 +69,8 @@
           </l-control>
           <l-control position="bottomleft">
             <v-card class="ml-4" style="background-colo:white;">
-              <v-img v-if="currentPinView==='prcp'" :src="require('../../assets/legendPres.png')" />
-              <v-img v-else :src="require('../../assets/legendTemp.png')" />
+              <v-img v-if="currentPinView==='prcp'" :src="require('../../assets/precipitation_legend_bar.svg')" />
+              <v-img v-else :src="require('../../assets/temperature_legend_bar.svg')" />
             </v-card>
           </l-control>
           <v-container v-model="stationsList">
