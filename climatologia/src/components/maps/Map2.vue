@@ -16,8 +16,9 @@
           </div>
         </div>
 
-          <a @click="recenter()" class="centerBtn"><v-icon color="white">mdi-map-marker-radius</v-icon></a>
-        
+        <a @click="recenter()" class="centerBtn"
+          ><v-icon color="white">mdi-map-marker-radius</v-icon></a
+        >
 
         <l-map
           :key="mapChanged"
@@ -67,10 +68,18 @@
               </v-row>
             </v-card>
           </l-control>
-          <l-control position="bottomleft" >
+          <l-control position="bottomleft">
             <v-card width="60%" class="ml-0" style="background-colo:white;">
-              <v-img  v-if="currentPinView==='prcp'" :src="require('../../assets/precipitation_legend_bar.png')" />
-              <v-img  v-else :src="require('../../assets/temperature_legend_bar.png')" />
+              <v-img
+                v-if="currentPinView === 'prcp'"
+                :src="require('../../assets/precipitation_legend_bar.png')"
+                width="150"
+              />
+              <v-img
+                v-else
+                :src="require('../../assets/temperature_legend_bar.png')"
+                width="170"
+              />
             </v-card>
           </l-control>
           <v-container v-model="stationsList">
@@ -340,20 +349,7 @@
         </v-dialog>
       </v-row>
     </div>
-    <v-navigation-drawer
-      v-model="drawer"
-      temporary
-      absolute
-      right
-      class="menu-drawer pt-0 pb-0"
-      hide-overlay
-      floating
-      color="rgba(0,0,0,0)"
-      clipped
-      style="z-index:1; box-shadow:none;"
-      height="auto"
-      width="480px"
-    >
+    <div class="menuSlide">
       <Menu
         :defaultDate="date"
         :minDate="minDate"
@@ -371,19 +367,12 @@
         :overlay="overlay"
         :hideMenu="hideMenu"
       />
-    </v-navigation-drawer>
-    <v-col class="navbar">
-      <a class="nav-button" @mouseover="drawer = true">
-        <v-icon icon color="white">mdi-menu</v-icon>
-      </a>
-    </v-col>
-    <Menu2/>
+    </div>
   </div>
 </template>
 
 <script>
 import Menu from "../navigation/Menu";
-import Menu2 from '../navigation/Menu2';
 /* eslint-disable */
 import { eventBus } from "../../main.js";
 import { latLngBounds, latLng } from "leaflet";
@@ -420,8 +409,7 @@ export default {
     LPopup,
     LPolygon,
     LControl,
-    Menu,
-    Menu2
+    Menu
   },
   data() {
     return {
@@ -438,7 +426,7 @@ export default {
         [18.453116, -64.987199],
         [18.097713, -68.029587],
       ]),
-      zoom: 9.2,
+      zoom: 9.7,
       center: latLng(18.135412, -66.450806),
       url:
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png",
@@ -449,7 +437,7 @@ export default {
       currentCenter: latLng(47.41322, -1.219482),
       showParagraph: false,
       mapOptions: {
-        zoomSnap: 0.5,
+        zoomSnap: 0.1,
       },
       showMap: true,
       dialog: false,
@@ -511,7 +499,7 @@ export default {
         "Interior occidental",
       ],
       mychart: null,
-      mapChanged: 0
+      mapChanged: 0,
     };
   },
   computed: {
@@ -571,9 +559,7 @@ export default {
       this.hideMenu = newValue;
     });
   },
-  mounted: async function() {
-    
-  },
+  mounted: async function() {},
   watch: {
     selectedDateType: function() {
       if (this.selectedDateType === "Día") {
@@ -1122,9 +1108,9 @@ export default {
       this.showParagraph = !this.showParagraph;
     },
     recenter: function() {
-      this.mapChanged = this.mapChanged + 1
-       this.zoom = 9.2
-      this.center = latLng(18.135412, -66.450806)
+      this.mapChanged = this.mapChanged + 1;
+      this.zoom = 9.7;
+      this.center = latLng(18.135412, -66.450806);
     },
   },
 };
@@ -1177,11 +1163,8 @@ export default {
   margin: 0;
   padding: 0;
 }
-.menu-drawer {
-  width: 525px !important;
-}
 
-.centerBtn{
+.centerBtn {
   position: absolute;
   bottom: 40px;
   right: 60px;
@@ -1194,17 +1177,28 @@ export default {
   border-radius: 100px;
   text-align: center;
   font-weight: bold;
-  font-style:normal;
+  font-style: normal;
   font-family: sans-serif;
   font-size: 20px;
   box-shadow: 0px 3px 10px rgb(95, 95, 95);
   z-index: 1;
 }
 
-.centerBtn:hover{
+.centerBtn:hover {
   transition: 0.3s;
   background: #56ddd2;
   transform: translateY(-5px);
+}
+
+.menuSlide{
+  position: absolute;
+  top: 0;
+   right: 44px;
+   z-index: 2;
+}
+.menuSlide:hover, .picker:focus{
+  transition: 0.3s;
+  transform: translateX(-280px);
 }
 /*
 This witll be the end of the nav bar
@@ -1212,7 +1206,6 @@ This witll be the end of the nav bar
 
 @media only screen and (min-width: 360px) and (max-width: 768px) {
   .map {
-    
     margin: 0;
     padding: 0;
   }
@@ -1327,7 +1320,7 @@ This witll be the end of the nav bar
   }
 }
 @media only screen and (min-width: 1680px) and (max-width: 1920px) {
-drawer-icon {
+  drawer-icon {
     border-radius: 8% !important;
     border: 2px solid #a6babc;
     background-color: #ffffff;

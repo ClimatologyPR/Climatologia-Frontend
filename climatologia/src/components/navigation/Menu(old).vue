@@ -1,16 +1,10 @@
 <template>
-  <div class="board">
-
-    <div class="tab">
-      <v-icon color="white">mdi-menu</v-icon>
-    </div>
-
-    <div class="container">
-      <div class="content">
-        <div class="zone">
-          <p class="ztext">Zonas Climáticas</p>
-          <v-select
-          class="picker"
+  <v-row no-gutters style="height: 100%; width: 430px; min-width:430px;">
+    <v-col cols="12">
+      <v-card  height="auto" width="auto" color="rgba(255,255,255,0.85)">
+        <v-col cols="12">
+          <h3 class="fontsz">Zonas Climáticas:</h3>
+          <v-combobox
             v-model="selectedFilters"
             :items="filters"
             :disabled="disable"
@@ -19,55 +13,61 @@
             multiple
             small-chips
             clearable
-          ></v-select>
-        </div>
-        <div class="date">
-          <p class="dtext">Fecha</p>
-          <div class="datef">
-            <v-select
-              v-model="selectedDateType"
-              :items="['Día', 'Rango']"
-              prepend-icon="mdi-menu"
-              label="Fecha"
-              dense
-              solo
-              :disabled="disable"
-              class="picker"
-            ></v-select>
-            <v-dialog
-                v-if="selectedDateType === 'Día'"
-              ref="dialog"
-              v-model="singleDatePicker"
-              width="290px"
-              style="z-index: 1000;"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                class="picker"
-                  v-model="SingleDateText"
-                  label="Fecha"
-                  prepend-icon="mdi-calendar"
-                  v-on="on"
-                  dense
-                  solo
-                  :disabled="disable"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                locale="es-ES"
-                v-model="date"
-                color="#82ada9"
-                @input="validate('single')"
-                no-title
-                :show-current="false"
-                scrollable
-                min="2000-08-15"
-                max="2019-03-20"
+            chips
+            solo
+          ></v-combobox>
+          <hr />
+        </v-col>
+        <v-col cols="12">
+          <h3 class="fontsz">Fecha:</h3>
+          <v-row class="pl-3 pr-3">
+            <v-col cols="5">
+              <v-select
+                v-model="selectedDateType"
+                :items="['Día', 'Rango']"
+                prepend-icon="mdi-menu"
+                label="Fecha"
+                dense
+                solo
+                outlined
+                :disabled="disable"
+              ></v-select>
+            </v-col>
+            <v-col v-if="selectedDateType === 'Día'" cols="5">
+              <v-dialog
+                ref="dialog"
+                v-model="singleDatePicker"
+                width="200px"
+                style="z-index: 1000;"
               >
-              </v-date-picker>
-            </v-dialog>
-            <v-dialog
-                v-else-if="selectedDateType === 'Rango'"
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="SingleDateText"
+                    label="Fecha"
+                    prepend-icon="mdi-calendar"
+                    v-on="on"
+                    outlined
+                    solo
+                    dense
+                    :disabled="disable"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  locale="es-ES"
+                  v-model="date"
+                  color="#82ada9"
+                  @input="validate('single')"
+                  no-title
+                  :show-current="false"
+                  scrollable
+                  min="2000-08-15"
+                  max="2019-03-20"
+                >
+                </v-date-picker>
+              </v-dialog>
+            </v-col>
+            <v-col v-else-if="selectedDateType === 'Rango'" cols="11">
+              <v-dialog
                 ref="dialog"
                 v-model="rangeDatePicker"
                 width="290px"
@@ -79,8 +79,9 @@
                     label="Fecha"
                     prepend-icon="mdi-calendar"
                     v-on="on"
-                    dense
                     solo
+                    dense
+                    outlined
                     readonly
                     :disabled="disable"
                   ></v-text-field>
@@ -98,17 +99,15 @@
                 >
                 </v-date-picker>
               </v-dialog>
-          </div>
-        </div>
-      </div>
-
-      <div class="content2">
-      <div>
-        <p>Variables</p>
-        </div>
-        <div class="buttons">
-            <a class="button btn1"
-            id="btn1"
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col class="col-12 pt-0 pb-0">
+          <h3 class="fontsz">Variables:</h3>
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                id="btn1"
                 v-on="on"
                 :class="buttons.btn1.class"
                 :disabled="disable"
@@ -119,9 +118,17 @@
                       rangeDate ? date[0] : date,
                       rangeDate ? date[1] : date
                     )
-                "><v-icon> mdi-weather-pouring</v-icon></a>
-            <a class="button btn2"
-            id="btn2"
+                "
+              >
+                <v-icon> mdi-weather-pouring</v-icon>
+              </v-btn>
+            </template>
+            <span>Precipitación</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                id="btn2"
                 v-on="on"
                 :class="buttons.btn2.class"
                 :disabled="disable"
@@ -132,9 +139,17 @@
                       selectedDateType === 'Rango' ? date[0] : date,
                       rangeDate ? date[1] : date
                     )
-                "><v-icon>mdi-thermometer-lines</v-icon></a>
-            <a class="button btn3"
-            id="btn3"
+                "
+              >
+                <v-icon>mdi-thermometer-lines</v-icon>
+              </v-btn>
+            </template>
+            <span>Temperatura Máxima</span>
+          </v-tooltip>
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-btn
+                id="btn3"
                 v-on="on"
                 :class="buttons.btn3.class"
                 :disabled="disable"
@@ -145,11 +160,20 @@
                       rangeDate ? date[0] : date,
                       rangeDate ? date[1] : date
                     )
-                "><v-icon>mdi-thermometer-lines</v-icon></a>
-        </div>
-      </div>
-    </div>
-  </div>
+                "
+              >
+                <v-icon>mdi-thermometer-lines</v-icon>
+              </v-btn>
+            </template>
+            <span>Temperatura Mínima</span>
+          </v-tooltip>
+        </v-col>
+      </v-card>
+    </v-col>
+    <!-- <v-overlay absolute :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay> -->
+  </v-row>
 </template>
 
 <script>
@@ -263,90 +287,81 @@ export default {
 </script>
 
 <style scoped>
-.board {
-  top: 10%;
-  left: 30%;
-  width: auto;
-  height: auto;
-  position: absolute;
-  display: flex;
+.btn1 {
+  background-color: rgb(82, 164, 211) !important;
 }
-.tab {
-  height: auto;
-  width: 50px;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  background: #2c2f33;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.btn2 {
+  background-color: rgb(248, 79, 79) !important;
 }
-
-.container p {
-  font-weight: 900;
-  font-family: "Lato", sans-serif;
+.btn3 {
+  background-color: rgb(93, 185, 93) !important;
 }
-.container {
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.8);
-}
-.content {
-  height: 100%;
-  width: auto;
-}
-.content2 {
-  display: flex;
-  flex-direction: column;
-}
-.datef {
-  display: flex;
-  flex-direction: column;
-}
-.buttons{
-    flex: 2;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: row;
-}
-.button{
-    padding: 10px;
-    border-radius: 10px;
-    width: 100%;
-    text-align: center;
-}
-.btn1{
-    background: rgb(82, 164, 211);
-    box-shadow: 3px 2px rgb(59, 116, 150);
-}
-.btn1:hover{
-    background: rgb(92, 183, 236);
-}
-.btn2{
-    background: rgb(248, 79, 79);
-    box-shadow: 3px 2px rgb(165, 54, 54);
-}
-.btn2:hover{
-    background: rgb(248, 110, 110);
-}
-.btn3{
-    background: rgb(93, 185, 93);
-    box-shadow: 3px 2px rgb(59, 116, 59);
-}
-.btn3:hover{
-    background: rgb(118, 230, 118);
-}
-
 .selectedbtn {
   /* background-color: grey; 
   */
   background-color: rgb(255, 255, 255) !important;
-  box-shadow: inset 0px 0px 7px rgb(51, 51, 51) !important;
+  box-shadow: 0px 0px 5px rgba(108, 110, 109, 0.836),
+    0px 0px 10px 0 rgba(67, 68, 67, 0.678) !important;
+  border: 2px solid grey !important; /* Green */
   /* color: white; */
 }
-
-.picker{
-    width:260px;
+.unselectedbtn {
+  background-color: whitesmoke;
+  color: black;
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10000; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */ /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.triangle-left {
+  width: 0;
+  height: 0;
+  border-top: 23px solid transparent;
+  border-bottom: 23px solid transparent;
+  border-right: 23px solid red;
+}
+.inner-triangle {
+  position: relative;
+  top: -20px;
+  left: 2px;
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-right: 20px solid blue;
+}
+.popup-tip-corrections {
+  margin: 0 1 !important;
+  position: absolute !important;
 }
 </style>
