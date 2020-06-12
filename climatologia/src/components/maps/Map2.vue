@@ -33,7 +33,7 @@
         >
           <l-tile-layer :url="url" />
           <l-control position="bottomleft">
-            <v-card class="ml-4" style="background-color: white;">
+            <v-card class="ml-0" style="background-color: white;">
               <h3>Leyenda</h3>
               <v-row dense class="pl-2 pr-2">
                 <v-col class="pa-0 pt-1 pr-1">
@@ -67,10 +67,10 @@
               </v-row>
             </v-card>
           </l-control>
-          <l-control position="bottomleft">
-            <v-card class="ml-4" style="background-colo:white;">
-              <v-img v-if="currentPinView==='prcp'" :src="require('../../assets/legendPres.png')" />
-              <v-img v-else :src="require('../../assets/legendTemp.png')" />
+          <l-control position="bottomleft" >
+            <v-card width="60%" class="ml-0" style="background-colo:white;">
+              <v-img  v-if="currentPinView==='prcp'" :src="require('../../assets/precipitation_legend_bar.png')" />
+              <v-img  v-else :src="require('../../assets/temperature_legend_bar.png')" />
             </v-card>
           </l-control>
           <v-container v-model="stationsList">
