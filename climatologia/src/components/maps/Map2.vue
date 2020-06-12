@@ -1204,12 +1204,11 @@ export default {
   transform: translateY(-5px);
 }
 /*
-This witll be the end of the nav bar
+This will be the end of the nav bars
 */
 
 @media only screen and (min-width: 360px) and (max-width: 768px) {
   .map {
-    
     margin: 0;
     padding: 0;
   }
@@ -1417,10 +1416,8 @@ body {
   background-color: green !important;
 }
 .selectedbtn {
-  /* background-color: grey; */
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
-  border: 2px solid grey !important; /* Green */
-  /* color: white; */
+  border: 2px solid grey !important;
 }
 .unselectedbtn {
   background-color: whitesmoke;
