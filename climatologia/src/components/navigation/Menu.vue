@@ -37,7 +37,7 @@
               <v-dialog
                 ref="dialog"
                 v-model="singleDatePicker"
-                width="200px"
+                width="290px"
                 style="z-index: 1000;"
               >
                 <template v-slot:activator="{ on }">
