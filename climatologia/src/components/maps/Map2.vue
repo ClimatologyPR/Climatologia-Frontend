@@ -377,11 +377,13 @@
         <v-icon icon color="white">mdi-menu</v-icon>
       </a>
     </v-col>
+    <Menu2/>
   </div>
 </template>
 
 <script>
 import Menu from "../navigation/Menu";
+import Menu2 from '../navigation/Menu2';
 /* eslint-disable */
 import { eventBus } from "../../main.js";
 import { latLngBounds, latLng } from "leaflet";
@@ -419,6 +421,7 @@ export default {
     LPolygon,
     LControl,
     Menu,
+    Menu2
   },
   data() {
     return {

@@ -53,6 +53,8 @@ export default {
 };
 </script>
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap');
 @media only screen and (min-width: 360px) and (max-width: 768px ) {
   .bar-title {
     font-size: 2vh;
