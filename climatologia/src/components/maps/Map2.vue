@@ -72,13 +72,13 @@
             <v-card width="60%" class="ml-0" style="background-colo:white;">
               <v-img
                 v-if="currentPinView === 'prcp'"
-                :src="require('../../assets/precipitation_legend_bar.png')"
+                :src="require('../../assets/precipitation_legend_bar.svg')"
                 style="width:15vh"
               />
               <v-img
                 v-else
-                :src="require('../../assets/temperature_legend_bar.png')"
-                style="width:15vh"
+                :src="require('../../assets/temperature_legend_bar.svg')"
+                style="width:17vh"
               />
             </v-card>
           </l-control>
@@ -501,7 +501,7 @@ export default {
     };
   },
   computed: {
-    /**
+    /*
      * return: filter list of climate zones
      * can be use to return different filter lists
      */
@@ -516,7 +516,7 @@ export default {
         "Interior occidental",
       ];
     },
-    /**
+    /*
      * return: the current selected range date in the format
      * mm/dd/yyyy~mm/dd/yyyy
      */
@@ -527,7 +527,7 @@ export default {
         return `${month}/${day}/${year} ➜ ${month1}/${day1}/${year1}`;
       }
     },
-    /**
+    /*
      * return: the current selected date in the format
      * mm/dd/yyyy
      */
@@ -555,12 +555,6 @@ export default {
     });
     eventBus.$on("hideMenuChange", (newValue) => {
       this.hideMenu = newValue;
-    });
-    eventBus.$on('componentFocused',()=>{
-      document.getElementById('menuSlide').hover = true;
-    });
-    eventBus.$on('componentUnfocused',()=>{
-      document.getElementById('menuSlide').hover = false;
     });
   },
   mounted: async function() {},

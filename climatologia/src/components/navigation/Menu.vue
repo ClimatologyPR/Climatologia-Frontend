@@ -21,9 +21,8 @@
         
             >
               <template v-slot:selection="{ item, index }">
-                
-                <span v-if="index === 1" class="grey--text caption"
-                  >({{ filters.length  }} selected)</span
+                <span v-if="index === 0" class="grey--text caption"
+                  >{{ selectedFilters.length  }} selected</span
                 >
               </template>
             </v-select>
@@ -34,7 +33,7 @@
               <v-select
                 v-model="selectedDateType"
                 :items="['Día', 'Rango']"
-                prepend-icon="mdi-menu"
+                prepend-icon="mdi-white-balance-sunny"
                 label="Fecha"
                 dense
                 solo
@@ -294,6 +293,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 3px 0px 5px rgb(133, 133, 133);
+  z-index: 1;
 }
 
 .container p {
@@ -358,6 +359,7 @@ export default {
   */
   background-color: rgb(255, 255, 255) !important;
   box-shadow: inset 0px 0px 7px rgb(51, 51, 51) !important;
+  pointer-events: none;
   /* color: white; */
 }
 
