@@ -1,5 +1,5 @@
 <template>
-  <v-app style="overflow:hidden;">
+  <v-app style="overflow-x:hidden;">
     <v-app-bar
       app
       color="#82ada9"

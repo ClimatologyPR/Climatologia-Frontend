@@ -34,7 +34,7 @@
         >
           <l-tile-layer :url="url" />
           <l-control position="bottomleft">
-            <v-card class="ml-0" style="background-color: white;">
+            <v-card class="ml-0 leyenda">
               <h3>Leyenda</h3>
               <v-row dense class="pl-2 pr-2">
                 <v-col class="pa-0 pt-1 pr-1">
@@ -73,12 +73,12 @@
               <v-img
                 v-if="currentPinView === 'prcp'"
                 :src="require('../../assets/precipitation_legend_bar.png')"
-                width="150"
+                style="width:15vh"
               />
               <v-img
                 v-else
                 :src="require('../../assets/temperature_legend_bar.png')"
-                width="170"
+                style="width:15vh"
               />
             </v-card>
           </l-control>
@@ -349,7 +349,6 @@
         </v-dialog>
       </v-row>
     </div>
-    <div class="menuSlide">
       <Menu
         :defaultDate="date"
         :minDate="minDate"
@@ -367,7 +366,6 @@
         :overlay="overlay"
         :hideMenu="hideMenu"
       />
-    </div>
   </div>
 </template>
 
@@ -557,6 +555,12 @@ export default {
     });
     eventBus.$on("hideMenuChange", (newValue) => {
       this.hideMenu = newValue;
+    });
+    eventBus.$on('componentFocused',()=>{
+      document.getElementById('menuSlide').hover = true;
+    });
+    eventBus.$on('componentUnfocused',()=>{
+      document.getElementById('menuSlide').hover = false;
     });
   },
   mounted: async function() {},
@@ -1117,23 +1121,6 @@ export default {
 /* eslint-enable */
 </script>
 <style scoped>
-.navbar {
-  z-index: 2;
-  width: 90px;
-  min-width: 90px;
-  background: #2c2f33;
-}
-.nav-button {
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.navbar a:hover {
-  background: #2c2f3371;
-}
-
 .date {
   position: absolute;
   display: flex;
@@ -1154,6 +1141,10 @@ export default {
   color: black;
   border-radius: 30px;
   margin-top: 5px;
+}
+
+.date2 h2{
+  font-size: 2vh;
 }
 
 .map {
@@ -1190,16 +1181,14 @@ export default {
   transform: translateY(-5px);
 }
 
-.menuSlide{
-  position: absolute;
-  top: 0;
-   right: 44px;
-   z-index: 2;
+.leyenda{
+  background-color: white;
+   font-size: 1.5vh;
 }
-.menuSlide:hover, .picker:focus{
-  transition: 0.3s;
-  transform: translateX(-280px);
-}
+
+
+
+
 /*
 This witll be the end of the nav bar
 */
@@ -1431,8 +1420,7 @@ body {
   left: 0;
   top: 0;
   width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  height: 100%; /* Full height */ /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }

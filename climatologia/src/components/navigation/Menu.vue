@@ -1,72 +1,79 @@
 <template>
-  <div class="board">
+  <div class="menuSlide" id="menuSlide">
+    <div class="board">
+      <div class="tab">
+        <v-icon color="white">mdi-menu</v-icon>
+      </div>
 
-    <div class="tab">
-      <v-icon color="white">mdi-menu</v-icon>
-    </div>
-
-    <div class="container">
-      <div class="content">
-        <div class="zone">
-          <p class="ztext">Zonas Climáticas</p>
-          <v-select
-          class="picker"
-            v-model="selectedFilters"
-            :items="filters"
-            :disabled="disable"
-            label="Filtros"
-            prepend-icon="mdi-layers"
-            multiple
-            small-chips
-            clearable
-          ></v-select>
-        </div>
-        <div class="date">
-          <p class="dtext">Fecha</p>
-          <div class="datef">
+      <div class="container">
+        <div class="content">
+          <div class="zone">
+            <p class="ztext">Zonas Climáticas</p>
             <v-select
-              v-model="selectedDateType"
-              :items="['Día', 'Rango']"
-              prepend-icon="mdi-menu"
-              label="Fecha"
-              dense
-              solo
-              :disabled="disable"
               class="picker"
-            ></v-select>
-            <v-dialog
-                v-if="selectedDateType === 'Día'"
-              ref="dialog"
-              v-model="singleDatePicker"
-              width="290px"
-              style="z-index: 1000;"
+              v-model="selectedFilters"
+              :items="filters"
+              :disabled="disable"
+              label="Filtros"
+              prepend-icon="mdi-layers"
+              multiple
+              clearable
+        
             >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                class="picker"
-                  v-model="SingleDateText"
-                  label="Fecha"
-                  prepend-icon="mdi-calendar"
-                  v-on="on"
-                  dense
-                  solo
-                  :disabled="disable"
-                ></v-text-field>
+              <template v-slot:selection="{ item, index }">
+                
+                <span v-if="index === 1" class="grey--text caption"
+                  >({{ filters.length  }} selected)</span
+                >
               </template>
-              <v-date-picker
-                locale="es-ES"
-                v-model="date"
-                color="#82ada9"
-                @input="validate('single')"
-                no-title
-                :show-current="false"
-                scrollable
-                min="2000-08-15"
-                max="2019-03-20"
+            </v-select>
+          </div>
+          <div class="date">
+            <p class="dtext">Fecha</p>
+            <div class="datef">
+              <v-select
+                v-model="selectedDateType"
+                :items="['Día', 'Rango']"
+                prepend-icon="mdi-menu"
+                label="Fecha"
+                dense
+                solo
+                :disabled="disable"
+                class="picker"
+              ></v-select>
+              <v-dialog
+                v-if="selectedDateType === 'Día'"
+                ref="dialog"
+                v-model="singleDatePicker"
+                width="290px"
+                style="z-index: 1000;"
               >
-              </v-date-picker>
-            </v-dialog>
-            <v-dialog
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    class="picker"
+                    v-model="SingleDateText"
+                    label="Fecha"
+                    prepend-icon="mdi-calendar"
+                    v-on="on"
+                    dense
+                    solo
+                    :disabled="disable"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  locale="es-ES"
+                  v-model="date"
+                  color="#82ada9"
+                  @input="validate('single')"
+                  no-title
+                  :show-current="false"
+                  scrollable
+                  min="2000-08-15"
+                  max="2019-03-20"
+                >
+                </v-date-picker>
+              </v-dialog>
+              <v-dialog
                 v-else-if="selectedDateType === 'Rango'"
                 ref="dialog"
                 v-model="rangeDatePicker"
@@ -98,54 +105,61 @@
                 >
                 </v-date-picker>
               </v-dialog>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="content2">
-      <div>
-        <p>Variables</p>
-        </div>
-        <div class="buttons">
-            <a class="button btn1"
-            id="btn1"
-                v-on="on"
-                :class="buttons.btn1.class"
-                :disabled="disable"
-                @click="
-                  setButtonPressed('btn1'),
-                    fetchStations(
-                      'prcp',
-                      rangeDate ? date[0] : date,
-                      rangeDate ? date[1] : date
-                    )
-                "><v-icon> mdi-weather-pouring</v-icon></a>
-            <a class="button btn2"
-            id="btn2"
-                v-on="on"
-                :class="buttons.btn2.class"
-                :disabled="disable"
-                @click="
-                  setButtonPressed('btn2'),
-                    fetchStations(
-                      'tmax',
-                      selectedDateType === 'Rango' ? date[0] : date,
-                      rangeDate ? date[1] : date
-                    )
-                "><v-icon>mdi-thermometer-lines</v-icon></a>
-            <a class="button btn3"
-            id="btn3"
-                v-on="on"
-                :class="buttons.btn3.class"
-                :disabled="disable"
-                @click="
-                  setButtonPressed('btn3'),
-                    fetchStations(
-                      'tmin',
-                      rangeDate ? date[0] : date,
-                      rangeDate ? date[1] : date
-                    )
-                "><v-icon>mdi-thermometer-lines</v-icon></a>
+        <div class="content2">
+          <div>
+            <p>Variables</p>
+          </div>
+          <div class="buttons">
+            <a
+              class="button btn1"
+              id="btn1"
+              :class="buttons.btn1.class"
+              :disabled="disable"
+              @click="
+                setButtonPressed('btn1'),
+                  fetchStations(
+                    'prcp',
+                    rangeDate ? date[0] : date,
+                    rangeDate ? date[1] : date
+                  )
+              "
+              ><v-icon> mdi-weather-pouring</v-icon></a
+            >
+            <a
+              class="button btn2"
+              id="btn2"
+              :class="buttons.btn2.class"
+              :disabled="disable"
+              @click="
+                setButtonPressed('btn2'),
+                  fetchStations(
+                    'tmax',
+                    selectedDateType === 'Rango' ? date[0] : date,
+                    rangeDate ? date[1] : date
+                  )
+              "
+              ><v-icon>mdi-thermometer-lines</v-icon></a
+            >
+            <a
+              class="button btn3"
+              id="btn3"
+              :class="buttons.btn3.class"
+              :disabled="disable"
+              @click="
+                setButtonPressed('btn3'),
+                  fetchStations(
+                    'tmin',
+                    rangeDate ? date[0] : date,
+                    rangeDate ? date[1] : date
+                  )
+              "
+              ><v-icon>mdi-thermometer-lines</v-icon></a
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -285,6 +299,8 @@ export default {
 .container p {
   font-weight: 900;
   font-family: "Lato", sans-serif;
+  font-size: 2vh;
+  height: 2vh;
 }
 .container {
   display: flex;
@@ -303,39 +319,38 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.buttons{
-    flex: 2;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: row;
+.buttons {
+  flex: 2;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: row;
 }
-.button{
-    padding: 10px;
-    border-radius: 10px;
-    width: 100%;
-    text-align: center;
+.button {
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
 }
-.btn1{
-    background: rgb(82, 164, 211);
-    box-shadow: 3px 2px rgb(59, 116, 150);
+.btn1 {
+  background: rgb(82, 164, 211);
+  box-shadow: 3px 2px rgb(59, 116, 150);
 }
-.btn1:hover{
-    background: rgb(92, 183, 236);
+.btn1:hover {
+  background: rgb(92, 183, 236);
 }
-.btn2{
-    background: rgb(248, 79, 79);
-    box-shadow: 3px 2px rgb(165, 54, 54);
+.btn2 {
+  background: rgb(248, 79, 79);
+  box-shadow: 3px 2px rgb(165, 54, 54);
 }
-.btn2:hover{
-    background: rgb(248, 110, 110);
+.btn2:hover {
+  background: rgb(248, 110, 110);
 }
-.btn3{
-    background: rgb(93, 185, 93);
-    box-shadow: 3px 2px rgb(59, 116, 59);
+.btn3 {
+  background: rgb(93, 185, 93);
+  box-shadow: 3px 2px rgb(59, 116, 59);
 }
-.btn3:hover{
-    background: rgb(118, 230, 118);
+.btn3:hover {
+  background: rgb(118, 230, 118);
 }
 
 .selectedbtn {
@@ -346,7 +361,24 @@ export default {
   /* color: white; */
 }
 
-.picker{
-    width:260px;
+.picker {
+  width: 260px;
+  height: auto;
+}
+
+.menuSlide {
+  position: absolute;
+  top: 0;
+  right: 44px;
+  z-index: 2;
+}
+.menuSlide:hover {
+  transition: 0.3s;
+  transform: translateX(-280px);
+}
+
+.menuSlide .picker:focus {
+  transition: 0.3s;
+  transform: translateX(-280px);
 }
 </style>
