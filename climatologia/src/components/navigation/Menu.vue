@@ -1,7 +1,7 @@
 <template>
   <div class="menuSlide" id="menuSlide">
     <div class="board">
-      <div class="tab">
+      <div class="tab" @mouseover="menuOpen" @click="menuClose">
         <v-icon color="white">mdi-menu</v-icon>
       </div>
 
@@ -18,11 +18,10 @@
               prepend-icon="mdi-layers"
               multiple
               clearable
-        
             >
               <template v-slot:selection="{ item, index }">
                 <span v-if="index === 0" class="grey--text caption"
-                  >{{ selectedFilters.length  }} selected</span
+                  >{{ selectedFilters.length }} selected</span
                 >
               </template>
             </v-select>
@@ -271,6 +270,15 @@ export default {
     fetchStations: function(type, start, end) {
       eventBus.$emit("fetchStationRequest", type, start, end);
     },
+    menuOpen: function() {
+      document.getElementById('menuSlide').style.transition = '0.3s';
+      document.getElementById('menuSlide').style.transform = 'translateX(-280px)';
+    },
+    menuClose: function() {
+      document.getElementById('menuSlide').style.transition = '0.3s';
+      document.getElementById('menuSlide').style.transform = 'translateX(0px)';
+      
+    },
   },
 };
 </script>
@@ -295,6 +303,10 @@ export default {
   align-items: center;
   box-shadow: 3px 0px 5px rgb(133, 133, 133);
   z-index: 1;
+}
+
+.tab:hover{
+  cursor: pointer;
 }
 
 .container p {
@@ -358,7 +370,9 @@ export default {
   /* background-color: grey; 
   */
   background-color: rgb(255, 255, 255) !important;
-  box-shadow: inset 0px 0px 7px rgb(51, 51, 51) !important;
+  transition: 0.2s;
+  transform: translate(2px,3px);
+  box-shadow: inset 3px 2px 5px rgb(139, 139, 139) !important;
   pointer-events: none;
   /* color: white; */
 }
@@ -370,17 +384,8 @@ export default {
 
 .menuSlide {
   position: absolute;
-  top: 0;
+  top: 20%;
   right: 44px;
   z-index: 2;
-}
-.menuSlide:hover {
-  transition: 0.3s;
-  transform: translateX(-280px);
-}
-
-.menuSlide .picker:focus {
-  transition: 0.3s;
-  transform: translateX(-280px);
 }
 </style>

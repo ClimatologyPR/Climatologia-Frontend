@@ -31,7 +31,6 @@
           style="z-index: 0;"
           @update:center="centerUpdate"
           @update:zoom="zoomUpdate"
-          :bounds="bounds"
           :max-bounds="maxBounds"
           :min-zoom="minZoom"
         >
@@ -322,7 +321,7 @@
           </v-container>
         </l-map>
         <v-overlay absolute :value="overlay">
-          <v-progress-circular indeterminate size="64"></v-progress-circular>
+          <v-progress-circular indeterminate size="128"></v-progress-circular>
         </v-overlay>
       </v-card>
       <v-row justify="center">
@@ -424,8 +423,8 @@ export default {
         [18.097713, -68.029587],
       ]),
       maxBounds: latLngBounds([
-        [18.453116, -64.987199],
-        [18.097713, -68.029587],
+        [23.402765, -74.227942],
+        [12.468760, -54.878565],
       ]),
       zoom: 9.7,
       minZoom:8.0,
