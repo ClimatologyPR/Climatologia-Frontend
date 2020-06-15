@@ -31,6 +31,9 @@
           style="z-index: 0;"
           @update:center="centerUpdate"
           @update:zoom="zoomUpdate"
+          :bounds="bounds"
+          :max-bounds="maxBounds"
+          :min-zoom="minZoom"
         >
           <l-tile-layer :url="url" />
           <l-control position="bottomleft">
@@ -425,6 +428,7 @@ export default {
         [18.097713, -68.029587],
       ]),
       zoom: 9.7,
+      minZoom:8.0,
       center: latLng(18.135412, -66.450806),
       url:
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png",
