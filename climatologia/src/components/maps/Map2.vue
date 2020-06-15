@@ -688,8 +688,8 @@ export default {
       if (value !== null || value === undefined) {
         var style =
           agency === "USGS"
-            ? ` height:10px; width:10px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});`
-            : `width: 10px; height: 10px; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});`;
+            ? ` height:15px; width:15px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});`
+            : `width: 15px; height: 15px; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});`;
         return L.divIcon({
           iconSize: new L.Point(20, 20),
           className: "my-div-icon",
@@ -702,14 +702,14 @@ export default {
           className: "my-div-icon",
           iconAnchor: [0, 0],
           html:
-            "<div style=' height:10px; width:10px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb(" +
+            "<div style=' height:15px; width:15px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb(" +
             rgb.r.toString() +
             "," +
             rgb.g.toString() +
             " ," +
             rgb.b.toString() +
             ");'>" +
-            "<img style='float: left; width: 11px; height: 11px; marging-bottom:-15px; margin-left: -1px; margin-top: -1px;' src='" +
+            "<img style='float: left; width: 15px; height: 15px; marging-bottom:-15px; margin-left: -1px; margin-top: -1px;' src='" +
             require("../../assets/nullicon.png") +
             "' id='null-div-icon'/>" +
             "</div>",
