@@ -1,5 +1,6 @@
 <template>
   <div class="menuSlide" id="menuSlide">
+    
     <div class="board">
       <div class="tab" @mouseover="menuOpen" @click="menuClose">
         <v-icon color="white">mdi-menu</v-icon>
@@ -277,21 +278,12 @@ export default {
     menuClose: function() {
       document.getElementById('menuSlide').style.transition = '0.3s';
       document.getElementById('menuSlide').style.transform = 'translateX(0px)';
-      
     },
   },
 };
 </script>
 
 <style scoped>
-.board {
-  top: 10%;
-  left: 30%;
-  width: auto;
-  height: auto;
-  position: absolute;
-  display: flex;
-}
 .tab {
   height: auto;
   width: 50px;
@@ -384,8 +376,18 @@ export default {
 
 .menuSlide {
   position: absolute;
-  top: 20%;
-  right: 44px;
-  z-index: 2;
+  top: 0px;
+  right: -290px;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+.board {
+  pointer-events: all;
+  width: auto;
+  height: auto;
+  display: flex;
 }
 </style>
