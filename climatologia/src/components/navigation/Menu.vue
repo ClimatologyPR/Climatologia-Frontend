@@ -361,7 +361,7 @@ export default {
 .selectedbtn {
   /* background-color: grey; 
   */
-  background-color: rgb(255, 255, 255) !important;
+  background-color: rgba(255, 255, 255, 0) !important;
   transition: 0.2s;
   transform: translate(2px,3px);
   box-shadow: inset 3px 2px 5px rgb(139, 139, 139) !important;

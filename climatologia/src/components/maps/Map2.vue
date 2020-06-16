@@ -70,7 +70,7 @@
         >
           <l-tile-layer :url="url" />
           <l-control position="bottomleft" style="pointer-events: none;">
-            <v-card class="ml-0 leyenda">
+            <v-card class="ml-0 pa-1 leyenda">
               <h3>Leyenda</h3>
               <v-row dense class="pl-2 pr-2">
                 <v-col class="pa-0 pt-1 pr-1">
@@ -460,19 +460,19 @@ export default {
         [23.402765, -74.227942],
         [12.46876, -54.878565],
       ]),
-      zoom: 9.7,
+      zoom: window.innerWidth*0.0048,
       minZoom: 8.0,
-      center: latLng(18.135412, -66.450806),
+      center: latLng(18.193869,-66.626308),
       url:
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png",
       attribution:
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
 
       currentZoom: 11.5,
-      currentCenter: latLng(47.41322, -1.219482),
+      currentCenter: latLng(18.193869,-66.626308),
       showParagraph: false,
       mapOptions: {
-        zoomSnap: 0.1,
+        zoomSnap: 0.01,
       },
       showMap: true,
       dialog: false,
@@ -1144,8 +1144,8 @@ export default {
     },
     recenter: function() {
       this.mapChanged = this.mapChanged + 1;
-      this.zoom = 9.7;
-      this.center = latLng(18.135412, -66.450806);
+      this.zoom = window.innerWidth*0.0048;
+      this.center = latLng(18.193869,-66.626308);
     },
     
     calendarOpen: function() {
@@ -1182,10 +1182,10 @@ export default {
 }
 .date2 {
   padding: 5px;
-  padding-left: 50px;
-  padding-right: 50px;
-  background: #ffffffd3;
-  box-shadow: 0px 0px 2px black;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #ffffffd0;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.685);
   color: black;
   pointer-events: stroke;
   cursor: pointer;
