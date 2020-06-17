@@ -17,26 +17,25 @@
             </div>
             <div class="calendar" @mouseleave="calendarClose()">
               <v-date-picker
-              v-if="selectedDateType === 'Día'"
+                v-if="selectedDateType === 'Día'"
                 id="calendar"
                 locale="es-ES"
                 v-model="date"
-                color="#82ada9"
+                color="#2bbbbb"
                 @input="calendarClose()"
                 no-title
                 :show-current="false"
                 scrollable
                 min="2000-08-15"
                 max="2019-03-20"
-                
               >
               </v-date-picker>
               <v-date-picker
-              v-if="selectedDateType === 'Rango'"
+                v-if="selectedDateType === 'Rango'"
                 id="calendar"
                 locale="es-ES"
                 v-model="date"
-                color="#82ada9"
+                color="#2bbbbb"
                 @input="calendarClose()"
                 no-title
                 :show-current="false"
@@ -78,8 +77,8 @@
                     class="ml-1"
                     style="float:left;"
                     :src="require('../../assets/nullicon.png')"
-                    height="10px"
-                    width="10px"
+                    height="15px"
+                    width="15px"
                   />
                 </v-col>
                 <h4 class="mr-1">Valor Nulo</h4>
@@ -87,8 +86,8 @@
                   <v-img
                     style="float:left;"
                     :src="require('../../assets/noaa.png')"
-                    height="10px"
-                    width="10px"
+                    height="15px"
+                    width="15px"
                   />
                 </v-col>
                 <h4 class="mr-1">NOAA</h4>
@@ -96,8 +95,8 @@
                   <v-img
                     style="float:left;"
                     :src="require('../../assets/usgs.png')"
-                    height="10px"
-                    width="10px"
+                    height="15px"
+                    width="15px"
                   />
                 </v-col>
                 <h4 class="mr-1">USGS</h4>
@@ -105,16 +104,20 @@
             </v-card>
           </l-control>
           <l-control position="bottomleft" style="pointer-events: none;">
-            <v-card width="60%" class="ml-0" style="background-colo:white;">
-              <v-img
+            <v-card
+              width="60%"
+              class="ml-0"
+              style="background-colo:white; justify-content:center;display:flex;"
+            >
+              <img
                 v-if="currentPinView === 'prcp'"
                 :src="require('../../assets/precipitation_legend_bar.svg')"
-                style="width:15vh"
+                style="width:15vh; height: 40vh;"
               />
-              <v-img
+              <img
                 v-else
                 :src="require('../../assets/temperature_legend_bar.svg')"
-                style="width:17vh"
+                style="width:17vh; height:40vh;"
               />
             </v-card>
           </l-control>
@@ -174,14 +177,18 @@
                         station.AVGVALUE != undefined
                     "
                   >
-                    <strong> Precipitación Promedio: </strong>
-                    {{ station.AVGVALUE.toString() }} "
+                    <strong v-if="currentPinView === 'prcp'">
+                      Precipitación Promedio:
+                    </strong>
+                    <strong v-else-if="currentPinView === 'tmax'"> Temperatura Máxima Promedio: </strong>
+                    <strong v-else> Temperatura Mínima Promedio: </strong>
+                    {{ station.AVGVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
                     <br />
                     <strong>Máximo: </strong>
-                    {{ station.MAXVALUE.toString() }}
+                    {{ station.MAXVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
                     <br />
                     <strong>Mínimo: </strong>
-                    {{ station.MINVALUE.toString() }}
+                    {{ station.MINVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
                     <br />
                     <strong>Desviación Estándar: </strong
                     >{{ station.STDDEVVALUE.toString() }}
@@ -460,16 +467,16 @@ export default {
         [23.402765, -74.227942],
         [12.46876, -54.878565],
       ]),
-      zoom: window.innerWidth*0.0048,
+      zoom: 9.8,
       minZoom: 8.0,
-      center: latLng(18.193869,-66.626308),
+      center: latLng(18.193869, -66.626308),
       url:
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png",
       attribution:
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
 
       currentZoom: 11.5,
-      currentCenter: latLng(18.193869,-66.626308),
+      currentCenter: latLng(18.193869, -66.626308),
       showParagraph: false,
       mapOptions: {
         zoomSnap: 0.01,
@@ -524,14 +531,15 @@ export default {
       SC: true,
       SS: true,
       WI: true,
+
       selectedFilters: [
-        "Interior oriental",
         "Costa del norte",
         "Laderas del norte",
-        "Islas periféricas",
-        "Costa del sur",
-        "Laderas del sur",
         "Interior occidental",
+        "Interior oriental",
+        "Laderas del sur",
+        "Costa del sur",
+        "Islas periféricas",
       ],
       mychart: null,
       mapChanged: 0,
@@ -544,13 +552,13 @@ export default {
      */
     filters: function() {
       return [
-        "Interior oriental",
         "Costa del norte",
         "Laderas del norte",
-        "Islas periféricas",
-        "Costa del sur",
-        "Laderas del sur",
         "Interior occidental",
+        "Interior oriental",
+        "Laderas del sur",
+        "Costa del sur",
+        "Islas periféricas",
       ];
     },
     /*
@@ -768,20 +776,21 @@ export default {
         rgb.g = 100;
         rgb.b = 255;
       } else if (temperature >= 40 && temperature <= 70) {
-        rgb.r = ((temperature - 40) / (70 - 40)) * 100 + 0;
-        rgb.g = ((temperature - 40) / (70 - 40)) * (255 - 100) + 100;
-        rgb.b = ((temperature - 40) / (70 - 40)) * (255 - 255) + 255;
+        rgb.r = 125 * ((temperature - 40) / (70 - 40));
+        rgb.g = 125 + (255 - 125) * ((temperature - 40) / (70 - 40));
+        rgb.b = 255;
       } else if (temperature > 70 && temperature <= 80) {
-        rgb.r = ((temperature - 70) / (80 - 70)) * (255 - 100) + 100;
-        rgb.g = ((temperature - 70) / (80 - 70)) * (255 - 255) + 255;
-        rgb.b = ((temperature - 70) / (70 - 40)) * (255 - 0) + 0;
+        // 79 F
+        rgb.r = 125 + (255 - 125) * ((temperature - 70) / (80 - 70)); // 129.5
+        rgb.g = 255; // 255
+        rgb.b = 255 + (125 - 255) * ((temperature - 70) / (80 - 70)); //-91.5
       } else if (temperature > 80 && temperature <= 90) {
-        rgb.r = ((temperature - 80) / (90 - 80)) * (255 - 255) + 255;
-        rgb.g = ((temperature - 80) / (90 - 80)) * (255 - 0) + 0;
-        rgb.b = ((temperature - 80) / (90 - 80)) * (8 - 0) + 0;
+        rgb.r = 255;
+        rgb.g = 255 + (125 - 255) * ((temperature - 80) / (90 - 80));
+        rgb.b = 125 + -125 * ((temperature - 80) / (90 - 80));
       } else if (temperature > 90 && temperature <= 120) {
-        rgb.r = ((temperature - 90) / (120 - 90)) * (255 - 100) + 100;
-        rgb.g = 0;
+        rgb.r = 255;
+        rgb.g = 125 + -125 * ((temperature - 90) / (120 - 90));
         rgb.b = 0;
       }
     },
@@ -1144,18 +1153,18 @@ export default {
     },
     recenter: function() {
       this.mapChanged = this.mapChanged + 1;
-      this.zoom = window.innerWidth*0.0048;
-      this.center = latLng(18.193869,-66.626308);
+      this.zoom = 9.8;
+      this.center = latLng(18.193869, -66.626308);
     },
-    
+
     calendarOpen: function() {
       document.getElementById("date2").style.display = "none";
       document.getElementById("calendar").style.display = "block";
     },
     calendarClose: function() {
-      if( this.date.length === 2 || this.selectedDateType === 'Día'){
-      document.getElementById("calendar").style.display = "none";
-      document.getElementById("date2").style.display = "block";
+      if (this.date.length === 2 || this.selectedDateType === "Día") {
+        document.getElementById("calendar").style.display = "none";
+        document.getElementById("date2").style.display = "block";
       }
     },
   },
@@ -1182,17 +1191,22 @@ export default {
 }
 .date2 {
   padding: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-  background: #ffffffd0;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.685);
-  color: black;
+  padding-left: 50px;
+  padding-right: 50px;
+  background: inherit;
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0px 0px 200px rgba(36, 36, 36, 0.911),
+    0px 5px 10px rgba(0, 0, 0, 0.26);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  color: white;
   pointer-events: stroke;
   cursor: pointer;
-  margin-top: 5px;
 }
 .date2:hover {
-  background: rgba(219, 219, 219, 0.815);
+  box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836),
+    0px 5px 10px rgba(0, 0, 0, 0.26);
+  transition: 0.3s;
 }
 
 .date2 h2 {
@@ -1215,7 +1229,7 @@ export default {
   padding-bottom: 20px;
   padding-left: 25px;
   padding-right: 25px;
-  background: #82ada9;
+  background: #2bbbbb;
   color: rgb(255, 255, 255);
   border-radius: 100px;
   text-align: center;
@@ -1223,7 +1237,7 @@ export default {
   font-style: normal;
   font-family: sans-serif;
   font-size: 20px;
-  box-shadow: 0px 3px 10px rgb(95, 95, 95);
+  box-shadow: 0px 3px 5px rgb(95, 95, 95);
   z-index: 1;
 }
 

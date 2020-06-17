@@ -1,28 +1,32 @@
 <template>
   <div class="menuSlide" id="menuSlide">
-    
     <div class="board">
       <div class="tab" @mouseover="menuOpen" @click="menuClose">
         <v-icon color="white">mdi-menu</v-icon>
       </div>
 
-      <div class="container">
+      <div
+        class="container"
+        @mouseover="containerOpen"
+        @mouseleave="containerClose"
+        id="container"
+      >
         <div class="content">
           <div class="zone">
             <p class="ztext">Zonas Climáticas</p>
+            <a @mousedown="allSelected" class="selectAll" id="selectAll">Remover todo</a>
             <v-select
               class="picker"
               v-model="selectedFilters"
               :items="filters"
               :disabled="disable"
-              label="Filtros"
               prepend-icon="mdi-layers"
               multiple
-              clearable
+              color="#2bbbbb"
             >
               <template v-slot:selection="{ item, index }">
                 <span v-if="index === 0" class="grey--text caption"
-                  >{{ selectedFilters.length }} selected</span
+                  >{{ selectedFilters.length }} Seleccionado</span
                 >
               </template>
             </v-select>
@@ -31,6 +35,7 @@
             <p class="dtext">Fecha</p>
             <div class="datef">
               <v-select
+                color="#2bbbbb"
                 v-model="selectedDateType"
                 :items="['Día', 'Rango']"
                 prepend-icon="mdi-white-balance-sunny"
@@ -49,6 +54,7 @@
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
+                    color="#2bbbbb"
                     class="picker"
                     v-model="SingleDateText"
                     label="Fecha"
@@ -62,7 +68,7 @@
                 <v-date-picker
                   locale="es-ES"
                   v-model="date"
-                  color="#82ada9"
+                  color="#2bbbbb"
                   @input="validate('single')"
                   no-title
                   :show-current="false"
@@ -89,6 +95,7 @@
                     solo
                     readonly
                     :disabled="disable"
+                    color="#2bbbbb"
                   ></v-text-field>
                 </template>
                 <v-date-picker
@@ -97,7 +104,7 @@
                   :min="minDate"
                   :max="maxDate"
                   @input="validate('range')"
-                  :color="calendarColor"
+                  color="#2bbbbb"
                   no-title
                   scrollable
                   range
@@ -180,14 +187,15 @@ export default {
       rangeDatePicker: false,
       date: "2018-04-13",
       selectedFilters: [
-        "Interior oriental",
         "Costa del norte",
         "Laderas del norte",
-        "Islas periféricas",
-        "Costa del sur",
-        "Laderas del sur",
         "Interior occidental",
+        "Interior oriental",
+        "Laderas del sur",
+        "Costa del sur",
+        "Islas periféricas",
       ],
+      selectAll: true,
       hideMenu: false,
     };
   },
@@ -248,6 +256,26 @@ export default {
         this.singleDatePicker = false;
       }
     },
+
+    allSelected: function() {
+      this.selectAll = !this.selectAll;
+      if(this.selectAll){
+        this.selectedFilters = [
+        "Costa del norte",
+        "Laderas del norte",
+        "Interior occidental",
+        "Interior oriental",
+        "Laderas del sur",
+        "Costa del sur",
+        "Islas periféricas",
+      ];
+      document.getElementById('selectAll').innerText = 'Remover todo';
+      }else{
+        this.selectedFilters = [];
+        document.getElementById('selectAll').innerText = 'Seleccionar todo';
+      }
+      eventBus.$emit("selectedFiltersChange", this.selectedFilters);
+    },
     /**
      * change the styling of the most recent pressed button saved on the variable
      * currentPressButton
@@ -272,12 +300,20 @@ export default {
       eventBus.$emit("fetchStationRequest", type, start, end);
     },
     menuOpen: function() {
-      document.getElementById('menuSlide').style.transition = '0.3s';
-      document.getElementById('menuSlide').style.transform = 'translateX(-280px)';
+      document.getElementById("menuSlide").style.transition = "0.3s";
+      document.getElementById("menuSlide").style.transform =
+        "translateX(-280px)";
     },
     menuClose: function() {
-      document.getElementById('menuSlide').style.transition = '0.3s';
-      document.getElementById('menuSlide').style.transform = 'translateX(0px)';
+      document.getElementById("menuSlide").style.transition = "0.3s";
+      document.getElementById("menuSlide").style.transform = "translateX(0px)";
+    },
+    containerOpen: function() {
+      document.getElementById("container").style.background = "white";
+    },
+    containerClose: function() {
+      document.getElementById("container").style.background =
+        "rgba(255, 255, 255, 0.8)";
     },
   },
 };
@@ -289,16 +325,21 @@ export default {
   width: 50px;
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-  background: #2c2f33;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 3px 0px 5px rgb(133, 133, 133);
+  background: inherit;
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0px 0px 200px rgba(36, 36, 36, 0.911),
+    0px 5px 10px rgba(0, 0, 0, 0.26);
   z-index: 1;
 }
 
-.tab:hover{
+.tab:hover {
   cursor: pointer;
+  box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836),
+    0px 5px 10px rgba(0, 0, 0, 0.26);
+  transition: 0.5s;
 }
 
 .container p {
@@ -311,10 +352,37 @@ export default {
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.8);
+  transition: 1s;
 }
 .content {
   height: 100%;
   width: auto;
+}
+
+.selectAll{
+  background: #2bbbbb;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  box-shadow: 3px 2px #239494;
+}
+.selectAll:hover{
+  background: #32cfcf;
+}
+.selectAll:active{
+  background: #2bbbbb;
+  transition: 0.1s;
+  text-decoration: none !important;
+  transform: translate(10px, 40px) !important;
+  box-shadow: inset 3px 2px 5px rgb(139, 139, 139) !important;
+  user-select: none;
+}
+
+.zone{
+  margin-bottom: 10px;
 }
 .content2 {
   display: flex;
@@ -363,7 +431,7 @@ export default {
   */
   background-color: rgba(255, 255, 255, 0) !important;
   transition: 0.2s;
-  transform: translate(2px,3px);
+  transform: translate(2px, 3px);
   box-shadow: inset 3px 2px 5px rgb(139, 139, 139) !important;
   pointer-events: none;
   /* color: white; */
