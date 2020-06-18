@@ -191,10 +191,10 @@
                     {{ station.MINVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
                     <br />
                     <strong>Desviación Estándar: </strong
-                    >{{ station.STDDEVVALUE.toString() }}
+                    >{{ station.STDDEVVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
                     <br />
                     <strong>Error Estándar: </strong
-                    >{{ station.STDERRVALUE.toString() }}
+                    >{{ station.STDERRVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
                     <br />
                     <v-col>
                       <v-btn
