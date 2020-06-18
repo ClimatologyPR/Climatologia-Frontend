@@ -1,0 +1,218 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 465.6 132.3" style="enable-background:new 0 0 465.6 132.3;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:none;stroke:white;stroke-miterlimit:10;}
+	.st2{fill:none;}
+	.st3{stroke:white;stroke-width:0.5;stroke-miterlimit:10;fill:white;}
+	.st4{font-family:'ArialMT';}
+	.st5{font-size:10.5311px;}
+	.st6{font-size:16px;}
+	.st7{fill:none;stroke:#000000;stroke-width:12;stroke-miterlimit:10;}
+	.st8{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_2_);}
+	.st9{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_3_);}
+	.st10{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_4_);}
+</style>
+<g>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-1651.4646" y1="-833.5941" x2="-1201.4646" y2="-833.5941" gradientTransform="matrix(-1 0 0 1 -1199.9692 912.455)">
+		<stop  offset="0" style="stop-color:#007DFF"/>
+		<stop  offset="1.000000e-02" style="stop-color:#0481FF"/>
+		<stop  offset="1.860000e-02" style="stop-color:#0887FF"/>
+		<stop  offset="3.000000e-02" style="stop-color:#0C8AFF"/>
+		<stop  offset="3.820000e-02" style="stop-color:#108EFF"/>
+		<stop  offset="5.100000e-02" style="stop-color:#1492FF"/>
+		<stop  offset="6.500000e-02" style="stop-color:#1997FF"/>
+		<stop  offset="7.630000e-02" style="stop-color:#1D9BFF"/>
+		<stop  offset="8.950000e-02" style="stop-color:#219FFF"/>
+		<stop  offset="0.1031" style="stop-color:#25A4FF"/>
+		<stop  offset="0.1145" style="stop-color:#29A8FF"/>
+		<stop  offset="0.125" style="stop-color:#2DACFF"/>
+		<stop  offset="0.1378" style="stop-color:#32B1FF"/>
+		<stop  offset="0.1495" style="stop-color:#36B5FF"/>
+		<stop  offset="0.1605" style="stop-color:#3AB9FF"/>
+		<stop  offset="0.1726" style="stop-color:#3EBEFF"/>
+		<stop  offset="0.1847" style="stop-color:#42C2FF"/>
+		<stop  offset="0.1983" style="stop-color:#46C6FF"/>
+		<stop  offset="0.2079" style="stop-color:#4BCBFF"/>
+		<stop  offset="0.222" style="stop-color:#4FCFFF"/>
+		<stop  offset="0.2339" style="stop-color:#53D3FF"/>
+		<stop  offset="0.2481" style="stop-color:#57D8FF"/>
+		<stop  offset="0.2622" style="stop-color:#5BDCFF"/>
+		<stop  offset="0.2764" style="stop-color:#5FE0FF"/>
+		<stop  offset="0.2873" style="stop-color:#64E5FF"/>
+		<stop  offset="0.2968" style="stop-color:#68E9FF"/>
+		<stop  offset="0.3064" style="stop-color:#6CE9FF"/>
+		<stop  offset="0.3166" style="stop-color:#70F2FF"/>
+		<stop  offset="0.3296" style="stop-color:#74F6FF"/>
+		<stop  offset="0.3432" style="stop-color:#78FAFF"/>
+		<stop  offset="0.3545" style="stop-color:#7DFFFF"/>
+		<stop  offset="0.3669" style="stop-color:#8AFFF2"/>
+		<stop  offset="0.3788" style="stop-color:#97FFE5"/>
+		<stop  offset="0.3896" style="stop-color:#A4FFD8"/>
+		<stop  offset="0.3992" style="stop-color:#B1FFCB"/>
+		<stop  offset="0.4117" style="stop-color:#BEFFBE"/>
+		<stop  offset="0.4264" style="stop-color:#CBFFB1"/>
+		<stop  offset="0.4388" style="stop-color:#D8FFA4"/>
+		<stop  offset="0.4519" style="stop-color:#E5FF97"/>
+		<stop  offset="0.4632" style="stop-color:#F2FF8A"/>
+		<stop  offset="0.4768" style="stop-color:#FFFF7D"/>
+		<stop  offset="0.4875" style="stop-color:#FFF270"/>
+		<stop  offset="0.5005" style="stop-color:#FFE564"/>
+		<stop  offset="0.5136" style="stop-color:#FFD857"/>
+		<stop  offset="0.5249" style="stop-color:#FFCB4B"/>
+		<stop  offset="0.5356" style="stop-color:#FFBE3E"/>
+		<stop  offset="0.5492" style="stop-color:#FFB132"/>
+		<stop  offset="0.5611" style="stop-color:#FFA425"/>
+		<stop  offset="0.5747" style="stop-color:#FF9719"/>
+		<stop  offset="0.586" style="stop-color:#FF8A0C"/>
+		<stop  offset="0.5946" style="stop-color:#FF7D00"/>
+		<stop  offset="0.6075" style="stop-color:#FF7800"/>
+		<stop  offset="0.6206" style="stop-color:#FF7400"/>
+		<stop  offset="0.6313" style="stop-color:#FF7000"/>
+		<stop  offset="0.6443" style="stop-color:#FF6C00"/>
+		<stop  offset="0.6547" style="stop-color:#FF6800"/>
+		<stop  offset="0.6668" style="stop-color:#FF6400"/>
+		<stop  offset="0.6778" style="stop-color:#FF5F00"/>
+		<stop  offset="0.6896" style="stop-color:#FF5B00"/>
+		<stop  offset="0.6998" style="stop-color:#FF5700"/>
+		<stop  offset="0.7117" style="stop-color:#FF5300"/>
+		<stop  offset="0.7213" style="stop-color:#FF4F00"/>
+		<stop  offset="0.7338" style="stop-color:#FF4B00"/>
+		<stop  offset="0.7463" style="stop-color:#FF4600"/>
+		<stop  offset="0.7587" style="stop-color:#FF4200"/>
+		<stop  offset="0.77" style="stop-color:#FF3E00"/>
+		<stop  offset="0.7784" style="stop-color:#FF3A00"/>
+		<stop  offset="0.7894" style="stop-color:#FF3600"/>
+		<stop  offset="0.8019" style="stop-color:#FF3200"/>
+		<stop  offset="0.8174" style="stop-color:#FF2D00"/>
+		<stop  offset="0.8306" style="stop-color:#FF2900"/>
+		<stop  offset="0.8397" style="stop-color:#FF2500"/>
+		<stop  offset="0.849" style="stop-color:#FF2100"/>
+		<stop  offset="0.8615" style="stop-color:#FF1D00"/>
+		<stop  offset="0.8775" style="stop-color:#FF1900"/>
+		<stop  offset="0.8909" style="stop-color:#FF1400"/>
+		<stop  offset="0.9019" style="stop-color:#FF1000"/>
+		<stop  offset="0.917" style="stop-color:#FF0C00"/>
+		<stop  offset="0.9308" style="stop-color:#FF0800"/>
+		<stop  offset="0.9427" style="stop-color:#FF0400"/>
+		<stop  offset="0.9534" style="stop-color:#FF0000"/>
+	</linearGradient>
+	<rect x="4.6" y="58.4" class="st0" width="450" height="41"/>
+	<path d="M5.1,58.9h449v40H5.1V58.9 M4.1,57.9v42h451v-42H4.1L4.1,57.9z"/>
+</g>
+<g>
+	<line class="st1" x1="428.6" y1="50.8" x2="428.6" y2="44.2"/>
+	<line class="st2" x1="428.6" y1="50.8" x2="428.6" y2="44.2"/>
+</g>
+<g>
+	<line class="st1" x1="454.6" y1="50.8" x2="454.6" y2="44.2"/>
+	<line class="st2" x1="454.6" y1="50.8" x2="454.6" y2="44.2"/>
+</g>
+<text transform="matrix(0.3819 -1.0736 0.9422 0.3352 454.4594 44.0309)" class="st3 st4 st5">40 ºF</text>
+<rect x="75.6" y="81.6" class="st2" width="204.3" height="41.9"/>
+<text transform="matrix(1 0 0 1 183.668 115.5441)" class="st3 st4 st6">Temperatura</text>
+<g>
+	<line class="st1" x1="400.5" y1="51.3" x2="400.5" y2="44.7"/>
+	<line class="st2" x1="400.5" y1="51.3" x2="400.5" y2="44.7"/>
+</g>
+<g>
+	<line class="st1" x1="373.7" y1="50.9" x2="373.7" y2="44.3"/>
+	<line class="st2" x1="373.7" y1="50.9" x2="373.7" y2="44.3"/>
+</g>
+<g>
+	<line class="st1" x1="346.7" y1="50.8" x2="346.7" y2="44.2"/>
+	<line class="st2" x1="346.7" y1="50.8" x2="346.7" y2="44.2"/>
+</g>
+<g>
+	<line class="st1" x1="319.5" y1="51.1" x2="319.5" y2="44.5"/>
+	<line class="st2" x1="319.5" y1="51.1" x2="319.5" y2="44.5"/>
+</g>
+<g>
+	<line class="st1" x1="292.4" y1="51.2" x2="292.4" y2="44.6"/>
+	<line class="st2" x1="292.4" y1="51.2" x2="292.4" y2="44.6"/>
+</g>
+<g>
+	<line class="st1" x1="265.7" y1="51.3" x2="265.7" y2="44.7"/>
+	<line class="st2" x1="265.7" y1="51.3" x2="265.7" y2="44.7"/>
+</g>
+<g>
+	<line class="st1" x1="238.6" y1="51.9" x2="238.6" y2="45.3"/>
+	<line class="st2" x1="238.6" y1="51.9" x2="238.6" y2="45.3"/>
+</g>
+<g>
+	<line class="st1" x1="211.5" y1="50.9" x2="211.5" y2="44.3"/>
+	<line class="st2" x1="211.5" y1="50.9" x2="211.5" y2="44.3"/>
+</g>
+<g>
+	<line class="st1" x1="184.5" y1="51.1" x2="184.5" y2="44.5"/>
+	<line class="st2" x1="184.5" y1="51.1" x2="184.5" y2="44.5"/>
+</g>
+<g>
+	<path class="st7" d="M157.6,24.9"/>
+	
+		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="278.8723" y1="147.1808" x2="278.8723" y2="147.1808" gradientTransform="matrix(4.489659e-11 -1 -1 -4.489659e-11 304.7332 303.7332)">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="0" style="stop-color:#000000"/>
+	</linearGradient>
+	<path class="st8" d="M157.6,24.9"/>
+</g>
+<g>
+	<line class="st1" x1="130.7" y1="52.1" x2="130.7" y2="45.5"/>
+	<line class="st2" x1="130.7" y1="52.1" x2="130.7" y2="45.5"/>
+</g>
+<g>
+	<line class="st1" x1="103.4" y1="51.9" x2="103.4" y2="45.3"/>
+	<line class="st2" x1="103.4" y1="51.9" x2="103.4" y2="45.3"/>
+</g>
+<g>
+	<line class="st1" x1="75.4" y1="51.2" x2="75.4" y2="44.6"/>
+	<line class="st2" x1="75.4" y1="51.2" x2="75.4" y2="44.6"/>
+</g>
+<g>
+	<path class="st7" d="M49.6,28.9"/>
+	
+		<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="274.8723" y1="255.1808" x2="274.8723" y2="255.1808" gradientTransform="matrix(4.489659e-11 -1 -1 -4.489659e-11 304.7332 303.7332)">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="0" style="stop-color:#000000"/>
+	</linearGradient>
+	<path class="st9" d="M49.6,28.9"/>
+</g>
+<g>
+	<path class="st1" d="M49.6,49.9"/>
+	
+		<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="253.8723" y1="255.1808" x2="253.8723" y2="255.1808" gradientTransform="matrix(4.489659e-11 -1 -1 -4.489659e-11 304.7332 303.7332)">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="0" style="stop-color:#000000"/>
+	</linearGradient>
+	<path class="st10" d="M49.6,49.9"/>
+</g>
+<text transform="matrix(0.3803 -1.0742 0.9427 0.3337 428.2472 44.0309)" class="st3 st4 st5">45 ºF</text>
+<text transform="matrix(0.3864 -1.072 0.9408 0.3391 400.1876 44.0309)" class="st3 st4 st5">50 ºF</text>
+<text transform="matrix(0.4024 -1.0661 0.9356 0.3531 373.3157 44.0309)" class="st3 st4 st5">55 ºF</text>
+<text transform="matrix(0.3008 -1.0991 0.9645 0.2639 346.6367 44.0309)" class="st3 st4 st5">60 ºF</text>
+<text transform="matrix(0.3861 -1.0721 0.9408 0.3389 319.1765 44.0309)" class="st3 st4 st5">65 ºF</text>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 290.8668 44.0309)" class="st3 st4 st5">70 ºF</text>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 264.8881 44.0309)" class="st3 st4 st5"> 75 ºF</text>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 236.8669 44.0309)" class="st3 st4 st5"> 80 ºF</text>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 209.8669 44.0309)" class="st3 st4 st5"> 85 ºF</text>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 182.42 44.0309)" class="st3 st4 st5"> 90 ºF</text>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 157.0158 44.0309)" class="st3 st4 st5"> 95 ºF</text>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 130.7392 46.8392)" class="st3 st4 st5">100 ºF</text>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 103.0584 46.6691)" class="st3 st4 st5">105 ºF</text>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 75.2286 45.4773)" class="st3 st4 st5">110 ºF</text>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 49.3987 46.8387)" class="st3 st4 st5">115 ºF</text>
+<g>
+	<line class="st1" x1="22.4" y1="52.2" x2="22.4" y2="45.6"/>
+	<line class="st2" x1="22.4" y1="52.2" x2="22.4" y2="45.6"/>
+</g>
+<text transform="matrix(0.3897 -1.0708 0.9397 0.342 22.0584 46.8395)" class="st3 st4 st5">120 ºF</text>
+<g>
+	<line class="st1" x1="157.5" y1="51.1" x2="157.5" y2="44.5"/>
+	<line class="st2" x1="157.5" y1="51.1" x2="157.5" y2="44.5"/>
+</g>
+<g>
+	<line class="st1" x1="49.3" y1="52" x2="49.3" y2="45.4"/>
+	<line class="st2" x1="49.3" y1="52" x2="49.3" y2="45.4"/>
+</g>
+</svg>

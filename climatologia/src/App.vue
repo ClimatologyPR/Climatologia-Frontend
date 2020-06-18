@@ -1,46 +1,40 @@
 <template>
-  <v-app style="overflow:hidden !important;">
-    <div class="loader">
-      <h1>Climatología de Puerto Rico</h1>
-      <div id="preloader">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-
+  <v-app style="overflow:hidden !important;background:#23272a;z-index:-2;">
+    <Preloader/>
     <div class="main">
+      <figure></figure>
+      <figure></figure>
+      <figure></figure>
+      <figure></figure>
+      <figure></figure>
       <div class="nav">
         <div class="navContent">
           <h1 class="logo">Climatología de Puerto Rico</h1>
           <div class="links">
             <a>About</a>
-            <a>Help</a>
+            <a>API</a>
             <a>Docs</a>
           </div>
         </div>
       </div>
 
       <div class="mapContainer">
-        <div class="map"><HomePage /></div>
+        <div class="map"><Map/></div>
       </div>
     </div>
   </v-app>
 </template>
 
 <script>
-import HomePage from "./components/maps/Map2";
+import Map from "./components/maps/Map2";
+import Preloader from './components/Preloader';
 
 export default {
-  name: "App",
+  name: "app",
 
   components: {
-    HomePage,
+    Preloader,
+    Map
   },
 
   data: () => ({}),
@@ -55,101 +49,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
-.loader {
-  position: absolute;
-  z-index: 99;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #23272a;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.loader h1 {
-  font-family: "Lato", sans-serif;
-  font-weight: 900;
-  font-size: 40px;
-  margin-bottom: 50px;
-  color: white;
-}
-
-.loader.hidden {
-  animation: fadeOut 1s;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fadeOut {
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
-#preloader {
-	position:relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#preloader span {
-	
-	width:20px;
-	height:20px;
-	background: #56ddd2;
-	border-radius: 999px;
-	animation: bounce 1.2s infinite linear;
-}
-#preloader span:nth-child(1) {
-	left: 0px;
-	animation-delay: 0s;
-}
-#preloader span:nth-child(2) {
-	left: 20px;
-	animation-delay: 0.25s;
-}
-#preloader span:nth-child(3) {
-	left: 40px;
-	animation-delay: 0.5s;
-}
-#preloader span:nth-child(4) {
-	left: 60px;
-	animation-delay: 0.75s;
-}
-#preloader span:nth-child(5) {
-	left: 80px;
-	animation-delay: 1s;
-}
-#preloader span:nth-child(6) {
-	left: 80px;
-	animation-delay: 1.25s;
-}
-#preloader span:nth-child(7) {
-	left: 80px;
-	animation-delay: 1.50s;
-}
-#preloader span:nth-child(8) {
-	left: 80px;
-	animation-delay: 1.75s;
-}
-
-@keyframes bounce {
-	0% {transform: translateY(0px); opacity: 0.5;}
-	50% {transform: translateY(-30px); opacity: 1;}
-	100% {transform: translateY(0px); opacity: 0.5;}
-}
-
 .main {
-  animation: slide 1200s ease-in 0.4s infinite alternate;
-  background-image: linear-gradient(#203b4a65, #203b4a60),
-    url("assets/rainforest.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   width: 100%;
   height: 100%;
   font-family: "Lato", sans-serif;
@@ -157,27 +57,59 @@ export default {
   flex-direction: column;
 }
 
-@keyframes slide {
-  20% {
-    background-image: linear-gradient(#203b4a8a, #203b4a60),
-      url("assets/rainforest.jpg");
-  }
-  20% {
-    background-image: linear-gradient(#203b4a65, #203b4a60),
-      url("assets/beach.jpg");
-  }
-  20% {
-    background-image: linear-gradient(#203b4a65, #203b4a60),
-      url("assets/forest.jpg");
-  }
-  20% {
-    background-image: linear-gradient(#203b4a65, #203b4a60),
-      url("assets/beach2.jpg");
-  }
-  20% {
-    background-image: linear-gradient(#203b4a88, #203b4a60),
-      url("assets/trees.jpg");
-  }
+.main > figure{
+  animation: imageAnimation 300s linear infinite 0s;
+  background-size: cover;
+  background-position: center center;
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: 0;
+}
+
+.main > figure:nth-child(1) { background-image: linear-gradient(#203b4a8a, #203b4a60),url('assets/trees.jpg'); }
+
+.main > figure:nth-child(2) {
+  animation-delay: 60s;
+  background-image: linear-gradient(#203b4a8a, #203b4a60),url('assets/rainforest.jpg');
+}
+
+.main > figure:nth-child(3) {
+  animation-delay: 120s;
+  background-image:linear-gradient(#203b4a8a, #203b4a60), url('assets/beach2.jpg');
+}
+
+.main > figure:nth-child(4) {
+  animation-delay: 180s;
+  background-image:linear-gradient(#203b4a8a, #203b4a60), url('assets/forest.jpg');
+}
+
+.main > figure:nth-child(5) {
+  animation-delay: 240s;
+  background-image:linear-gradient(#203b4a8a, #203b4a60), url('assets/beach.jpg');
+}
+
+@keyframes 
+imageAnimation {  0% {
+ animation-timing-function: ease-in;
+ opacity: 0;
+}
+ 0.5% {
+ animation-timing-function: ease-out;
+ opacity: 1;
+}
+ 2% {
+ opacity: 1
+}
+ 25% {
+ opacity: 0
+}
+ 100% {
+ opacity: 0
+}
 }
 
 .nav {
@@ -186,6 +118,7 @@ export default {
   grid-column: 1 / span 9;
   display: grid;
   grid-template-columns: repeat(9, 1fr);
+  z-index: 1;
 }
 
 .navContent {

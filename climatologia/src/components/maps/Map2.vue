@@ -17,7 +17,7 @@
             </div>
             <div class="calendar" @mouseleave="calendarClose()">
               <v-date-picker
-              dark
+                dark
                 v-if="selectedDateType === 'Día'"
                 id="calendar"
                 locale="es-ES"
@@ -51,9 +51,11 @@
           </div>
         </div>
 
-        <a @click="recenter()" class="centerBtn"
-          ><v-icon color="white">mdi-map-marker-radius</v-icon></a
-        >
+        <div class="centerContent">
+          <a @click="recenter()" class="centerBtn" id="centerBtn"
+            ><v-icon color="white">mdi-map-marker-radius</v-icon></a
+          >
+        </div>
 
         <l-map
           :key="mapChanged"
@@ -76,11 +78,11 @@
               <div class="leyendaCol">
                 <span>
                   <img
-                    :src="require('../../assets/nullicon.svg')"
+                    :src="require('../../assets/nullIcon2.svg')"
                     height="32px"
                     width="32px"
                   />
-                <h4>Valor Nulo</h4>
+                  <h4>Valor Nulo</h4>
                 </span>
                 <span>
                   <img
@@ -88,7 +90,7 @@
                     height="32px"
                     width="32px"
                   />
-                <h4>NOAA</h4>
+                  <h4>NOAA</h4>
                 </span>
                 <span>
                   <img
@@ -96,26 +98,29 @@
                     height="32px"
                     width="32px"
                   />
-                <h4>USGS</h4>
+                  <h4>USGS</h4>
                 </span>
-                </div>
+              </div>
             </div>
-
           </l-control>
-          <l-control position="bottomleft" style="pointer-events: none;">
-            <v-card
-              width="60%"
-              class="ml-0 legendImage"
-            >
+          <l-control
+            position="bottomright"
+            style="pointer-events: none;margin-bottom:-10px;z-index:801;"
+          >
+            <v-card width="100%" class="legendImage">
               <img
                 v-if="currentPinView === 'prcp'"
-                :src="require('../../assets/precipitation_legend_bar.svg')"
-                style="width:15vh; height: 40vh;"
+                :src="
+                  require('../../assets/horizontal_precipitation_legend_bar.svg')
+                "
+                style="width:450px; height: auto;"
               />
               <img
                 v-else
-                :src="require('../../assets/temperature_legend_bar.svg')"
-                style="width:17vh; height:40vh;"
+                :src="
+                  require('../../assets/horizontal_temperature_legend_bar.svg')
+                "
+                style="width: 500px; height:auto;"
               />
             </v-card>
           </l-control>
@@ -208,7 +213,7 @@
                     <br />
                     <v-col>
                       <v-btn
-                      style="background:#2bbbbb;color:white;"
+                        style="background:#2bbbbb;color:white;"
                         @click="
                           setChart(
                             'rangeModal',
@@ -478,9 +483,9 @@ export default {
         [23.402765, -74.227942],
         [12.46876, -54.878565],
       ]),
-      zoom: 9.8,
+      zoom: 10.1,
       minZoom: 8.0,
-      center: latLng(18.193869, -66.626308),
+      center: latLng(18.213698, -66.348032),
       url:
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png",
       attribution:
@@ -770,7 +775,7 @@ export default {
           className: "my-div-icon",
           iconAnchor: [0, 0],
           html:
-            "<div style='width: 27px; height: 27px;'>" +
+            "<div style='width: 15px; height: 15px;'>" +
             selectedIcon +
             "</div>",
         });
@@ -780,9 +785,9 @@ export default {
           className: "my-div-icon",
           iconAnchor: [0, 0],
           html:
-            "<div style=' height:32px; width:32px;'>" +
+            "<div style=' height:15px; width:15px;'>" +
             "<img style='float: left; width: 100%; height: 100%; marging-bottom:-15px; margin-left: -1px; margin-top: -1px;' src='" +
-            require("../../assets/nullicon.svg") +
+            require("../../assets/nullIcon2.svg") +
             "' id='null-div-icon'/>" +
             "</div>",
         });
@@ -1177,14 +1182,23 @@ export default {
     },
     centerUpdate(center) {
       this.currentCenter = center;
+
+      if (center !== this.center) {
+        document.getElementById("centerBtn").style.opacity = 1;
+        document.getElementById("centerBtn").style.pointerEvents = "all";
+        document.getElementById("centerBtn").style.transform = 'translateY(0px)';
+      }
     },
     showLongText() {
       this.showParagraph = !this.showParagraph;
     },
     recenter: function() {
       this.mapChanged = this.mapChanged + 1;
-      this.zoom = 9.8;
-      this.center = latLng(18.193869, -66.626308);
+      this.zoom = 10.1;
+      this.center = latLng(18.213698, -66.348032);
+      document.getElementById("centerBtn").style.transform = 'translateY(10px)';
+      document.getElementById("centerBtn").style.opacity = 0;
+      document.getElementById("centerBtn").style.pointerEvents = "none";
     },
 
     calendarOpen: function() {
@@ -1251,14 +1265,26 @@ export default {
   padding: 0;
 }
 
-.centerBtn {
+.centerContent {
   position: absolute;
-  bottom: 40px;
-  right: 60px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  z-index: 1;
+  pointer-events: none;
+  cursor: none;
+  bottom: 0px;
+}
+
+.centerBtn {
   padding-top: 20px;
+  pointer-events: all;
   padding-bottom: 20px;
   padding-left: 25px;
   padding-right: 25px;
+  margin-bottom: 20px;
   background: #2bbbbb;
   color: rgb(255, 255, 255);
   border-radius: 100px;
@@ -1269,10 +1295,13 @@ export default {
   font-size: 20px;
   box-shadow: 0px 3px 5px rgb(95, 95, 95);
   z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: 0.2s;
+  transform: translateY(10px);
 }
 
 .centerBtn:hover {
-  transition: 0.3s;
   background: #56ddd2;
   transform: translateY(-5px);
 }
@@ -1285,58 +1314,58 @@ export default {
   backdrop-filter: blur(10px);
   box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836),
     0px 5px 10px rgba(0, 0, 0, 0.26);
-    color: white;
-    border-radius: 10px;
-    padding: 10px;
-    font-family: "Lato",sans-serif;
-    text-align: center;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
 }
 
-.leyendaCol{
+.leyendaCol {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
-.leyendaCol span{
+.leyendaCol span {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
 }
 
-.leyendaCol img{
+.leyendaCol img {
   width: 100%;
 }
 
-.leyendaCol h4{
+.leyendaCol h4 {
   font-weight: 400;
 }
-.leyenda h3{
+.leyenda h3 {
   font-weight: 700;
 }
 
-
-.legendImage{
-  justify-content:center;
-  display:flex;
+.legendImage {
+  justify-content: center;
+  display: flex;
   background: inherit;
-   backdrop-filter: blur(10px);
+  height: auto;
+  backdrop-filter: blur(10px);
   box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836),
     0px 5px 10px rgba(0, 0, 0, 0.26);
 }
 
-.popup{
+.popup {
   background: #2c2f33;
   box-shadow: 0px 3px 10px rgb(27, 27, 27);
   border-radius: 10px;
   color: white;
   padding: 20px;
-  font-size: 1.0rem;
+  font-size: 1rem;
   margin: -20px;
-  font-family: "Lato",sans-serif;
+  font-family: "Lato", sans-serif;
 }
-.popup strong{
+.popup strong {
   color: #56ddd2;
 }
 

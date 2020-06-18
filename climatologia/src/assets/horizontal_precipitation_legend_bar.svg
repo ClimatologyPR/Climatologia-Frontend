@@ -1,0 +1,64 @@
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 553 145" style="enable-background:new 0 0 553 145;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{stroke:white;stroke-width:0.5;stroke-miterlimit:10;}
+	.st2{font-family:'MyriadPro-Regular';fill:white;}
+	.st3{font-size:14px;}
+	.st4{fill:none;}
+	.st5{font-size:16px;}
+	.st6{fill:none;stroke:white;stroke-miterlimit:10;}
+</style>
+<g>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-351.3836" y1="-87.554" x2="98.6164" y2="-87.554" gradientTransform="matrix(-1 -7.816679e-04 7.816679e-04 -1 150.3698 -6.4697)">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="1.213674e-02" style="stop-color:#F6FFFF"/>
+		<stop  offset="3.231499e-02" style="stop-color:#DCFFFF"/>
+		<stop  offset="5.804441e-02" style="stop-color:#B3FFFF"/>
+		<stop  offset="8.547486e-02" style="stop-color:#7FFFFF"/>
+		<stop  offset="9.844933e-02" style="stop-color:#73FFFF"/>
+		<stop  offset="0.1219" style="stop-color:#53FFFF"/>
+		<stop  offset="0.153" style="stop-color:#20FFFF"/>
+		<stop  offset="0.1704" style="stop-color:#00FFFF"/>
+		<stop  offset="0.2687" style="stop-color:#00F7FF"/>
+		<stop  offset="0.2916" style="stop-color:#00D8FF"/>
+		<stop  offset="0.3211" style="stop-color:#00B8FF"/>
+		<stop  offset="0.3494" style="stop-color:#00A0FF"/>
+		<stop  offset="0.3758" style="stop-color:#0092FF"/>
+		<stop  offset="0.3983" style="stop-color:#008DFF"/>
+		<stop  offset="0.4345" style="stop-color:#0074FF"/>
+		<stop  offset="0.5111" style="stop-color:#0033FF"/>
+		<stop  offset="0.5674" style="stop-color:#0000FF"/>
+		<stop  offset="0.6532" style="stop-color:#0000FC"/>
+		<stop  offset="0.6933" style="stop-color:#0000F7"/>
+		<stop  offset="0.7312" style="stop-color:#0000E9"/>
+		<stop  offset="0.8024" style="stop-color:#0000C5"/>
+		<stop  offset="0.8095" style="stop-color:#0000C1"/>
+		<stop  offset="0.8199" style="stop-color:#0000B0"/>
+		<stop  offset="0.844" style="stop-color:#00008F"/>
+		<stop  offset="0.8671" style="stop-color:#000077"/>
+		<stop  offset="0.8885" style="stop-color:#000069"/>
+		<stop  offset="0.9065" style="stop-color:#000064"/>
+		<stop  offset="0.9403" style="stop-color:#020062"/>
+		<stop  offset="0.9525" style="stop-color:#09005B"/>
+		<stop  offset="0.9612" style="stop-color:#140050"/>
+		<stop  offset="0.9682" style="stop-color:#25003F"/>
+		<stop  offset="0.9742" style="stop-color:#3B0029"/>
+		<stop  offset="0.9794" style="stop-color:#56000E"/>
+		<stop  offset="0.9816" style="stop-color:#640000"/>
+	</linearGradient>
+	<rect x="51.7" y="60.7" class="st0" width="450" height="41"/>
+	<path d="M52.2,61l449,0.4l0,40l-449-0.4L52.2,61 M51.2,60l0,42l451,0.4l0-42L51.2,60L51.2,60z"/>
+</g>
+<text transform="matrix(0.3906 -1.0705 0.9394 0.3428 501.0234 50.7404)" class="st1 st2 st3">0”</text>
+<text transform="matrix(0.3906 -1.0705 0.9394 0.3428 378.0226 50.6466)" class="st1 st2 st3">0.5”</text>
+<text transform="matrix(0.3906 -1.0705 0.9394 0.3428 243.0236 50.5411)" class="st1 st2 st3">4.0”</text>
+<text transform="matrix(0.3906 -1.0705 0.9394 0.3428 60.0244 50.3976)" class="st1 st2 st3">25”</text>
+<rect x="218.1" y="111" class="st4" width="116.9" height="13"/>
+<text transform="matrix(1 7.816677e-04 -7.816677e-04 1 218.1013 122.2666)" class="st2 st5">Precipitación</text>
+<line class="st6" x1="501.5" y1="51.2" x2="501.5" y2="57.8"/>
+<line class="st6" x1="378.5" y1="51.2" x2="378.5" y2="57.8"/>
+<line class="st6" x1="243.5" y1="51.2" x2="243.5" y2="57.8"/>
+<line class="st6" x1="60.5" y1="51.2" x2="60.5" y2="57.8"/>
+</svg>
