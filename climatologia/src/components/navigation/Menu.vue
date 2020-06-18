@@ -300,6 +300,7 @@ export default {
       eventBus.$emit("fetchStationRequest", type, start, end);
     },
     menuOpen: function() {
+      document.getElementById('container').style.visibility = 'visible';
       document.getElementById("menuSlide").style.transition = "0.3s";
       document.getElementById("menuSlide").style.transform =
         "translateX(-280px)";
@@ -307,6 +308,8 @@ export default {
     menuClose: function() {
       document.getElementById("menuSlide").style.transition = "0.3s";
       document.getElementById("menuSlide").style.transform = "translateX(0px)";
+      document.getElementById('container').style.visibility = 'hidden';
+
     },
     containerOpen: function() {
       document.getElementById("container").style.background = "white";
@@ -353,6 +356,7 @@ export default {
   flex-direction: column;
   background: rgba(255, 255, 255, 0.8);
   transition: 1s;
+  visibility: hidden;
 }
 .content {
   height: 100%;

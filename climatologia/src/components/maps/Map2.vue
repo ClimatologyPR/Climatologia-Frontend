@@ -17,6 +17,7 @@
             </div>
             <div class="calendar" @mouseleave="calendarClose()">
               <v-date-picker
+              dark
                 v-if="selectedDateType === 'Día'"
                 id="calendar"
                 locale="es-ES"
@@ -33,6 +34,7 @@
               <v-date-picker
                 v-if="selectedDateType === 'Rango'"
                 id="calendar"
+                dark
                 locale="es-ES"
                 v-model="date"
                 color="#2bbbbb"
@@ -69,45 +71,41 @@
         >
           <l-tile-layer :url="url" />
           <l-control position="bottomleft" style="pointer-events: none;">
-            <v-card class="ml-0 pa-1 leyenda">
+            <div class="leyenda">
               <h3>Leyenda</h3>
-              <v-row dense class="pl-2 pr-2">
-                <v-col class="pa-0 pt-1 pr-1">
-                  <v-img
-                    class="ml-1"
-                    style="float:left;"
-                    :src="require('../../assets/nullicon.png')"
-                    height="15px"
-                    width="15px"
+              <div class="leyendaCol">
+                <span>
+                  <img
+                    :src="require('../../assets/nullicon.svg')"
+                    height="32px"
+                    width="32px"
                   />
-                </v-col>
-                <h4 class="mr-1">Valor Nulo</h4>
-                <v-col class="pl-1 pt-1 pr-1">
-                  <v-img
-                    style="float:left;"
-                    :src="require('../../assets/noaa.png')"
-                    height="15px"
-                    width="15px"
+                <h4>Valor Nulo</h4>
+                </span>
+                <span>
+                  <img
+                    :src="require('../../assets/noaa2.svg')"
+                    height="32px"
+                    width="32px"
                   />
-                </v-col>
-                <h4 class="mr-1">NOAA</h4>
-                <v-col class="pl-1 pt-1 pr-1">
-                  <v-img
-                    style="float:left;"
-                    :src="require('../../assets/usgs.png')"
-                    height="15px"
-                    width="15px"
+                <h4>NOAA</h4>
+                </span>
+                <span>
+                  <img
+                    :src="require('../../assets/usgs2.svg')"
+                    height="32px"
+                    width="32px"
                   />
-                </v-col>
-                <h4 class="mr-1">USGS</h4>
-              </v-row>
-            </v-card>
+                <h4>USGS</h4>
+                </span>
+                </div>
+            </div>
+
           </l-control>
           <l-control position="bottomleft" style="pointer-events: none;">
             <v-card
               width="60%"
-              class="ml-0"
-              style="background-colo:white; justify-content:center;display:flex;"
+              class="ml-0 legendImage"
             >
               <img
                 v-if="currentPinView === 'prcp'"
@@ -134,7 +132,7 @@
                 :lat-lng="coordinates(station.LATITUDE, station.LONGITUDE)"
                 :icon="iconList[i]"
               >
-                <l-popup>
+                <l-popup class="popup">
                   <strong> Agencia: </strong>
                   {{ station.AGENCYID }}
                   <br />
@@ -180,24 +178,37 @@
                     <strong v-if="currentPinView === 'prcp'">
                       Precipitación Promedio:
                     </strong>
-                    <strong v-else-if="currentPinView === 'tmax'"> Temperatura Máxima Promedio: </strong>
+                    <strong v-else-if="currentPinView === 'tmax'">
+                      Temperatura Máxima Promedio:
+                    </strong>
                     <strong v-else> Temperatura Mínima Promedio: </strong>
-                    {{ station.AVGVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
+                    {{ station.AVGVALUE.toString() }}
+                    <span v-if="currentPinView === 'prcp'">"</span
+                    ><span v-else>ºF</span>
                     <br />
                     <strong>Máximo: </strong>
-                    {{ station.MAXVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
+                    {{ station.MAXVALUE.toString() }}
+                    <span v-if="currentPinView === 'prcp'">"</span
+                    ><span v-else>ºF</span>
                     <br />
                     <strong>Mínimo: </strong>
-                    {{ station.MINVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
+                    {{ station.MINVALUE.toString() }}
+                    <span v-if="currentPinView === 'prcp'">"</span
+                    ><span v-else>ºF</span>
                     <br />
                     <strong>Desviación Estándar: </strong
-                    >{{ station.STDDEVVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
+                    >{{ station.STDDEVVALUE.toString() }}
+                    <span v-if="currentPinView === 'prcp'">"</span
+                    ><span v-else>ºF</span>
                     <br />
                     <strong>Error Estándar: </strong
-                    >{{ station.STDERRVALUE.toString() }} <span v-if="currentPinView === 'prcp'">"</span><span v-else>ºF</span>
+                    >{{ station.STDERRVALUE.toString() }}
+                    <span v-if="currentPinView === 'prcp'">"</span
+                    ><span v-else>ºF</span>
                     <br />
                     <v-col>
                       <v-btn
+                      style="background:#2bbbbb;color:white;"
                         @click="
                           setChart(
                             'rangeModal',
@@ -728,15 +739,40 @@ export default {
       }
 
       if (value !== null || value === undefined) {
-        var style =
-          agency === "USGS"
-            ? ` height:15px; width:15px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});`
-            : `width: 15px; height: 15px; border: 1px solid #ca6a1b; background-color:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});`;
+        var usgsIcon = `<svg width="100%" height="100%" viewBox="0 0 500 500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="XMLID_1_" transform="matrix(1,0,0,1,113.68,13.4651)">
+        <g transform="matrix(1.08778,0,0,1.75759,-181.142,-108.85)">
+            <path d="M521.372,78.866C521.372,72.41 517.229,66.219 509.853,61.654C502.477,57.089 492.474,54.525 482.043,54.525L167.124,54.525C139.377,54.525 112.765,61.347 93.145,73.49C73.524,85.633 62.502,102.103 62.502,119.276L62.502,257.388C62.502,301.944 120.863,338.064 192.856,338.064L432.551,338.064C456.108,338.064 478.7,332.273 495.357,321.964C512.014,311.654 521.372,297.672 521.372,283.092L521.372,78.866Z"/>
+        </g>
+        <g id="XMLID_15_" transform="matrix(5.33438,0,0,5.15117,-465.915,-955.05)">
+            <path style="fill:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});" d="M92.8,215.3L93.1,215.6C102.2,223.2 112.1,222.5 119.6,217.5C124.3,214.4 145.7,200.1 157.8,192.1L157.8,192.1C157.8,187.682 154.341,184.1 150.075,184.1L88.172,184.1C76.866,184.1 67.7,193.591 67.7,205.3L67.7,205.3C73.2,204.4 82.1,205.3 92.8,215.3M126.7,250.6L116.1,240.4C114.6,239 113.3,238 113.1,237.8C104.4,231.7 96.3,233.5 92.8,234.8C91.7,235.2 90.7,235.8 90,236.3L67.8,251.2L67.8,251.2C67.8,266.057 79.43,278.1 93.776,278.1L139.166,278.1C144.135,278.1 148.9,276.056 152.413,272.418C155.926,268.78 157.9,263.845 157.9,258.7L157.9,258.7C155.8,260 143.6,266.6 126.7,250.6M92,217.7C91.5,217.3 91,216.8 90.5,216.4C79.9,208.2 69.8,212.2 67.7,213.2L67.7,222.5L72.9,219C72.9,219 80.9,213 93.4,219.2L92,217.7M104.5,229.7C104,229.3 103.6,228.9 103.1,228.4C93.7,220.4 84.5,222.4 80.8,223.8C79.7,224.2 78.7,224.8 78,225.3L67.8,232.1L67.8,241.6L84.8,230.1C84.8,230.1 92.7,224.2 105.1,230.1L104.5,229.7M157.8,239.7C154.3,242.1 150.7,244.5 149.2,245.5C146,247.6 138.6,253 126.2,247.1L127.7,248.5C128.2,249 128.9,249.6 129.6,250.1C138.5,256.7 147.9,255.8 155,251.1C156,250.4 156.9,249.9 157.7,249.3L157.8,239.7M157.8,220.6C150,225.8 139.5,232.9 137.5,234.2C134.3,236.3 126.8,241.7 114.7,236L116.1,237.3C116.3,237.4 116.4,237.6 116.6,237.7C126,245.6 136.3,244.4 143.4,239.7C147.4,237 153.1,233.2 157.8,230L157.8,220.6M157.8,201.6C146.6,209.1 128.2,221.5 125.9,222.9C122.7,225.1 115,230.5 103.1,224.8L104.5,226.2C105.4,227 106.5,228 107.8,228.8C116.1,234.1 124.7,233.1 131.7,228.4C136.8,225 149.2,216.8 157.7,211.1L157.7,201.6" style="fill:rgb(0,113,80);fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>
+`;
+
+        var noaaIcon = `<svg width="100%" height="100%" viewBox="0 0 500 500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="XMLID_1_" transform="matrix(1.59015,0,0,1.59015,-147.849,-147.258)">
+        <g transform="matrix(1.20156,-0.00853273,0.00868847,1.2235,-160.533,-112.009)">
+            <ellipse cx="339.015" cy="275.63" rx="125.064" ry="95.501" style="fill:rgb(2,0,0);"/>
+        </g>
+        <path style="fill:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});" id="XMLID_3_" d="M323.6,111.6C320.4,109.9 293.4,93.6 251.9,93C161.9,93.3 122.3,159.3 122.3,159.3C142.2,169.1 162.9,198.4 163.1,198.8C185.4,230 216.4,278.5 256.6,279.4C269.5,279.7 278,272 287.8,262.5C323.5,227.9 328.5,164 374.2,155C374.3,155.1 357.3,129.6 323.6,111.6Z" style="fill:rgb(38,63,120);fill-rule:nonzero;"/>
+        <path style="fill:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});" id="XMLID_4_" d="M390.5,180.5C390.6,180.5 409.8,218.5 406.4,259C404.5,327 344.4,404.1 254.9,406.6L242.4,406.3C150.1,401.7 93.4,323.4 93.7,252.6C93.9,239.4 93.9,224.7 99.4,206.6L105.1,208.3C128.8,217.2 154.3,286.3 237.2,290.3C240.8,290.5 247.7,290.6 247.7,290.7C242.3,296.1 211.8,308.7 197.9,312C201.5,311.1 197.6,311.9 197.9,312C231.3,332.7 264.6,292.9 307.9,287L321.2,286.2C318.7,278.2 307.2,278.9 306.2,279C276.2,282 283.7,278.5 282.8,278.8C328.8,264.4 355.4,227.5 388.5,182.6L390.5,180.5Z" style="fill:rgb(0,126,198);fill-rule:nonzero;"/>
+        <g transform="matrix(1.48051,0,0,1.63867,-199.999,-231.885)">
+            <path d="M303.799,197.798C362.218,197.798 409.646,240.795 409.646,293.756C409.646,346.717 362.218,389.714 303.799,389.714C245.38,389.714 197.952,346.717 197.952,293.756C197.952,240.795 245.38,197.798 303.799,197.798ZM303.799,204.095C358.384,204.095 402.7,244.271 402.7,293.756C402.7,343.241 358.384,383.417 303.799,383.417C249.214,383.417 204.898,343.241 204.898,293.756C204.898,244.271 249.214,204.095 303.799,204.095Z" style="fill:rgb(2,0,0);"/>
+        </g>
+    </g>
+</svg>`;
+
+        var selectedIcon = agency === "USGS" ? usgsIcon : noaaIcon;
         return L.divIcon({
           iconSize: new L.Point(20, 20),
           className: "my-div-icon",
           iconAnchor: [0, 0],
-          html: "<div style='" + style + "'>" + "</div>",
+          html:
+            "<div style='width: 27px; height: 27px;'>" +
+            selectedIcon +
+            "</div>",
         });
       } else if (value === null) {
         return L.divIcon({
@@ -744,15 +780,9 @@ export default {
           className: "my-div-icon",
           iconAnchor: [0, 0],
           html:
-            "<div style=' height:15px; width:15px;  marging-bottom:-15px; margin-left: -3px; border-radius:50%; border: 1px solid #ca6a1b; background-color:rgb(" +
-            rgb.r.toString() +
-            "," +
-            rgb.g.toString() +
-            " ," +
-            rgb.b.toString() +
-            ");'>" +
-            "<img style='float: left; width: 15px; height: 15px; marging-bottom:-15px; margin-left: -1px; margin-top: -1px;' src='" +
-            require("../../assets/nullicon.png") +
+            "<div style=' height:32px; width:32px;'>" +
+            "<img style='float: left; width: 100%; height: 100%; marging-bottom:-15px; margin-left: -1px; margin-top: -1px;' src='" +
+            require("../../assets/nullicon.svg") +
             "' id='null-div-icon'/>" +
             "</div>",
         });
@@ -1250,6 +1280,64 @@ export default {
 .leyenda {
   background-color: white;
   font-size: 1.5vh;
+  width: 255px;
+  background: inherit;
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836),
+    0px 5px 10px rgba(0, 0, 0, 0.26);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    font-family: "Lato",sans-serif;
+    text-align: center;
+}
+
+.leyendaCol{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.leyendaCol span{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.leyendaCol img{
+  width: 100%;
+}
+
+.leyendaCol h4{
+  font-weight: 400;
+}
+.leyenda h3{
+  font-weight: 700;
+}
+
+
+.legendImage{
+  justify-content:center;
+  display:flex;
+  background: inherit;
+   backdrop-filter: blur(10px);
+  box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836),
+    0px 5px 10px rgba(0, 0, 0, 0.26);
+}
+
+.popup{
+  background: #2c2f33;
+  box-shadow: 0px 3px 10px rgb(27, 27, 27);
+  border-radius: 10px;
+  color: white;
+  padding: 20px;
+  font-size: 1.0rem;
+  margin: -20px;
+  font-family: "Lato",sans-serif;
+}
+.popup strong{
+  color: #56ddd2;
 }
 
 /*

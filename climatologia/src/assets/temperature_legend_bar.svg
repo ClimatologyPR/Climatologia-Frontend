@@ -4,7 +4,7 @@
 	 viewBox="0 0 124 467" style="enable-background:new 0 0 124 467;" xml:space="preserve">
 <style type="text/css">
 	.st0{fill:url(#SVGID_1_);}
-	.st1{fill:none;stroke:#000000;stroke-miterlimit:10;}
+	.st1{fill:none;stroke:white;stroke-miterlimit:10;}
 	.st2{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_2_);}
 	.st3{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_3_);}
 	.st4{font-family:'MyriadPro-Regular';}
@@ -102,7 +102,7 @@
 		<stop  offset="0.9534" style="stop-color:#FF0000"/>
 	</linearGradient>
 	<rect x="30.5" y="8.5" class="st0" width="41" height="450"/>
-	<path d="M71,9v449H31V9H71 M72,8H30v451h42V8L72,8z"/>
+	<path fill="#2c2f336b" d="M71,9v449H31V9H71 M72,8H30v451h42V8L72,8z"/>
 </g>
 <g>
 	<line class="st1" x1="79" y1="432.5" x2="100" y2="432.5"/>
@@ -120,9 +120,9 @@
 	</linearGradient>
 	<line class="st3" x1="79" y1="458.5" x2="100" y2="458.5"/>
 </g>
-<text transform="matrix(1.1395 0 0 1 85.6172 456.8145)" class="st4 st5">40 ºF</text>
+<text transform="matrix(1.1395 0 0 1 85.6172 456.8145)" class="st4 st5" fill="white">40 ºF</text>
 <rect x="6.36" y="79.53" class="st6" width="41.87" height="204.26"/>
-<text transform="matrix(4.489659e-11 -1 1 4.489659e-11 17.7218 283.7866)" class="st4 st7">Temperatura</text>
+<text transform="matrix(4.489659e-11 -1 1 4.489659e-11 17.7218 283.7866)" class="st4 st7" fill="white">Temperatura</text>
 <g>
 	<line class="st1" x1="79" y1="404.5" x2="100" y2="404.5"/>
 	<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="79" y1="404.5" x2="100" y2="404.5">
@@ -243,21 +243,21 @@
 	</linearGradient>
 	<path class="st22" d="M80,53.5"/>
 </g>
-<text transform="matrix(1.1395 0 0 1 85.6172 429.8145)" class="st4 st5">45 ºF</text>
-<text transform="matrix(1.1395 0 0 1 85.6172 402.8145)" class="st4 st5">50 ºF</text>
-<text transform="matrix(1.1395 0 0 1 85.6172 375.8145)" class="st4 st5">55 ºF</text>
-<text transform="matrix(1.1395 0 0 1 85.6172 348.8145)" class="st4 st5">60 ºF</text>
-<text transform="matrix(1.1395 0 0 1 85.6172 321.8145)" class="st4 st5">65 ºF</text>
-<text transform="matrix(1.1395 0 0 1 85.6172 294.8145)" class="st4 st5">70 ºF</text>
-<text transform="matrix(1.1395 0 0 1 83.6172 267.8145)" class="st4 st5"> 75 ºF</text>
-<text transform="matrix(1.1395 0 0 1 83.6172 240.8145)" class="st4 st5"> 80 ºF</text>
-<text transform="matrix(1.1395 0 0 1 83.6172 213.8145)" class="st4 st5"> 85 ºF</text>
-<text transform="matrix(1.1395 0 0 1 78.6172 186.8145)" class="st4 st5">   90 ºF</text>
-<text transform="matrix(1.1395 0 0 1 83.6172 159.8145)" class="st4 st5"> 95 ºF</text>
-<text transform="matrix(1.1395 0 0 1 79.6172 132.8145)" class="st4 st5">100 ºF</text>
-<text transform="matrix(1.1395 0 0 1 79.6172 105.8145)" class="st4 st5">105 ºF</text>
-<text transform="matrix(1.1395 0 0 1 79.6172 77.8145)" class="st4 st5">110 ºF</text>
-<text transform="matrix(1.1395 0 0 1 79.6172 51.8145)" class="st4 st5">115 ºF</text>
+<text transform="matrix(1.1395 0 0 1 85.6172 429.8145)" class="st4 st5" fill="white">45 ºF</text>
+<text transform="matrix(1.1395 0 0 1 85.6172 402.8145)" class="st4 st5" fill="white">50 ºF</text>
+<text transform="matrix(1.1395 0 0 1 85.6172 375.8145)" class="st4 st5" fill="white">55 ºF</text>
+<text transform="matrix(1.1395 0 0 1 85.6172 348.8145)" class="st4 st5" fill="white">60 ºF</text>
+<text transform="matrix(1.1395 0 0 1 85.6172 321.8145)" class="st4 st5" fill="white">65 ºF</text>
+<text transform="matrix(1.1395 0 0 1 85.6172 294.8145)" class="st4 st5" fill="white">70 ºF</text>
+<text transform="matrix(1.1395 0 0 1 83.6172 267.8145)" class="st4 st5" fill="white"> 75 ºF</text>
+<text transform="matrix(1.1395 0 0 1 83.6172 240.8145)" class="st4 st5" fill="white"> 80 ºF</text>
+<text transform="matrix(1.1395 0 0 1 83.6172 213.8145)" class="st4 st5" fill="white"> 85 ºF</text>
+<text transform="matrix(1.1395 0 0 1 83.6172 186.8145)" class="st4 st5" fill="white"> 90 ºF</text>
+<text transform="matrix(1.1395 0 0 1 83.6172 159.8145)" class="st4 st5" fill="white"> 95 ºF</text>
+<text transform="matrix(1.1395 0 0 1 79.6172 132.8145)" class="st4 st5" fill="white">100 ºF</text>
+<text transform="matrix(1.1395 0 0 1 79.6172 105.8145)" class="st4 st5" fill="white">105 ºF</text>
+<text transform="matrix(1.1395 0 0 1 79.6172 77.8145)" class="st4 st5" fill="white">110 ºF</text>
+<text transform="matrix(1.1395 0 0 1 79.6172 51.8145)" class="st4 st5" fill="white">115 ºF</text>
 <g>
 	<line class="st1" x1="79" y1="26.5" x2="100" y2="26.5"/>
 	<linearGradient id="SVGID_19_" gradientUnits="userSpaceOnUse" x1="79" y1="26.5" x2="100" y2="26.5">
@@ -266,7 +266,7 @@
 	</linearGradient>
 	<line class="st23" x1="79" y1="26.5" x2="100" y2="26.5"/>
 </g>
-<text transform="matrix(1.1395 0 0 1 79.6172 24.8145)" class="st4 st5">120 ºF</text>
+<text transform="matrix(1.1395 0 0 1 79.6172 24.8145)" class="st4 st5" fill="white">120 ºF</text>
 <g>
 	<line class="st1" x1="79" y1="161.5" x2="100" y2="161.5"/>
 	<linearGradient id="SVGID_20_" gradientUnits="userSpaceOnUse" x1="79" y1="161.5" x2="100" y2="161.5">
