@@ -22,7 +22,11 @@
               :disabled="disable"
               prepend-icon="mdi-layers"
               multiple
+              dense
+                solo
               color="#2bbbbb"
+              dark
+              item-color="#2bbbbb"
             >
               <template v-slot:selection="{ item, index }">
                 <span v-if="index === 0" class="grey--text caption"
@@ -35,6 +39,7 @@
             <p class="dtext">Fecha</p>
             <div class="datef">
               <v-select
+                dark
                 color="#2bbbbb"
                 v-model="selectedDateType"
                 :items="['Día', 'Rango']"
@@ -50,10 +55,13 @@
                 ref="dialog"
                 v-model="singleDatePicker"
                 width="290px"
-                style="z-index: 1000;"
+                dark
+                item-color="#2bbbbb"
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
+                    dark
+                    item-color="#2bbbbb"
                     color="#2bbbbb"
                     class="picker"
                     v-model="SingleDateText"
@@ -75,18 +83,21 @@
                   scrollable
                   min="2000-08-15"
                   max="2019-03-20"
+                  dark
                 >
                 </v-date-picker>
               </v-dialog>
               <v-dialog
+                item-color="#2bbbbb"
+                dark
                 v-else-if="selectedDateType === 'Rango'"
                 ref="dialog"
                 v-model="rangeDatePicker"
                 width="290px"
-                style="z-index: 1000;"
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
+                    dark
                     v-model="rangeDateText"
                     label="Fecha"
                     prepend-icon="mdi-calendar"
@@ -99,6 +110,7 @@
                   ></v-text-field>
                 </template>
                 <v-date-picker
+                  dark
                   v-model="date"
                   :locale="calendarLng"
                   :min="minDate"
@@ -312,11 +324,11 @@ export default {
 
     },
     containerOpen: function() {
-      document.getElementById("container").style.background = "white";
+      document.getElementById("container").style.background = "#4f5b66d2";
     },
     containerClose: function() {
       document.getElementById("container").style.background =
-        "rgba(255, 255, 255, 0.8)";
+        "#4f5b66a1";
     },
   },
 };
@@ -334,14 +346,14 @@ export default {
   background: inherit;
   backdrop-filter: blur(10px);
   box-shadow: inset 0px 0px 200px rgba(36, 36, 36, 0.911),
-    0px 5px 10px rgba(0, 0, 0, 0.26);
-  z-index: 1;
+    4px 0px 8px rgba(0, 0, 0, 0.801);
+  z-index: 2;
 }
 
 .tab:hover {
   cursor: pointer;
   box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836),
-    0px 5px 10px rgba(0, 0, 0, 0.26);
+    4px 0px 10px rgba(0, 0, 0, 0.801);
   transition: 0.5s;
 }
 
@@ -354,9 +366,11 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.8);
+  background: #4f5b66a1;
   transition: 1s;
   visibility: hidden;
+  color: white;
+  padding-right: 10px;
 }
 .content {
   height: 100%;
@@ -372,6 +386,9 @@ export default {
   padding-bottom: 5px;
   border-radius: 10px;
   box-shadow: 3px 2px #239494;
+  width: fit-content;
+  margin-bottom: 10px;
+  user-select: none;
 }
 .selectAll:hover{
   background: #32cfcf;
@@ -380,13 +397,14 @@ export default {
   background: #2bbbbb;
   transition: 0.1s;
   text-decoration: none !important;
-  transform: translate(10px, 40px) !important;
+  transform: translate(3px, 2px) !important;
   box-shadow: inset 3px 2px 5px rgb(139, 139, 139) !important;
   user-select: none;
 }
 
 .zone{
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 }
 .content2 {
   display: flex;
@@ -436,20 +454,20 @@ export default {
   background-color: rgba(255, 255, 255, 0) !important;
   transition: 0.2s;
   transform: translate(2px, 3px);
-  box-shadow: inset 3px 2px 5px rgb(139, 139, 139) !important;
+  box-shadow: inset 3px 2px 5px rgb(26, 26, 26) !important;
   pointer-events: none;
   /* color: white; */
 }
 
 .picker {
-  width: 260px;
+  width: 250px;
   height: auto;
 }
 
 .menuSlide {
   position: absolute;
   top: 0px;
-  right: -290px;
+  right: -280px;
   z-index: 1;
   height: 100%;
   display: flex;

@@ -1,5 +1,6 @@
 <template>
   <v-app style="overflow:hidden !important;background:#23272a;z-index:-2;">
+    <SmallWindow/>
     <Preloader/>
     <div class="main">
       <figure></figure>
@@ -28,13 +29,15 @@
 <script>
 import Map from "./components/maps/Map2";
 import Preloader from './components/Preloader';
+import SmallWindow from './components/SmallWindow';
 
 export default {
   name: "app",
 
   components: {
     Preloader,
-    Map
+    Map,
+    SmallWindow
   },
 
   data: () => ({}),
@@ -79,7 +82,7 @@ export default {
 
 .main > figure:nth-child(3) {
   animation-delay: 120s;
-  background-image:linear-gradient(#203b4a8a, #203b4a60), url('assets/beach2.jpg');
+  background-image:linear-gradient(#203b4a54, #203b4a54), url('assets/beach2.jpg');
 }
 
 .main > figure:nth-child(4) {
@@ -89,7 +92,7 @@ export default {
 
 .main > figure:nth-child(5) {
   animation-delay: 240s;
-  background-image:linear-gradient(#203b4a8a, #203b4a60), url('assets/beach.jpg');
+  background-image:linear-gradient(#203b4a54, #203b4a54), url('assets/beach.jpg');
 }
 
 @keyframes 
@@ -119,6 +122,7 @@ imageAnimation {  0% {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   z-index: 1;
+  user-select: none;
 }
 
 .navContent {
@@ -191,30 +195,5 @@ html {
     justify-content: flex-start;
   }
 }
-@media only screen and (max-width: 600px) {
-  .loader h1{
-    font-size: 30px;
-     margin-top: 20%;
-  }
 
-  .loader{
-    justify-content: flex-start;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .loader h1{
-    font-size: 20px;
-     margin-top: 20%;
-  }
-
-  .loader{
-    justify-content: flex-start;
-  }
-
-  #preloader span{
-    height: 10px;
-    width: 10px;
-  }
-}
 </style>

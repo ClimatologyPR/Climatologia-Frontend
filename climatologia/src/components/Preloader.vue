@@ -55,6 +55,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 30px;
 }
 #preloader span {
 	
@@ -101,5 +102,10 @@
 	0% {transform: translateY(0px); opacity: 0.5;}
 	50% {transform: translateY(-30px); opacity: 1;}
 	100% {transform: translateY(0px); opacity: 0.5;}
+}
+@media only screen and (max-width: 1024px) {
+  .loader {
+    display: none;
+  }
 }
 </style>

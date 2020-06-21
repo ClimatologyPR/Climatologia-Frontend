@@ -219,35 +219,19 @@
                             'rangeModal',
                             'close',
                             'line',
-                            '  Estación: ' +
-                              station.STATIONID +
-                              ',  Municipio: ' +
-                              station.MUNICIPALITY +
-                              ',  Rango de Fecha: ' +
-                              rangeDateText +
-                              ',  Máximo: ' +
-                              station.MAXVALUE +
-                              (currentPinView == 'prcp' ? ' in' : ' ºF') +
-                              ',  Mínimo: ' +
-                              station.MINVALUE +
-                              (currentPinView == 'prcp' ? ' in' : ' ºF') +
-                              ',  Desviación Estándar: ' +
-                              station.STDERRVALUE +
-                              (currentPinView == 'prcp' ? ' in' : ' ºF') +
-                              ',  Error Estándar: ' +
-                              station.STDERRVALUE +
-                              (currentPinView == 'prcp' ? ' in' : ' ºF'),
                             currentPinView === 'prcp'
                               ? 'Precipitación '
                               : currentPinView === 'tmax'
                               ? 'Temperatura Máxima'
                               : 'Temperatura Mínima',
                             station.STATIONID,
-                            currentPinView === 'prcp'
-                              ? '#191970 '
-                              : currentPinView === 'tmax'
-                              ? '#ad2121'
-                              : '#52ad21'
+                            station.MUNICIPALITY,
+                            rangeDateText,
+                            station.MAXVALUE,
+                            station.MINVALUE,
+                            station.STDDEVVALUE,
+                            station.STDERRVALUE,
+                            station.AVGVALUE
                           )
                         "
                       >
@@ -272,7 +256,7 @@
                 :color="EasternInterior.color"
                 :fillColor="EasternInterior.color"
               >
-                <l-popup content="Interior oriental" />
+                <l-popup class="popup">Interior oriental</l-popup>
               </l-polygon>
             </v-container>
             <v-container>
@@ -282,7 +266,7 @@
                 :color="NorthernCoastal.color"
                 :fillColor="NorthernCoastal.color"
               >
-                <l-popup content="Costa del norte" />
+                <l-popup class="popup">Costa del norte</l-popup>
               </l-polygon>
             </v-container>
             <v-container>
@@ -292,7 +276,7 @@
                 :color="NorthernSlopes.color"
                 :fillColor="NorthernSlopes.color"
               >
-                <l-popup content="Laderas del norte" />
+                <l-popup class="popup">Laderas del norte</l-popup>
               </l-polygon>
             </v-container>
             <v-container>
@@ -302,7 +286,7 @@
                 :color="OutlyingIsland.color"
                 :fillColor="OutlyingIsland.color"
               >
-                <l-popup content="Islas periféricas" />
+                <l-popup class="popup">Islas periféricas</l-popup>
               </l-polygon>
             </v-container>
             <v-container>
@@ -312,7 +296,7 @@
                 :color="OutlyingIsland1.color"
                 :fillColor="OutlyingIsland1.color"
               >
-                <l-popup content="Islas periféricas" />
+                <l-popup class="popup">Islas periféricas</l-popup>
               </l-polygon>
             </v-container>
             <v-container>
@@ -322,7 +306,7 @@
                 :color="OutlyingIsland2.color"
                 :fillColor="OutlyingIsland2.color"
               >
-                <l-popup content="Islas periféricas" />
+                <l-popup class="popup">Islas periféricas</l-popup>
               </l-polygon>
             </v-container>
             <v-container>
@@ -332,7 +316,7 @@
                 :color="OutlyingIsland3.color"
                 :fillColor="OutlyingIsland3.color"
               >
-                <l-popup content="Islas periféricas" />
+                <l-popup class="popup">Islas periféricas</l-popup>
               </l-polygon>
             </v-container>
             <v-container>
@@ -342,7 +326,7 @@
                 :color="OutlyingIsland4.color"
                 :fillColor="OutlyingIsland4.color"
               >
-                <l-popup content="Islas periféricas" />
+                <l-popup class="popup">Islas periféricas</l-popup>
               </l-polygon>
             </v-container>
             <v-container>
@@ -352,7 +336,7 @@
                 :color="SouthernCoastal.color"
                 :fillColor="SouthernCoastal.color"
               >
-                <l-popup content="Costa del sur" />
+                <l-popup class="popup">Costa del sur</l-popup>
               </l-polygon>
             </v-container>
             <v-container>
@@ -362,7 +346,7 @@
                 :color="SouthernSlopes.color"
                 :fillColor="SouthernSlopes.color"
               >
-                <l-popup content="Laderas del sur" />
+                <l-popup class="popup">Laderas del sur</l-popup>
               </l-polygon>
             </v-container>
             <v-container>
@@ -372,7 +356,7 @@
                 :color="WesternInterior.color"
                 :fillColor="WesternInterior.color"
               >
-                <l-popup content="Interior occidental" />
+                <l-popup class="popup">Interior occidental</l-popup>
               </l-polygon>
             </v-container>
           </v-container>
@@ -381,32 +365,92 @@
           <v-progress-circular indeterminate size="128"></v-progress-circular>
         </v-overlay>
       </v-card>
-      <v-row justify="center">
-        <v-dialog
-          v-model="dialog"
-          fullscreen
-          hide-overlay
-          transition="dialog-bottom-transition"
+
+      <v-dialog
+        v-model="dialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+      >
+        <div
+          style="z-index: 3; position: absolute; background:rgba(56, 56, 56, 0.96);height:100%;"
         >
-          <v-card style="z-index: 20000; position: absolute;">
-            <v-toolbar dark color="#82ada9">
+          <div class="graphContainer">
+            <div class="toolbar">
+              <h2>
+                Grafica para rango de fecha seleccionado
+              </h2>
               <v-btn icon dark @click="(dialog = false), myChart.destroy()">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
-              <v-toolbar-title
-                >Grafica para rango de fecha seleccionado</v-toolbar-title
-              >
-              <!-- <v-spacer></v-spacer>
-                                    <v-toolbar-items>
-                                    <v-btn dark text @click="dialog = false">Save</v-btn>
-                                    </v-toolbar-items> -->
-            </v-toolbar>
-            <v-col>
-              <canvas id="myChart" width="400" height="150"></canvas>
-            </v-col>
-          </v-card>
-        </v-dialog>
-      </v-row>
+            </div>
+            <div class="chartContent">
+              <canvas id="myChart" width="400" height="100"></canvas>
+            </div>
+            <div class="graphOptions">
+              <div class="extraInfo">
+                <div class="infoContent">
+                  <strong>ID de Estación: </strong>
+                  {{ estacion }}
+                  <br />
+                  <strong>Municipio: </strong>
+                  {{ municipio }}
+                  <br />
+                  <strong>Rango de Fecha: </strong>
+                  {{ fecha }}
+                  <br />
+                  <strong v-if="currentPinView === 'prcp'">
+                    Precipitación Promedio:
+                  </strong>
+                  <strong v-else-if="currentPinView === 'tmax'">
+                    Temperatura Máxima Promedio:
+                  </strong>
+                  <strong v-else> Temperatura Mínima Promedio: </strong>
+                  {{ avg }}
+                  <span v-if="currentPinView === 'prcp'">"</span
+                  ><span v-else>ºF</span>
+                  <br />
+                  <strong>Máximo: </strong>
+                  {{ max }}
+                  <span v-if="currentPinView === 'prcp'">"</span
+                  ><span v-else>ºF</span>
+                  <br />
+                  <strong>Mínimo: </strong>
+                  {{ min }}
+                  <span v-if="currentPinView === 'prcp'">"</span
+                  ><span v-else>ºF</span>
+                  <br />
+                  <strong>Desviación Estándar: </strong>{{ des }}
+                  <span v-if="currentPinView === 'prcp'">"</span
+                  ><span v-else>ºF</span>
+                  <br />
+                  <strong>Error Estándar: </strong>{{ er }}
+                  <span v-if="currentPinView === 'prcp'">"</span
+                  ><span v-else>ºF</span>
+                </div>
+              </div>
+              <div class="download">
+                <h3>Descargar data de gráfica</h3>
+                <div class="downloadSettings">
+                  <div>
+                    <strong>Información del archivo para descarga:</strong>
+                    <ul>
+                      <li>El contenido solo incluye los valores que están
+                      reprecentados por la gráfica</li>
+                      <li>El archivo es de formato ".csv"</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="downloadBtnLocation">
+                    <a class="downloadBtn" @click="objectToCsv()"
+                      ><v-icon color="white">mdi-download</v-icon>Descargar</a
+                    >
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </v-dialog>
     </div>
     <Menu
       :defaultDate="date"
@@ -559,6 +603,15 @@ export default {
       ],
       mychart: null,
       mapChanged: 0,
+      estacion: null,
+      municipio: null,
+      fecha: null,
+      max: null,
+      min: null,
+      des: null,
+      er: null,
+      avg: null,
+      csv: null,
     };
   },
   computed: {
@@ -735,7 +788,6 @@ export default {
     },
     icon: function(value, agency) {
       var rgb = { r: 0, g: 0, b: 0 };
-      var nullIcon;
       if (this.currentPinView == "tmin" || this.currentPinView == "tmax") {
         // set the rgb value of the current station element using the average value for range date  or the value  single date type with a ternary operator
         this.getTemperaturePinColors(rgb, value);
@@ -753,8 +805,7 @@ export default {
             <path style="fill:rgb( ${rgb.r.toString()},  ${rgb.g.toString()}, ${rgb.b.toString()});" d="M92.8,215.3L93.1,215.6C102.2,223.2 112.1,222.5 119.6,217.5C124.3,214.4 145.7,200.1 157.8,192.1L157.8,192.1C157.8,187.682 154.341,184.1 150.075,184.1L88.172,184.1C76.866,184.1 67.7,193.591 67.7,205.3L67.7,205.3C73.2,204.4 82.1,205.3 92.8,215.3M126.7,250.6L116.1,240.4C114.6,239 113.3,238 113.1,237.8C104.4,231.7 96.3,233.5 92.8,234.8C91.7,235.2 90.7,235.8 90,236.3L67.8,251.2L67.8,251.2C67.8,266.057 79.43,278.1 93.776,278.1L139.166,278.1C144.135,278.1 148.9,276.056 152.413,272.418C155.926,268.78 157.9,263.845 157.9,258.7L157.9,258.7C155.8,260 143.6,266.6 126.7,250.6M92,217.7C91.5,217.3 91,216.8 90.5,216.4C79.9,208.2 69.8,212.2 67.7,213.2L67.7,222.5L72.9,219C72.9,219 80.9,213 93.4,219.2L92,217.7M104.5,229.7C104,229.3 103.6,228.9 103.1,228.4C93.7,220.4 84.5,222.4 80.8,223.8C79.7,224.2 78.7,224.8 78,225.3L67.8,232.1L67.8,241.6L84.8,230.1C84.8,230.1 92.7,224.2 105.1,230.1L104.5,229.7M157.8,239.7C154.3,242.1 150.7,244.5 149.2,245.5C146,247.6 138.6,253 126.2,247.1L127.7,248.5C128.2,249 128.9,249.6 129.6,250.1C138.5,256.7 147.9,255.8 155,251.1C156,250.4 156.9,249.9 157.7,249.3L157.8,239.7M157.8,220.6C150,225.8 139.5,232.9 137.5,234.2C134.3,236.3 126.8,241.7 114.7,236L116.1,237.3C116.3,237.4 116.4,237.6 116.6,237.7C126,245.6 136.3,244.4 143.4,239.7C147.4,237 153.1,233.2 157.8,230L157.8,220.6M157.8,201.6C146.6,209.1 128.2,221.5 125.9,222.9C122.7,225.1 115,230.5 103.1,224.8L104.5,226.2C105.4,227 106.5,228 107.8,228.8C116.1,234.1 124.7,233.1 131.7,228.4C136.8,225 149.2,216.8 157.7,211.1L157.7,201.6" style="fill:rgb(0,113,80);fill-rule:nonzero;"/>
         </g>
     </g>
-</svg>
-`;
+    </svg>`;
 
         var noaaIcon = `<svg width="100%" height="100%" viewBox="0 0 500 500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
     <g id="XMLID_1_" transform="matrix(1.59015,0,0,1.59015,-147.849,-147.258)">
@@ -767,7 +818,7 @@ export default {
             <path d="M303.799,197.798C362.218,197.798 409.646,240.795 409.646,293.756C409.646,346.717 362.218,389.714 303.799,389.714C245.38,389.714 197.952,346.717 197.952,293.756C197.952,240.795 245.38,197.798 303.799,197.798ZM303.799,204.095C358.384,204.095 402.7,244.271 402.7,293.756C402.7,343.241 358.384,383.417 303.799,383.417C249.214,383.417 204.898,343.241 204.898,293.756C204.898,244.271 249.214,204.095 303.799,204.095Z" style="fill:rgb(2,0,0);"/>
         </g>
     </g>
-</svg>`;
+    </svg>`;
 
         var selectedIcon = agency === "USGS" ? usgsIcon : noaaIcon;
         return L.divIcon({
@@ -960,11 +1011,25 @@ export default {
       modalId,
       spanClass,
       charttype,
-      title,
       labelName,
       stationID,
-      color
+      municipio,
+      fecha,
+      max,
+      min,
+      des,
+      er,
+      avg
     ) {
+      this.estacion = stationID;
+      this.municipio = municipio;
+      this.fecha = fecha;
+      this.max = max;
+      this.min = min;
+      this.des = des;
+      this.er = er;
+      this.avg = avg;
+
       this.dialog = !this.dialog;
       var config = null;
       var stationLabels = [];
@@ -1020,31 +1085,30 @@ export default {
               datasets: [
                 {
                   label: labelName,
-                  backgroundColor: color,
-                  borderColor: color,
+                  backgroundColor: "#56ddd281",
+                  borderColor: "#56ddd2",
+                  borderWidth: 1,
                   data: formatedDataSet,
-                  // backgroundColor: "rgba(25, 25, 112, 1)"
                 },
               ],
             },
             options: {
               responsive: true,
-              title: {
-                display: true,
-                text: title,
-                fontColor: "#000",
-                fontSize: 14,
+
+              legend: {
+                labels: {
+                  fontColor: "white",
+                  fontSize: 20,
+                },
               },
               tooltips: {
                 mode: "index",
                 intersect: false,
               },
               animation: {
-                duration: 0,
+                duration: 0.3,
               },
               hover: {
-                // mode: 'nearest',
-                // intersect: true
                 animationDuration: 0,
               },
               responsiveAnimationDuration: 0,
@@ -1056,11 +1120,14 @@ export default {
                       display: true,
                       labelString: "Día",
                       fontStyle: "bold",
-                      fontColor: "#000",
+                      fontColor: "white",
+                      fontSize: 20,
                     },
                     ticks: {
                       source: "labels",
                       autoSkip: true,
+                      fontColor: "white",
+                      fontSize: 20,
                       autoSkipPadding: 20,
                       maxRotation: 90,
                       maxTicksLimit: maxTickX,
@@ -1075,19 +1142,22 @@ export default {
                 ],
                 yAxes: [
                   {
+                    ticks: {
+                      fontColor: "white",
+                      beginAtZero: true,
+                      fontSize: 20,
+                      steps: 1,
+                      stepValue: 1,
+                    },
                     display: true,
                     scaleLabel: {
                       display: true,
                       labelString: yLabel,
                       fontStyle: "bold",
-                      fontColor: "#000",
-                      ticks: {
-                        beginAtZero: true,
-                        steps: 10,
-                        stepValue: 10,
-                        max: 100,
-                      },
+                      fontColor: "white",
+                      fontSize: 20,
                     },
+                    gridLines: { color: "rgba(255, 255, 255, 0.3)" },
                   },
                 ],
               },
@@ -1102,8 +1172,10 @@ export default {
               datasets: [
                 {
                   label: labelName,
-                  backgroundColor: color,
-                  borderColor: color,
+                  backgroundColor: "#56ddd281",
+                  borderColor: "#56ddd2",
+                  borderWidth: 3,
+                  lineTension: 0.4,
                   data: formatedDataSet,
                   fill: false,
                 },
@@ -1111,18 +1183,18 @@ export default {
             },
             options: {
               responsive: true,
-              title: {
-                display: true,
-                text: title,
-                fontColor: "#000",
-                fontSize: 14,
+              legend: {
+                labels: {
+                  fontColor: "white",
+                  fontSize: 20,
+                },
               },
               tooltips: {
                 mode: "index",
                 intersect: false,
               },
               animation: {
-                duration: 0,
+                duration: 0.3,
               },
               hover: {
                 // mode: 'nearest',
@@ -1138,11 +1210,14 @@ export default {
                       display: true,
                       labelString: "Día",
                       fontStyle: "bold",
-                      fontColor: "#000",
+                      fontColor: "white",
+                      fontSize: 20,
                     },
                     ticks: {
                       source: "labels",
                       autoSkip: true,
+                      fontColor: "white",
+                      fontSize: 20,
                       autoSkipPadding: 4,
                       maxRotation: 0,
                       maxTicksLimit: maxTickX,
@@ -1156,17 +1231,21 @@ export default {
                 yAxes: [
                   {
                     display: true,
+                    ticks: {
+                      fontSize: 20,
+                      fontColor: "white",
+                      steps: 10,
+                      stepValue: 10,
+                      max: 100,
+                    },
                     scaleLabel: {
                       display: true,
                       labelString: yLabel,
                       fontStyle: "bold",
-                      fontColor: "#000",
-                      ticks: {
-                        steps: 10,
-                        stepValue: 10,
-                        max: 100,
-                      },
+                      fontColor: "white",
+                      fontSize: 20,
                     },
+                    gridLines: { color: "rgba(255, 255, 255, 0.3)" },
                   },
                 ],
               },
@@ -1176,6 +1255,43 @@ export default {
 
       var ctx = document.getElementById("myChart").getContext("2d");
       this.myChart = new Chart(ctx, config);
+
+      //This is an object with all of the data that is going to be placed in the csv file.
+      var dataCsv = stationsDataSet.map((row) => ({
+        //Name of the variable is the name that will be printed out in the csv file for the top row.
+        Fecha: row.DATE,
+        Valor: row.VALUE,
+      }));
+
+      this.csv = dataCsv; //This is the variable that will have the raw json data that needs to be converted.
+    },
+    objectToCsv: function() {
+      const csvRows = [];
+
+      //Get the headers.
+      const headers = Object.keys(this.csv[0]);
+      csvRows.push(headers.join(","));
+
+      //Loop over the rows.
+      for (const row of this.csv) {
+        const values = headers.map((header) => {
+          const escaped = ("" + row[header]).replace(/"/g, '\\"');
+          return `"${escaped}"`;
+        });
+        //Form escaped comma separated values.
+        csvRows.push(values.join(","));
+      }
+
+      //Now we create a download method for this newly created csv data format.
+      const blob = new Blob([csvRows.join("\n")], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.setAttribute("hidden", "");
+      a.setAttribute("href", url);
+      a.setAttribute("download", "DataGráfica.csv"); //The default name of the saved file.
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     },
     zoomUpdate(zoom) {
       this.currentZoom = zoom;
@@ -1186,7 +1302,8 @@ export default {
       if (center !== this.center) {
         document.getElementById("centerBtn").style.opacity = 1;
         document.getElementById("centerBtn").style.pointerEvents = "all";
-        document.getElementById("centerBtn").style.transform = 'translateY(0px)';
+        document.getElementById("centerBtn").style.transform =
+          "translateY(0px)";
       }
     },
     showLongText() {
@@ -1196,7 +1313,7 @@ export default {
       this.mapChanged = this.mapChanged + 1;
       this.zoom = 10.1;
       this.center = latLng(18.213698, -66.348032);
-      document.getElementById("centerBtn").style.transform = 'translateY(10px)';
+      document.getElementById("centerBtn").style.transform = "translateY(10px)";
       document.getElementById("centerBtn").style.opacity = 0;
       document.getElementById("centerBtn").style.pointerEvents = "none";
     },
@@ -1369,282 +1486,122 @@ export default {
   color: #56ddd2;
 }
 
+.graphContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.toolbar {
+  display: flex;
+  background: #23272a;
+  width: fit-content;
+  border-bottom-right-radius: 100px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #56ddd2;
+  padding: 10px;
+  padding-right: 30px;
+}
+
+.chartContent {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.graphOptions {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  height:100%;
+}
+
+.extraInfo {
+  display: flex;
+  background: #23272a;
+  padding: 20px;
+  color: white;
+  flex-direction: row;
+  font-size: 2.7vh;
+  border-radius: 10px;
+  justify-content: center;
+  height: fit-content;
+}
+
+.infoContent {
+  width: fit-content;
+  height: fit-content;
+}
+.graphOptions strong {
+  color: #56ddd2;
+}
+
+.download {
+  background: #23272a;
+  display: flex;
+  padding: 20px;
+  color: white;
+  flex-direction: column;
+  border-radius: 10px;
+  align-content: center;
+  height: fit-content;
+}
+
+.downloadSettings {
+  display: flex;
+  flex-direction: column;
+  font-size: 2vh;
+  justify-content: center;
+}
+.downloadSettings strong {
+  font-size: 2.3vh;
+}
+
+.download h3 {
+  margin-bottom: 20px;
+  font-size: 2.7vh;
+}
+
+.downloadBtnLocation {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.downloadBtn {
+  color: white;
+  background: #47b6ad;
+  padding: 10px;
+  border-radius: 10px;
+  text-shadow: 0px 0px 1px#23272a;
+  user-select: none;
+  width: fit-content;
+  font-size: 2vh;
+}
+
+.downloadBtn:hover {
+  transition: 0.3s;
+  background: #56ddd2;
+}
+
+.downloadBtn:active {
+  transition: 0.1s;
+  box-shadow: inset 0px 0px 10px #3d4444;
+}
+
 /*
 This witll be the end of the nav bar
 */
 
-@media only screen and (min-width: 360px) and (max-width: 768px) {
-  .map {
-    margin: 0;
-    padding: 0;
-  }
-
-  .my-div-icon {
-    background-color: #fd8424;
-    border-radius: 3px;
-    border: 2px solid #ca6a1b;
-  }
-  .my-div-icon {
-    height: 0;
-    width: 0;
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 40%;
-    border-style: none;
-  }
-
-  /* .input {
-        width: 15vh;
-     } */
-  #selecteddate {
-    float: right;
-    position: absolute;
-    z-index: 1001;
-    top: 0;
-    left: 25%;
-    font-size: 5vh;
-  }
-  .fontsz {
-    font-size: 2vh;
-  }
-}
-@media only screen and (min-width: 1024px) and (max-width: 1440px) {
-  .drawer-icon {
-    border-radius: 8% !important;
-    border: 2px solid #a6babc;
-    background-color: #ffffff;
-    float: right;
-    position: absolute;
-    z-index: 1001;
-    top: 20%;
-    left: 1.12%;
-    font-size: 5vh;
-  }
-  .my-div-icon {
-    background-color: #fd8424;
-    border-radius: 3px;
-    border: 2px solid #ca6a1b;
-  }
-  .my-div-icon {
-    height: 0;
-    width: 0;
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 40%;
-    border-style: none;
-  }
-
-  /* .input {
-        width: 15vh;
-     } */
-  #selecteddate {
-    float: right;
-    position: absolute;
-    z-index: 1001;
-    top: 0;
-    left: 25%;
-    font-size: 5vh;
-  }
-  .fontsz {
+@media only screen and (max-height:719px) {
+  .extraInfo{
     font-size: 2vh;
   }
 }
 
-@media only screen and (min-width: 1440px) and (max-width: 1680px) {
-  .drawer-icon {
-    border-radius: 8% !important;
-    border: 2px solid #a6babc;
-    background-color: #ffffff;
-    float: right;
-    position: absolute;
-    z-index: 1001;
-    top: 20%;
-    left: 1.12%;
-    font-size: 5vh;
-  }
-  .my-div-icon {
-    background-color: #fd8424;
-    border-radius: 3px;
-    border: 2px solid #ca6a1b;
-  }
-  .my-div-icon {
-    height: 0;
-    width: 0;
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 40%;
-    border-style: none;
-  }
-
-  /* .input {
-        width: 15vh;
-     } */
-  #selecteddate {
-    float: right;
-    position: absolute;
-    z-index: 1001;
-    top: 0;
-    left: 25%;
-    font-size: 5vh;
-  }
-  .fontsz {
-    font-size: 2vh;
-  }
-}
-@media only screen and (min-width: 1680px) and (max-width: 1920px) {
-  drawer-icon {
-    border-radius: 8% !important;
-    border: 2px solid #a6babc;
-    background-color: #ffffff;
-    float: right;
-    position: absolute;
-    z-index: 1001;
-    top: 20%;
-    left: 1.12%;
-    font-size: 5vh;
-  }
-  .my-div-icon {
-    background-color: #fd8424;
-    border-radius: 3px;
-    border: 2px solid #ca6a1b;
-  }
-  .my-div-icon {
-    height: 0;
-    width: 0;
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 40%;
-    border-style: none;
-  }
-
-  /* .input {
-        width: 15vh;
-     } */
-  #selecteddate {
-    float: right;
-    position: absolute;
-    z-index: 1001;
-    top: 0;
-    left: 25%;
-    font-size: 5vh;
-  }
-  .fontsz {
-    font-size: 2vh;
-  }
-}
-@media only screen and (min-width: 1920px) and (max-width: 32560px) {
-  .drawer-icon {
-    border-radius: 8% !important;
-    border: 2px solid #a6babc;
-    background-color: #ffffff;
-    float: right;
-    position: absolute;
-    z-index: 1001;
-    top: 10%;
-    left: 0.9%;
-    font-size: 5vh;
-  }
-  .my-div-icon {
-    background-color: #fd8424;
-    border-radius: 3px;
-    border: 2px solid #ca6a1b;
-  }
-  .my-div-icon {
-    height: 0;
-    width: 0;
-    background-color: rgba(0, 0, 0, 0);
-    border-radius: 40%;
-    border-style: none;
-  }
-
-  #selecteddate {
-    float: right;
-    position: absolute;
-    z-index: 1001;
-    top: 0;
-    left: 25%;
-    font-size: 5vh;
-  }
-  .fontsz {
-    font-size: 2vh;
-  }
-}
-@media only screen and (min-width: 32560px) {
-}
-
-html,
-body {
-  height: 100%;
-}
-.btn1 {
-  background-color: blue !important;
-}
-.btn2 {
-  background-color: red !important;
-}
-.btn3 {
-  background-color: green !important;
-}
-.selectedbtn {
-  /* background-color: grey; */
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
-  border: 2px solid grey !important; /* Green */
-  /* color: white; */
-}
-.unselectedbtn {
-  background-color: whitesmoke;
-  color: black;
-}
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 10000; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */ /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-.triangle-left {
-  width: 0;
-  height: 0;
-  border-top: 23px solid transparent;
-  border-bottom: 23px solid transparent;
-  border-right: 23px solid red;
-}
-
-.inner-triangle {
-  position: relative;
-  top: -20px;
-  left: 2px;
-  width: 0;
-  height: 0;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-right: 20px solid blue;
-}
-.popup-tip-corrections {
-  margin: 0 1 !important;
-  position: absolute !important;
-}
 </style>
