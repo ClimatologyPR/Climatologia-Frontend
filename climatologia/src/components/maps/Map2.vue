@@ -886,23 +886,35 @@ export default {
      * prcp: int value of the precipitation
      **/
     getPrecipitationPinColors: function(rgb, prcp) {
-      if (prcp >= 0 && prcp <= 0.4) {
-        rgb.r = ((255 - 0) * (0.4 - prcp)) / (0.4 - 0);
+      if (prcp >= 0 && prcp <= 0.75) {
+        rgb.r = 255-(255*(prcp/0.75));
         rgb.g = 255;
         rgb.b = 255;
-      } else if (prcp > 0.4 && prcp <= 4.0) {
+      } else if (prcp > 0.75 && prcp <= 1.0) {
         rgb.r = 0;
-        rgb.g = ((255 - 0) * (4 - prcp)) / (4 - 0.4);
+        rgb.g = 255-(230*((prcp-0.75)/(1.0-0.75)));
         rgb.b = 255;
-      } else if (prcp > 4 && prcp <= 24) {
+      } else if (prcp > 1 && prcp <= 2) {
+        rgb.r = 125*((prcp-1.0)/(2.0-1.0));
+        rgb.g = 125;
+        rgb.b = 255;
+      } else if (prcp > 2 && prcp <= 4) {
+        rgb.r = 125;
+        rgb.g = 125-(125*((prcp-2)/(4.0-2.0)));
+        rgb.b = 255;
+      }else if (prcp > 4 && prcp <= 8) {
+        rgb.r = 125;
+        rgb.g = 0;
+        rgb.b = 255-(230*((prcp-4.0)/(8.0-4.0)));
+      }else if (prcp > 8 && prcp <= 16) {
+        rgb.r = 125-(125*((prcp-8.0)/(16.0-8.0)));
+        rgb.g = 0;
+        rgb.b = 125;
+      }else if (prcp > 16 && prcp <= 30) {
         rgb.r = 0;
         rgb.g = 0;
-        rgb.b = ((255 - 100) * (24 - prcp)) / (24 - 4) + 100;
-      } else if (prcp > 24) {
-        rgb.r = 100;
-        rgb.g = 0;
-        rgb.b = 0;
-      } else if (prcp == null) {
+        rgb.b = 125-(125*((prcp-16.0)/(30.0-16.0)));
+      }else if (prcp == null) {
         rgb.r = 0;
         rgb.g = 0;
         rgb.b = 0;
@@ -1236,7 +1248,7 @@ export default {
                       fontColor: "white",
                       steps: 10,
                       stepValue: 10,
-                      max: 100,
+                      //max:100 <-- This will be the biggest the chart will get but does not show the full behavior of the chart.
                     },
                     scaleLabel: {
                       display: true,
@@ -1429,8 +1441,7 @@ export default {
   width: 255px;
   background: inherit;
   backdrop-filter: blur(10px);
-  box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836),
-    0px 5px 10px rgba(0, 0, 0, 0.26);
+  box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836);
   color: white;
   border-radius: 10px;
   padding: 10px;
@@ -1468,8 +1479,7 @@ export default {
   background: inherit;
   height: auto;
   backdrop-filter: blur(10px);
-  box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836),
-    0px 5px 10px rgba(0, 0, 0, 0.26);
+  box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836);
 }
 
 .popup {
