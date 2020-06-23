@@ -6,12 +6,12 @@
 
 <script>
 // @ is an alias to /src
-import MAP1 from "../components/maps/Map2";
+import MAP from "../components/maps/Map";
 
 export default {
   name: "Home",
   components: {
-    "map-view": MAP1,
+    "map-view": MAP,
   },
 };
 </script>

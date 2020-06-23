@@ -29,10 +29,18 @@
       use the <strong>full screen mode</strong>.
     </p>
     <p>Meanwhile you can <strong>learn more</strong> about this project here:</p>
-    <a class="aboutBtn">About Section</a>
+    <div class="options">
+      <router-link to="/about" class="aboutBtn">About Section</router-link>
+      <router-link to="/api" class="aboutBtn">API</router-link>
+    </div>
   </div>
 </template>
 <style scoped>
+
+.options{
+  display: flex;
+  justify-content: space-evenly;
+}
 .aboutBtn{
     color: white;
     background: #47b6ad;
@@ -40,6 +48,8 @@
     border-radius: 10px;
     text-shadow: 0px 0px 1px#23272a;
     user-select: none;
+    text-decoration: none;
+    min-width: 40%;
 }
 
 .aboutBtn:hover, .aboutBtn:active{

@@ -1,4 +1,8 @@
 <template>
+<div class="mapContainer2">
+  <SmallWindow />
+<div class="mapContainer">
+<div class="map">
   <div style="height: 100%;display:flex;">
     <div
       style="background-color: #e1e2e1; display:flex; height:100%; width:100%;"
@@ -27,8 +31,8 @@
                 no-title
                 :show-current="false"
                 scrollable
-                min="2000-08-15"
-                max="2019-03-20"
+                :min="minDate"
+                :max="maxDate"
               >
               </v-date-picker>
               <v-date-picker
@@ -42,8 +46,8 @@
                 no-title
                 :show-current="false"
                 scrollable
-                min="2000-08-15"
-                max="2019-03-20"
+                :min="minDate"
+                :max="maxDate"
                 range
               >
               </v-date-picker>
@@ -105,7 +109,7 @@
           </l-control>
           <l-control
             position="bottomright"
-            style="pointer-events: none;margin-bottom:-10px;z-index:801;"
+            style="pointer-events: none;margin-bottom:-10px;z-index:801;margin-right:10px"
           >
             <v-card width="100%" class="legendImage">
               <img
@@ -211,9 +215,9 @@
                     <span v-if="currentPinView === 'prcp'">"</span
                     ><span v-else>ºF</span>
                     <br />
-                    <v-col>
+                    <div class="popupBtns">
                       <v-btn
-                        style="background:#2bbbbb;color:white;"
+                        style="background:#2bbbbb;color:white;margin-bottom:10px"
                         @click="
                           setChart(
                             'rangeModal',
@@ -242,7 +246,13 @@
                         }}</v-icon>
                         Graficar
                       </v-btn>
-                    </v-col>
+                    
+                      <v-btn  style="background:#2bbbbb;color:white;"
+                      @click="downloadToCsv(station.STATIONID)"
+                      >
+                        <v-icon color="white">mdi-download</v-icon>Descargar
+                      </v-btn>
+                      </div>
                   </div>
                 </l-popup>
               </l-marker>
@@ -470,6 +480,9 @@
       :hideMenu="hideMenu"
     />
   </div>
+</div>
+</div>
+</div>
 </template>
 
 <script>
@@ -501,6 +514,7 @@ import { SouthernCoastal } from "../layers/climatezones/SouthernCoastal.js";
 import { SouthernSlopes } from "../layers/climatezones/SouthernSlopes.js";
 import { WesternInterior } from "../layers/climatezones/WesternInterior.js";
 import Chart from "chart.js";
+import SmallWindow from '../SmallWindow';
 export default {
   name: "Example",
   components: {
@@ -511,6 +525,7 @@ export default {
     LPolygon,
     LControl,
     Menu,
+    SmallWindow
   },
   data() {
     return {
@@ -527,7 +542,7 @@ export default {
         [23.402765, -74.227942],
         [12.46876, -54.878565],
       ]),
-      zoom: 10.1,
+      zoom: 9.9,
       minZoom: 8.0,
       center: latLng(18.213698, -66.348032),
       url:
@@ -541,24 +556,24 @@ export default {
       mapOptions: {
         zoomSnap: 0.01,
       },
-      showMap: true,
+      showMap: true,// This turns the map on or off
       dialog: false,
       disable: false,
-      loader: null,
-      loading: false,
-      loading1: false,
-      loading2: false,
-      menu: false,
-      modal1: false,
-      modal2: false,
-      modal3: false,
-      modal4: false,
+      loader: null,// This can be deleted
+      loading: false,// This can be deleted
+      loading1: false,// This can be deleted
+      loading2: false,// This can be deleted
+      menu: false,// This can be deleted
+      modal1: false,// This can be deleted
+      modal2: false,// This can be deleted
+      modal3: false,// This can be deleted
+      modal4: false,// This can be deleted
       singleDatePicker: false,
       rangeDatePicker: false,
       selectedDateType: "Día",
       minDate: "2000-01-01",
-      maxDate: "2019-08-31",
-      date: "2018-04-13",
+      maxDate: "2020-06-01",
+      date: "2018-04-01",
       drawer: false,
       startdate: null,
       enddate: null,
@@ -676,7 +691,7 @@ export default {
     selectedDateType: function() {
       if (this.selectedDateType === "Día") {
         this.dateType("singleDate");
-        this.date = "2018-04-04";
+        this.date = "2018-04-01";
       } else if (this.selectedDateType === "Rango") {
         this.dateType("rangeDate");
         this.date = ["2018-04-01", "2018-04-07"];
@@ -1019,6 +1034,62 @@ export default {
         }
       };
     },
+    downloadToCsv:async function(stationID){
+      var dataSetResponse = await fetch(
+        "http://climatologia.uprm.edu:8008/api?" +
+          "q=data&" +
+          "calc=none" +
+          "&station=" +
+          stationID +
+          "&startdate=" +
+          this.startdate +
+          "&enddate=" +
+          this.enddate +
+          "&elem=" +
+          this.currentPinView
+      ).catch(function(error) {
+        alert(error);
+      });
+
+      var stationsDataSet = await dataSetResponse.json();
+
+      var dataCsv = stationsDataSet.map((row) => ({
+        //Name of the variable is the name that will be printed out in the csv file for the top row.
+        Fecha: row.DATE,
+        Valor: row.VALUE,
+      }));
+
+      dataCsv;
+
+      const csvRows = [];
+
+      //Get the headers.
+      const headers = Object.keys(dataCsv[0]);
+      csvRows.push(headers.join(","));
+
+      //Loop over the rows.
+      for (const row of dataCsv) {
+        const values = headers.map((header) => {
+          const escaped = ("" + row[header]).replace(/"/g, '\\"');
+          return `"${escaped}"`;
+        });
+        //Form escaped comma separated values.
+        csvRows.push(values.join(","));
+      }
+
+      //Now we create a download method for this newly created csv data format.
+      const blob = new Blob([csvRows.join("\n")], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.setAttribute("hidden", "");
+      a.setAttribute("href", url);
+      a.setAttribute("download", "DataGráfica.csv"); //The default name of the saved file.
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+    },
+
     setChart: async function(
       modalId,
       spanClass,
@@ -1323,7 +1394,7 @@ export default {
     },
     recenter: function() {
       this.mapChanged = this.mapChanged + 1;
-      this.zoom = 10.1;
+      this.zoom = 9.9;
       this.center = latLng(18.213698, -66.348032);
       document.getElementById("centerBtn").style.transform = "translateY(10px)";
       document.getElementById("centerBtn").style.opacity = 0;
@@ -1345,6 +1416,28 @@ export default {
 /* eslint-enable */
 </script>
 <style scoped>
+.mapContainer2{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+.mapContainer {
+  display: flex;
+  height: 80%;
+  flex-direction: column;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  -webkit-box-shadow: inset 0px 0px 200px rgba(243, 243, 243, 0.1),
+    0px 5px 25px rgba(24, 24, 24, 0.11);
+  box-shadow: inset 0px 0px 200px rgba(243, 243, 243, 0.1),
+    0px 5px 25px rgba(24, 24, 24, 0.11);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding: 20px;
+  
+}
+
 .date {
   position: absolute;
   display: flex;
@@ -1495,6 +1588,12 @@ export default {
 .popup strong {
   color: #56ddd2;
 }
+.popupBtns{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
 
 .graphContainer {
   display: flex;
@@ -1611,6 +1710,12 @@ This witll be the end of the nav bar
 @media only screen and (max-height:719px) {
   .extraInfo{
     font-size: 2vh;
+  }
+}
+
+@media only screen and (max-width: 1023px), (max-height: 549px){
+  .mapContainer{
+    display: none;
   }
 }
 

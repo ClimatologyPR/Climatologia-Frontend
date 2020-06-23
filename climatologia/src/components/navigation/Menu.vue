@@ -81,8 +81,8 @@
                   no-title
                   :show-current="false"
                   scrollable
-                  min="2000-08-15"
-                  max="2019-03-20"
+                  :min="minDate"
+                  :max="maxDate"
                   dark
                 >
                 </v-date-picker>

@@ -1,6 +1,5 @@
 <template>
   <v-app style="overflow:hidden !important;background:#23272a;z-index:-2;">
-    <SmallWindow />
     <Preloader />
     <div class="main">
       <figure></figure>
@@ -11,38 +10,33 @@
       <div class="nav">
         <div class="navContent">
           <div class="logo">
-            <h1>Climatología de Puerto Rico</h1>
+            <router-link to="/">Climatología de Puerto Rico</router-link>
           </div>
           <div class="links">
-            <a>About</a>
-            <a>API</a>
+            <router-link to="/about">About</router-link>
+            <router-link to="/api">API</router-link>
             <a>Docs</a>
           </div>
         </div>
       </div>
-
-      <div class="mapContainer">
-        <div class="map"><Map /></div>
-      </div>
+        <router-view class="router"/>
     </div>
   </v-app>
 </template>
 
 <script>
-import Map from "./components/maps/Map2";
 import Preloader from "./components/Preloader";
-import SmallWindow from "./components/SmallWindow";
 
 export default {
   name: "app",
 
   components: {
     Preloader,
-    Map,
-    SmallWindow,
   },
 
   data: () => ({}),
+  methods:{
+  },
   mounted() {
     const loader = document.querySelector(".loader");
     loader.className += " hidden"; // class "loader hidden"
@@ -53,6 +47,11 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+
+.router{
+  z-index: 3;
+}
 
 .main {
   width: 100%;
@@ -75,6 +74,8 @@ export default {
   z-index: 0;
 }
 
+
+
 .main > figure:nth-child(1) {
   background-image: linear-gradient(#203b4a8a, #203b4a60),
     url("assets/trees.jpg");
@@ -82,13 +83,13 @@ export default {
 
 .main > figure:nth-child(2) {
   animation-delay: 60s;
-  background-image: linear-gradient(#203b4a8a, #203b4a60),
+  background-image: linear-gradient(#203b4a46, #203b4a44),
     url("assets/rainforest.jpg");
 }
 
 .main > figure:nth-child(3) {
   animation-delay: 120s;
-  background-image: linear-gradient(#203b4a54, #203b4a54),
+  background-image: linear-gradient(#203b4a2a, #203b4a21),
     url("assets/beach2.jpg");
 }
 
@@ -100,7 +101,7 @@ export default {
 
 .main > figure:nth-child(5) {
   animation-delay: 240s;
-  background-image: linear-gradient(#203b4a54, #203b4a54),
+  background-image: linear-gradient(#203b4a1e, #203b4a1f),
     url("assets/beach.jpg");
 }
 
@@ -153,6 +154,14 @@ export default {
   margin-left: auto;
 }
 
+.logo a {
+  margin-right: 50px;
+  text-decoration: none !important;
+  color: white !important;
+  font-size: 32px;
+  font-weight: 900;
+}
+
 .links a {
   margin-right: 50px;
   text-decoration: none !important;
@@ -165,40 +174,15 @@ export default {
   transition: 0.3s;
 }
 
-.mapContainer {
-  display: flex;
-  flex: 2;
-  align-items: center;
-  justify-content: center;
-}
 
-.map {
-  height: 80%;
-  width: 100%;
-  background: inherit;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  -webkit-box-shadow: inset 0px 0px 200px rgba(243, 243, 243, 0.1),
-    0px 5px 25px rgba(24, 24, 24, 0.11);
-  box-shadow: inset 0px 0px 200px rgba(243, 243, 243, 0.1),
-    0px 5px 25px rgba(24, 24, 24, 0.11);
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding: 20px;
-}
+
+
 
 html {
-  overflow-y: hidden !important;
+  overflow-y: auto !important;
 }
 
 @media only screen and (max-device-aspect-ratio: 9/16) {
-  .nav {
-    display: none;
-  }
-  .map {
-    height: 100%;
-    padding: 0px;
-  }
   .loader h1 {
     font-size: 30px;
     margin-top: 20%;
@@ -206,6 +190,17 @@ html {
 
   .loader {
     justify-content: flex-start;
+  }
+}
+
+@media only screen and (max-width:1050px){
+  .logo a{
+    font-size: 2vh;
+  }
+
+  .links a{
+    font-size: 3vh;
+    margin-right: 3vw;
   }
 }
 </style>
