@@ -231,7 +231,8 @@
                               : 'Temperatura Mínima',
                             station.STATIONID,
                             station.MUNICIPALITY,
-                            rangeDateText,
+                            startdate,
+                            enddate,
                             station.MAXVALUE,
                             station.MINVALUE,
                             station.STDDEVVALUE,
@@ -1420,7 +1421,8 @@ export default {
       labelName,
       stationID,
       municipality,
-      date,
+      startdate,
+      enddate,
       max,
       min,
       des,
@@ -1428,14 +1430,15 @@ export default {
       avg) {
         this.estacion = stationID;
       this.municipality = municipality;
-      this.fecha = date;
       this.max = max;
       this.min = min;
       this.des = des;
       this.er = err;
       this.avg = avg;
 
-      let routeData = this.$router.resolve({name: 'routeName', path: `/graph/${varType}/${modalId}/${spanClass}/${chartType}/${labelName}/${stationID}/${municipality}/${date}/${max}/${min}/${des}/${err}/${avg}/` });
+      
+
+      let routeData = this.$router.resolve({name: 'routeName', path: `/graph/${varType}/${modalId}/${spanClass}/${chartType}/${labelName}/${stationID}/${municipality}/${startdate}/${enddate}/${max}/${min}/${des}/${err}/${avg}/` });
 
        window.open(routeData.href, '_blank');
 
@@ -1677,60 +1680,7 @@ export default {
   color: #56ddd2;
 }
 
-.download {
-  background: #23272a;
-  display: flex;
-  padding: 20px;
-  color: white;
-  flex-direction: column;
-  border-radius: 10px;
-  align-content: center;
-  height: fit-content;
-}
 
-.downloadSettings {
-  display: flex;
-  flex-direction: column;
-  font-size: 2vh;
-  justify-content: center;
-}
-.downloadSettings strong {
-  font-size: 2.3vh;
-}
-
-.download h3 {
-  margin-bottom: 20px;
-  font-size: 2.7vh;
-}
-
-.downloadBtnLocation {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.downloadBtn {
-  color: white;
-  background: #47b6ad;
-  padding: 10px;
-  border-radius: 10px;
-  text-shadow: 0px 0px 1px#23272a;
-  user-select: none;
-  width: fit-content;
-  font-size: 2vh;
-}
-
-.downloadBtn:hover {
-  transition: 0.3s;
-  background: #56ddd2;
-}
-
-.downloadBtn:active {
-  transition: 0.1s;
-  box-shadow: inset 0px 0px 10px #3d4444;
-}
 
 /*
 This witll be the end of the nav bar

@@ -27,7 +27,7 @@ Vue.use(VueRouter)
     component: Api
   },
   {
-    path: '/graph/:modalId/:spanClass/:chartType/:labelName/:stationID/:municipality/:date/:max/:min/:des/:err/:avg/:name/',
+    path: '/graph/:varType/:modalId/:spanClass/:chartType/:labelName/:stationID/:municipality/:startdate/:enddate/:max/:min/:des/:err/:avg',
     name:'graph',
     component: Graph
   }

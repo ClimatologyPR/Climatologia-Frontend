@@ -1,14 +1,66 @@
 <template>
-    <div>
-        <div class="chartContent">
-              <canvas id="myChart" width="400" height="100"></canvas>
-        </div>
+  <div class="graphContainer">
+    <div class="graphContent">
+    <div class="chartContent">
+      <canvas id="myChart" width="400" height="100"></canvas>
     </div>
+    <div class="infoContent">
+      <strong>ID de Estación: </strong>
+      {{ stationID }}
+      <br />
+      <strong>Municipio: </strong>
+      {{ municipality }}
+      <br />
+      <strong>Rango de Fecha: </strong>
+      {{ rangeDateText }}
+      <br />
+      <strong v-if="varType === 'prcp'">
+        Precipitación Promedio:
+      </strong>
+      <strong v-else-if="varType === 'tmax'">
+        Temperatura Máxima Promedio:
+      </strong>
+      <strong v-else> Temperatura Mínima Promedio: </strong>
+      {{ avg }}
+      <span v-if="varType === 'prcp'">"</span><span v-else>ºF</span>
+      <br />
+      <strong>Máximo: </strong>
+      {{ max }}
+      <span v-if="varType === 'prcp'">"</span><span v-else>ºF</span>
+      <br />
+      <strong>Mínimo: </strong>
+      {{ min }}
+      <span v-if="varType === 'prcp'">"</span><span v-else>ºF</span>
+      <br />
+      <strong>Desviación Estándar: </strong>{{ des }}
+      <span v-if="varType === 'prcp'">"</span><span v-else>ºF</span>
+      <br />
+      <strong>Error Estándar: </strong>{{ err }}
+      <span v-if="varType === 'prcp'">"</span><span v-else>ºF</span>
+    </div>
+
+    <a class="downloadBtn" @click="objectToCsv()"
+      ><v-icon color="white">mdi-download</v-icon>Descargar</a
+    >
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.graphContainer{
+  background: var(--main);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+</style>
+
 <script>
 import Chart from "chart.js";
 export default {
-     data() {
+  data() {
     return {
       varType: null,
       modalId: null,
@@ -16,43 +68,74 @@ export default {
       chartType: null,
       labelName: null,
       stationID: null,
-      municipio: null,
-      date: null,
+      municipality: null,
+      startdate: null,
+      enddate: null,
       max: null,
       min: null,
       des: null,
-      er: null,
-      avg: null
+      err: null,
+      avg: null,
+      csv: null,
     };
   },
-  mounted () {
-      this.varType = this.$route.params.varType
-      this.modalId = this.$route.params.modalId
-      this.spanClass = this.$route.params.spanClass
-      this.chartType = this.$route.params.chartType
-      this.labelName = this.$route.params.labelName
-      this.stationID = this.$route.params.stationID
-      this.municipality = this.$route.params.municipality
-      this.date = this.$route.params.date
-      this.max = this.$route.params.max
-      this.min = this.$route.params.min
-      this.des = this.$route.params.des
-      this.err = this.$route.params.err
-      this.avg = this.$route.params.avg
-      this.setChart()
+  mounted() {
+    this.varType = this.$route.params.varType;
+    this.modalId = this.$route.params.modalId;
+    this.spanClass = this.$route.params.spanClass;
+    this.chartType = this.$route.params.chartType;
+    this.labelName = this.$route.params.labelName;
+    this.stationID = this.$route.params.stationID;
+    this.municipality = this.$route.params.municipality;
+    this.startdate = this.$route.params.startdate;
+    this.enddate = this.$route.params.enddate;
+    this.max = this.$route.params.max;
+    this.min = this.$route.params.min;
+    this.des = this.$route.params.des;
+    this.err = this.$route.params.err;
+    this.avg = this.$route.params.avg;
+    this.setChart();
+  },
+  computed: {
+    rangeDateText() {
+      if (this.startdate && this.enddate) {
+        const [year, month, day] = this.startdate.split("-");
+        const [year1, month1, day1] = this.enddate.split("-");
+        return `${month}/${day}/${year} ➜ ${month1}/${day1}/${year1}`;
+      }
+      return "";
+    },
   },
   methods: {
-      setChart: async function() {
-    //   this.estacion = stationID;
-    //   this.municipio = municipio;
-    //   this.date = date;
-    //   this.max = max;
-    //   this.min = min;
-    //   this.des = des;
-    //   this.er = er;
-    //   this.avg = avg;
+    objectToCsv: function() {
+      const csvRows = [];
 
-      this.dialog = !this.dialog;
+      //Get the headers.
+      const headers = Object.keys(this.csv[0]);
+      csvRows.push(headers.join(","));
+
+      //Loop over the rows.
+      for (const row of this.csv) {
+        const values = headers.map((header) => {
+          const escaped = ("" + row[header]).replace(/"/g, '\\"');
+          return `"${escaped}"`;
+        });
+        //Form escaped comma separated values.
+        csvRows.push(values.join(","));
+      }
+      
+      //Now we create a download method for this newly created csv data format.
+      const blob = new Blob([csvRows.join("\n")], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.setAttribute("hidden", "");
+      a.setAttribute("href", url);
+      a.setAttribute("download", "DataGráfica.csv"); //The default name of the saved file.
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    },
+    setChart: async function() {
       var config = null;
       var stationLabels = [];
       var dataSetResponse = await fetch(
@@ -286,7 +369,7 @@ export default {
       }));
 
       this.csv = dataCsv; //This is the variable that will have the raw json data that needs to be converted.
-    }
-  }
-}
+    },
+  },
+};
 </script>

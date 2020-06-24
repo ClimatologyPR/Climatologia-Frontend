@@ -252,7 +252,7 @@
       }
 
       .body {
-        background: #36393f;
+        background: var(--main);
         color: var(--text);
         font-family: "Lato", sans-serif;
         padding: 32px;
