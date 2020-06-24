@@ -50,7 +50,7 @@ export default {
 
 
 .router{
-  z-index: 3;
+  z-index:3;
 }
 
 .main {

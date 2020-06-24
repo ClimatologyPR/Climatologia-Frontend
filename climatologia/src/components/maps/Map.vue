@@ -390,7 +390,7 @@
               <h2>
                 Grafica para rango de fecha seleccionado
               </h2>
-              <v-btn icon dark @click="(dialog = false), myChart.destroy()">
+              <v-btn icon dark @click="(dialog = false), myChart.destroy(),recenter()">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
             </div>
