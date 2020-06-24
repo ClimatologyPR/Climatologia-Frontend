@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import About from '../views/About.vue'
 import Map from '../components/maps/Map.vue';
 import Api from '../views/Api.vue';
+import Graph from '../components/Graph.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ Vue.use(VueRouter)
     path:'/api',
     name:'API',
     component: Api
+  },
+  {
+    path: '/graph/:modalId/:spanClass/:chartType/:labelName/:stationID/:municipality/:date/:max/:min/:des/:err/:avg/:name/',
+    name:'graph',
+    component: Graph
   }
 ]
 

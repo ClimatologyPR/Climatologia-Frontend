@@ -219,7 +219,8 @@
                       <v-btn
                         style="background:#2bbbbb;color:white;margin-bottom:10px"
                         @click="
-                          setChart(
+                          OpenChart(
+                            currentPinView,
                             'rangeModal',
                             'close',
                             'line',
@@ -404,7 +405,7 @@
                   {{ estacion }}
                   <br />
                   <strong>Municipio: </strong>
-                  {{ municipio }}
+                  {{ municipality }}
                   <br />
                   <strong>Rango de Fecha: </strong>
                   {{ fecha }}
@@ -619,7 +620,7 @@ export default {
       mychart: null,
       mapChanged: 0,
       estacion: null,
-      municipio: null,
+      municipality: null,
       fecha: null,
       max: null,
       min: null,
@@ -1096,7 +1097,7 @@ export default {
       charttype,
       labelName,
       stationID,
-      municipio,
+      municipality,
       fecha,
       max,
       min,
@@ -1105,7 +1106,7 @@ export default {
       avg
     ) {
       this.estacion = stationID;
-      this.municipio = municipio;
+      this.municipality = municipality;
       this.fecha = fecha;
       this.max = max;
       this.min = min;
@@ -1411,6 +1412,34 @@ export default {
         document.getElementById("date2").style.display = "block";
       }
     },
+    OpenChart: function (
+      varType,
+      modalId,
+      spanClass,
+      chartType,
+      labelName,
+      stationID,
+      municipality,
+      date,
+      max,
+      min,
+      des,
+      err,
+      avg) {
+        this.estacion = stationID;
+      this.municipality = municipality;
+      this.fecha = date;
+      this.max = max;
+      this.min = min;
+      this.des = des;
+      this.er = err;
+      this.avg = avg;
+
+      let routeData = this.$router.resolve({name: 'routeName', path: `/graph/${varType}/${modalId}/${spanClass}/${chartType}/${labelName}/${stationID}/${municipality}/${date}/${max}/${min}/${des}/${err}/${avg}/` });
+
+       window.open(routeData.href, '_blank');
+
+    }
   },
 };
 /* eslint-enable */
