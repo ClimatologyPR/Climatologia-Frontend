@@ -1,61 +1,96 @@
 <template>
   <div class="graphContainer">
     <div class="graphContent">
-    <div class="chartContent">
-      <canvas id="myChart" width="400" height="100"></canvas>
-    </div>
-    <div class="infoContent">
-      <strong>ID de Estación: </strong>
-      {{ stationID }}
-      <br />
-      <strong>Municipio: </strong>
-      {{ municipality }}
-      <br />
-      <strong>Rango de Fecha: </strong>
-      {{ rangeDateText }}
-      <br />
-      <strong v-if="varType === 'prcp'">
-        Precipitación Promedio:
-      </strong>
-      <strong v-else-if="varType === 'tmax'">
-        Temperatura Máxima Promedio:
-      </strong>
-      <strong v-else> Temperatura Mínima Promedio: </strong>
-      {{ avg }}
-      <span v-if="varType === 'prcp'">"</span><span v-else>ºF</span>
-      <br />
-      <strong>Máximo: </strong>
-      {{ max }}
-      <span v-if="varType === 'prcp'">"</span><span v-else>ºF</span>
-      <br />
-      <strong>Mínimo: </strong>
-      {{ min }}
-      <span v-if="varType === 'prcp'">"</span><span v-else>ºF</span>
-      <br />
-      <strong>Desviación Estándar: </strong>{{ des }}
-      <span v-if="varType === 'prcp'">"</span><span v-else>ºF</span>
-      <br />
-      <strong>Error Estándar: </strong>{{ err }}
-      <span v-if="varType === 'prcp'">"</span><span v-else>ºF</span>
-    </div>
-
-    <a class="downloadBtn" @click="objectToCsv()"
-      ><v-icon color="white">mdi-download</v-icon>Descargar</a
-    >
+      <div class="chartContent">
+        <canvas id="myChart" width="400" height="100"></canvas>
+      </div>
+      <div class="options">
+        <table class="content-table">
+          <thead>
+            <tr>
+              <th>Información</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ID de Estación</td>
+              <td>{{ stationID }}</td>
+            </tr>
+            <tr>
+              <td>Municipio</td>
+              <td>{{ municipality }}</td>
+            </tr>
+            <tr>
+              <td>Rango de Fecha</td>
+              <td>{{ rangeDateText }}</td>
+            </tr>
+            <tr>
+              <td v-if="varType === 'prcp'">Precipitación Promedio</td>
+              <td v-else-if="varType === 'tmax'">
+                Temperatura Máxima Promedio
+              </td>
+              <td v-else>Temperatura Mínima Promedio</td>
+              <td>
+                {{ avg }} <span v-if="varType === 'prcp'">"</span
+                ><span v-else>ºF</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Máximo</td>
+              <td>
+                {{ max }} <span v-if="varType === 'prcp'">"</span
+                ><span v-else>ºF</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Mínimo</td>
+              <td>
+                {{ min }} <span v-if="varType === 'prcp'">"</span
+                ><span v-else>ºF</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Desviación Estándar</td>
+              <td>
+                {{ des }} <span v-if="varType === 'prcp'">"</span
+                ><span v-else>ºF</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Error Estándar</td>
+              <td>
+                {{ err }} <span v-if="varType === 'prcp'">"</span
+                ><span v-else>ºF</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="download">
+          <div class="dContent">
+            <h3>Descargar data de gráfica</h3>
+            <div class="downloadSettings">
+              <div>
+                <strong>Información del archivo para descarga:</strong>
+                <ul>
+                  <li>
+                    El contenido solo incluye los valores que están
+                    reprecentados por la gráfica
+                  </li>
+                  <li>El archivo es de formato ".csv"</li>
+                </ul>
+              </div>
+            </div>
+            <div class="downloadBtnLocation">
+              <a class="downloadBtn" @click="objectToCsv()"
+                ><v-icon color="white">mdi-download</v-icon>Descargar</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.graphContainer{
-  background: var(--main);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-
-</style>
 
 <script>
 import Chart from "chart.js";
@@ -123,7 +158,7 @@ export default {
         //Form escaped comma separated values.
         csvRows.push(values.join(","));
       }
-      
+
       //Now we create a download method for this newly created csv data format.
       const blob = new Blob([csvRows.join("\n")], { type: "text/csv" });
       const url = window.URL.createObjectURL(blob);
@@ -135,6 +170,7 @@ export default {
       a.click();
       document.body.removeChild(a);
     },
+    
     setChart: async function() {
       var config = null;
       var stationLabels = [];
@@ -361,7 +397,7 @@ export default {
       var ctx = document.getElementById("myChart").getContext("2d");
       this.myChart = new Chart(ctx, config);
 
-      //This is an object with all of the data that is going to be placed in the csv file.
+       //This is an object with all of the data that is going to be placed in the csv file.
       var dataCsv = stationsDataSet.map((row) => ({
         //Name of the variable is the name that will be printed out in the csv file for the top row.
         Fecha: row.DATE,
@@ -369,7 +405,193 @@ export default {
       }));
 
       this.csv = dataCsv; //This is the variable that will have the raw json data that needs to be converted.
-    },
+    }
   },
 };
 </script>
+
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+.graphContainer {
+  background: var(--main);
+  color: var(--text)!important;
+  font-family: "Lato", sans-serif;
+  padding: 32px;
+  font-size: 2vh;
+  height: 100%;
+}
+
+.dContent {
+  background: var(--tableHeader);
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 24px;
+}
+
+.downloadBtnLocation{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.downloadBtn{
+  padding: 10px;
+  background: var(--strong);
+  color: var(--h1)!important;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.downloadBtn:hover{
+  background: var(--strongHover);
+  text-decoration: none!important;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.graphContent {
+  max-width: 1440px;
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+}
+
+.graphContainer h1 {
+  color: var(--h1);
+  font-weight: 700;
+  font-size: 4vh;
+}
+
+.graphContainer h2 {
+  color: var(--h1);
+  font-weight: 400;
+  font-size: 3vh;
+  margin-top: 35px;
+  margin-bottom: 20px;
+}
+
+.graphContainer h3 {
+  color: var(--h3);
+}
+
+.graphContainer h5 {
+  color: var(--h3);
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-size: 2vh;
+}
+
+.graphContainer h6 {
+  color: var(--h3);
+  margin-top: 20px;
+  margin-bottom: 6px;
+  font-size: 1.7vh;
+}
+
+.graphContainer strong {
+  color: var(--strong);
+}
+
+.table {
+  display: flex;
+  justify-content: center;
+}
+
+.content-table {
+  border-collapse: collapse;
+  margin-top: 24px ;
+  font-size: 1em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  color: black;
+}
+
+.content-table thead tr {
+  background-color: var(--tableHeader);
+  color: var(--h1);
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table tgraphContainer tr {
+  border-bottom: 1px solid var(--tableRow);
+  background: var(--tableRow);
+  color: var(--text);
+}
+
+.content-table tgraphContainer tr:nth-of-type(even) {
+  background-color: var(--tableRowEven);
+}
+
+.content-table tgraphContainer tr:last-of-type {
+  border-bottom: 2px solid var(--tableHeader);
+}
+.content-table td {
+  border-right: 1px solid var(--tableBorder);
+}
+
+.content-table tgraphContainer tr.active-row {
+  font-weight: bold;
+  color: var(--tableHeader);
+}
+
+.graphContainer b {
+  color: var(--green);
+}
+
+.graphContainer a {
+  cursor: pointer;
+  color: var(--strong);
+}
+.graphContainer a:hover {
+  transition: 0.1s;
+  color: var(--strongHover);
+  text-decoration: underline;
+}
+
+.graphContainer pre {
+  overflow: auto !important;
+  background: var(--codeBackground) !important;
+  border-radius: 5px;
+  color: var(--codeText) !important;
+  padding: 16px;
+}
+
+.graphContainer p {
+  margin-top: 18px;
+}
+
+.graphContainer i {
+  font-size: 1.7vh;
+  font-weight: 300;
+}
+.alert {
+  background: var(--alertBackground);
+  border: 2px solid var(--alertBorder);
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 1630px) {
+  .graphContainer {
+    display: flex;
+    justify-content: center;
+  }
+}
+</style>
