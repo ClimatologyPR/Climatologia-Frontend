@@ -20,7 +20,7 @@
         </div>
       </div>
       <transition name="fade" mode="out-in">
-        <router-view class="router"/>
+        <router-view class="router" />
       </transition>
     </div>
   </v-app>
@@ -37,8 +37,7 @@ export default {
   },
 
   data: () => ({}),
-  methods:{
-  },
+  methods: {},
   mounted() {
     const loader = document.querySelector(".loader");
     loader.className += " hidden"; // class "loader hidden"
@@ -50,19 +49,24 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
+::selection {
+  background: rgba(201, 64, 98, 0.603) !important;
+  color: var(--text) !important;
+  border: 1px red solid !important;
+  border-radius: 10px !important;
+}
 
 .fade-enter-active,
-.fade-leave-active{
+.fade-leave-active {
   transition: opacity 0.3s;
 }
 
 .fade-enter,
-.fade-leave-to{
+.fade-leave-to {
   opacity: 0;
- 
 }
 
-.router{
+.router {
   z-index: 3;
 }
 
@@ -86,8 +90,6 @@ export default {
   width: 100%;
   z-index: 0;
 }
-
-
 
 .main > figure:nth-child(1) {
   background-image: linear-gradient(#203b4a8a, #203b4a60),
@@ -187,12 +189,9 @@ export default {
   transition: 0.3s;
 }
 
-
-
-
-
 html {
   overflow-y: auto !important;
+  scrollbar-width: thin !important;
 }
 
 @media only screen and (max-device-aspect-ratio: 9/16) {
@@ -206,12 +205,12 @@ html {
   }
 }
 
-@media only screen and (max-width:1050px){
-  .logo a{
+@media only screen and (max-width: 1050px) {
+  .logo a {
     font-size: 2vh;
   }
 
-  .links a{
+  .links a {
     font-size: 3vh;
     margin-right: 3vw;
   }

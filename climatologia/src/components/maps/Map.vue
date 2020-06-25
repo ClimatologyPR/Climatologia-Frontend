@@ -156,7 +156,7 @@
                   <strong>Zona Climática: </strong>
                   {{ station.CLIMATEZONE.toString() }}
                   <br />
-                  <div v-if="selectedDateType === 'Día'">
+                  <div v-if="selectedDateType === 'Por Día'">
                     <strong>
                       {{
                         currentPinView === "prcp"

@@ -251,6 +251,30 @@
         --alertBorder: rgba(240, 71, 71, 0.5);
       }
 
+      /* width */
+      ::-webkit-scrollbar {
+        width: 30px;
+        height: 30px;
+        background: inherit;
+      }
+
+      ::-webkit-scrollbar-corner {
+        background: inherit;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: var(--main);
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: var(--scrollBar);
+        border-radius: 100px;
+        background-clip: padding-box;
+        border: solid 10px transparent;
+      }
+
       .body {
         background: var(--main);
         color: var(--text);
@@ -353,29 +377,7 @@
         color: var(--green);
       }
 
-      /* width */
-      ::-webkit-scrollbar {
-        width: 30px;
-        height: 30px;
-        background: inherit;
-      }
-
-      ::-webkit-scrollbar-corner {
-        background: inherit;
-      }
-
-      /* Track */
-      ::-webkit-scrollbar-track {
-        background: var(--main);
-      }
-
-      /* Handle */
-      ::-webkit-scrollbar-thumb {
-        background: var(--scrollBar);
-        border-radius: 100px;
-        background-clip: padding-box;
-        border: solid 10px transparent;
-      }
+      
      .body a {
         cursor: pointer;
         color: var(--strong);
