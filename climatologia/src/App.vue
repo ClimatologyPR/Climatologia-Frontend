@@ -19,7 +19,9 @@
           </div>
         </div>
       </div>
+      <transition name="fade" mode="out-in">
         <router-view class="router"/>
+      </transition>
     </div>
   </v-app>
 </template>
@@ -48,6 +50,17 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
+
+.fade-enter-active,
+.fade-leave-active{
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to{
+  opacity: 0;
+ 
+}
 
 .router{
   z-index: 3;

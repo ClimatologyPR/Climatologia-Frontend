@@ -42,7 +42,7 @@
                 dark
                 color="#2bbbbb"
                 v-model="selectedDateType"
-                :items="['Día', 'Rango']"
+                :items="['Por Día', 'Por Rango']"
                 prepend-icon="mdi-white-balance-sunny"
                 label="Fecha"
                 dense
@@ -51,7 +51,7 @@
                 class="picker"
               ></v-select>
               <v-dialog
-                v-if="selectedDateType === 'Día'"
+                v-if="selectedDateType === 'Por Día'"
                 ref="dialog"
                 v-model="singleDatePicker"
                 width="290px"
@@ -90,7 +90,7 @@
               <v-dialog
                 item-color="#2bbbbb"
                 dark
-                v-else-if="selectedDateType === 'Rango'"
+                v-else-if="selectedDateType === 'Por Rango'"
                 ref="dialog"
                 v-model="rangeDatePicker"
                 width="290px"
@@ -156,7 +156,7 @@
                 setButtonPressed('btn2'),
                   fetchStations(
                     'tmax',
-                    selectedDateType === 'Rango' ? date[0] : date,
+                    selectedDateType === 'Por Rango' ? date[0] : date,
                     rangeDate ? date[1] : date
                   )
               "
@@ -194,7 +194,7 @@ export default {
         btn2: { class: "ma-2 btn2" },
         btn3: { class: "ma-2 btn3" },
       },
-      selectedDateType: "Día",
+      selectedDateType: "Por Día",
       singleDatePicker: false,
       rangeDatePicker: false,
       date: "2018-04-13",

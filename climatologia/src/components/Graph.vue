@@ -1,9 +1,12 @@
 <template>
   <div class="graphContainer">
     <div class="graphContent">
+      
       <div class="chartContent">
         <canvas id="myChart" width="400" height="100"></canvas>
+        <div class='graphOff alert'><v-icon v-if="varType === 'prcp'" size="50px" color="white">mdi-chart-bar</v-icon><v-icon v-else size="50px" color="white">mdi-chart-line</v-icon><p> <i>El tamaño de la pantalla es demasiado pequeño para mostrar la gráfica</i></p></div>
       </div>
+      
       <div class="options">
         <table class="content-table">
           <thead>
@@ -83,7 +86,8 @@
             </div>
             <div class="downloadBtnLocation">
               <a class="downloadBtn" @click="objectToCsv()"
-                ><v-icon color="white">mdi-download</v-icon>Descargar</a>
+                ><v-icon color="white">mdi-download</v-icon>Descargar</a
+              >
             </div>
           </div>
         </div>
@@ -170,7 +174,7 @@ export default {
       a.click();
       document.body.removeChild(a);
     },
-    
+
     setChart: async function() {
       var config = null;
       var stationLabels = [];
@@ -235,8 +239,21 @@ export default {
             },
             options: {
               responsive: true,
+              title: {
+                display: true,
+                text:
+                  this.labelName +
+                  " - " +
+                  this.municipality +
+                  " ( " +
+                  this.stationID +
+                  " )",
+                fontColor: "white",
+                fontSize: 30,
+              },
 
               legend: {
+                display: false,
                 labels: {
                   fontColor: "white",
                   fontSize: 20,
@@ -397,7 +414,7 @@ export default {
       var ctx = document.getElementById("myChart").getContext("2d");
       this.myChart = new Chart(ctx, config);
 
-       //This is an object with all of the data that is going to be placed in the csv file.
+      //This is an object with all of the data that is going to be placed in the csv file.
       var dataCsv = stationsDataSet.map((row) => ({
         //Name of the variable is the name that will be printed out in the csv file for the top row.
         Fecha: row.DATE,
@@ -405,7 +422,7 @@ export default {
       }));
 
       this.csv = dataCsv; //This is the variable that will have the raw json data that needs to be converted.
-    }
+    },
   },
 };
 </script>
@@ -416,9 +433,17 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+.chartContent {
+  border: 4px var(--tableHeader) solid;
+  background: var(--codeBackground);
+  border-radius: 10px;
+  padding: 10px;
+}
+
 .graphContainer {
   background: var(--main);
-  color: var(--text)!important;
+  color: var(--text) !important;
   font-family: "Lato", sans-serif;
   padding: 32px;
   font-size: 2vh;
@@ -426,29 +451,30 @@ export default {
 }
 
 .dContent {
-  background: var(--tableHeader);
+  background: var(--codeBackground);
+  border: 4px var(--tableHeader) solid;
   padding: 20px;
   border-radius: 10px;
   margin-top: 24px;
 }
 
-.downloadBtnLocation{
+.downloadBtnLocation {
   display: flex;
   justify-content: center;
   padding: 20px;
 }
 
-.downloadBtn{
+.downloadBtn {
   padding: 10px;
   background: var(--strong);
-  color: var(--h1)!important;
+  color: var(--h1) !important;
   border-radius: 10px;
   transition: 0.3s;
 }
 
-.downloadBtn:hover{
+.downloadBtn:hover {
   background: var(--strongHover);
-  text-decoration: none!important;
+  text-decoration: none !important;
 }
 
 .options {
@@ -507,9 +533,8 @@ export default {
 
 .content-table {
   border-collapse: collapse;
-  margin-top: 24px ;
+  margin-top: 24px;
   font-size: 1em;
-  min-width: 400px;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   color: black;
@@ -586,6 +611,27 @@ export default {
   padding: 10px;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.graphOff{
+  display: none;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1200px) {
+  #myChart{
+    display: none!important;
+    
+  }
+  .graphOff{
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 1450px) {
+  .options {
+    flex-direction: column;
+  }
 }
 
 @media only screen and (min-width: 1630px) {

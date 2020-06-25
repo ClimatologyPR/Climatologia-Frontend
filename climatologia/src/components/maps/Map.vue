@@ -13,7 +13,7 @@
             <div class="date2" id="date2" @click="calendarOpen">
               <h2>
                 {{
-                  date && selectedDateType === "Día"
+                  date && selectedDateType === "Por Día"
                     ? SingleDateText
                     : rangeDateText
                 }}
@@ -22,7 +22,7 @@
             <div class="calendar" @mouseleave="calendarClose()">
               <v-date-picker
                 dark
-                v-if="selectedDateType === 'Día'"
+                v-if="selectedDateType === 'Por Día'"
                 id="calendar"
                 locale="es-ES"
                 v-model="date"
@@ -36,7 +36,7 @@
               >
               </v-date-picker>
               <v-date-picker
-                v-if="selectedDateType === 'Rango'"
+                v-if="selectedDateType === 'Por Rango'"
                 id="calendar"
                 dark
                 locale="es-ES"
@@ -141,7 +141,9 @@
                 :lat-lng="coordinates(station.LATITUDE, station.LONGITUDE)"
                 :icon="iconList[i]"
               >
-                <l-popup class="popup">
+                <l-popup class="popup"
+                :options='{autoPan:false}'
+                >
                   <strong> Agencia: </strong>
                   {{ station.AGENCYID }}
                   <br />
@@ -180,7 +182,7 @@
                   </div>
                   <div
                     v-else-if="
-                      selectedDateType === 'Rango' &&
+                      selectedDateType === 'Por Rango' &&
                         station.AVGVALUE != undefined
                     "
                   >
@@ -218,7 +220,7 @@
                     <div class="popupBtns">
                       <v-btn
                         style="background:#2bbbbb;color:white;margin-bottom:10px"
-                        @click="
+                        @click="recenter(),
                           OpenChart(
                             currentPinView,
                             'rangeModal',
@@ -572,10 +574,10 @@ export default {
       modal4: false,// This can be deleted
       singleDatePicker: false,
       rangeDatePicker: false,
-      selectedDateType: "Día",
+      selectedDateType: "Por Día",
       minDate: "2000-01-01",
       maxDate: "2020-06-01",
-      date: "2018-04-01",
+      date: "2020-06-01",
       drawer: false,
       startdate: null,
       enddate: null,
@@ -663,8 +665,8 @@ export default {
      * mm/dd/yyyy
      */
     SingleDateText() {
-      if (!this.date && this.selectedDateType === "Día") return "";
-      else if (this.date && this.selectedDateType === "Día") {
+      if (!this.date && this.selectedDateType === "Por Día") return "";
+      else if (this.date && this.selectedDateType === "Por Día") {
         const [year, month, day] = this.date.split("-");
         return `${month}/${day}/${year}`;
       }
@@ -691,12 +693,12 @@ export default {
   mounted: async function() {},
   watch: {
     selectedDateType: function() {
-      if (this.selectedDateType === "Día") {
+      if (this.selectedDateType === "Por Día") {
         this.dateType("singleDate");
-        this.date = "2018-04-01";
-      } else if (this.selectedDateType === "Rango") {
+        this.date = "2020-06-01";
+      } else if (this.selectedDateType === "Por Rango") {
         this.dateType("rangeDate");
-        this.date = ["2018-04-01", "2018-04-07"];
+        this.date = ["2020-05-25", "2020-06-01"];
       }
       eventBus.$emit("defaultDate", this.date);
     },
@@ -789,10 +791,10 @@ export default {
       }
     },
     date: function() {
-      if (this.selectedDateType === "Rango" && this.date[0] && this.date[1]) {
+      if (this.selectedDateType === "Por Rango" && this.date[0] && this.date[1]) {
         this.iconList = [];
         this.fetchStations(this.currentPinView, this.date[0], this.date[1]);
-      } else if (this.selectedDateType === "Día") {
+      } else if (this.selectedDateType === "Por Día") {
         this.iconList = [];
         this.fetchStations(this.currentPinView, this.date, this.date);
       }
@@ -993,9 +995,9 @@ export default {
       for (var i = 0; i < this.stationsList.length; i++) {
         this.iconList.push(
           this.icon(
-            this.selectedDateType === "Día"
+            this.selectedDateType === "Por Día"
               ? this.stationsList[i].VALUE
-              : this.selectedDateType === "Rango"
+              : this.selectedDateType === "Por Rango"
               ? this.stationsList[i].AVGVALUE
               : null,
             this.stationsList[i].AGENCYID
@@ -1408,7 +1410,7 @@ export default {
       document.getElementById("calendar").style.display = "block";
     },
     calendarClose: function() {
-      if (this.date.length === 2 || this.selectedDateType === "Día") {
+      if (this.date.length === 2 || this.selectedDateType === "Por Día") {
         document.getElementById("calendar").style.display = "none";
         document.getElementById("date2").style.display = "block";
       }
@@ -1435,8 +1437,6 @@ export default {
       this.des = des;
       this.er = err;
       this.avg = avg;
-
-      
 
       let routeData = this.$router.resolve({name: 'routeName', path: `/graph/${varType}/${modalId}/${spanClass}/${chartType}/${labelName}/${stationID}/${municipality}/${startdate}/${enddate}/${max}/${min}/${des}/${err}/${avg}/` });
 

@@ -29,12 +29,18 @@ Vue.use(VueRouter)
   {
     path: '/graph/:varType/:modalId/:spanClass/:chartType/:labelName/:stationID/:municipality/:startdate/:enddate/:max/:min/:des/:err/:avg',
     name:'graph',
-    component: Graph
+    component: Graph,
   }
 ]
 
 const router = new VueRouter({
   routes
 })
+
+router.beforeEach((to,from,next)=>{
+  if(!(to.name === 'Home' && from.name == 'graph')){
+    next();
+  }
+});
 
 export default router
