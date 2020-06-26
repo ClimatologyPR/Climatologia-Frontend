@@ -508,7 +508,7 @@
             </v-dialog>
           </div>
           <Menu
-            :defaultDate="date"
+            :date="date"
             :minDate="minDate"
             :maxDate="maxDate"
             :calendarLng="calendarLng"
@@ -607,7 +607,7 @@ export default {
       singleDatePicker: false,
       rangeDatePicker: false,
       selectedDateType: "Por Día",
-      minDate: "2000-01-01",
+      minDate: "1943-01-01",
       maxDate: "2020-06-24",
       date: "2020-06-01",
       drawer: false,
@@ -722,7 +722,10 @@ export default {
       this.hideMenu = newValue;
     });
   },
-  mounted: async function() {},
+  mounted: async function() {
+
+
+  },
   watch: {
     selectedDateType: function() {
       if (this.selectedDateType === "Por Día") {

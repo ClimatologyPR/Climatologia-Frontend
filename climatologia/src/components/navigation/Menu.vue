@@ -197,7 +197,6 @@ export default {
       selectedDateType: "Por Día",
       singleDatePicker: false,
       rangeDatePicker: false,
-      date: "2018-04-13",
       selectedFilters: [
         "Costa del norte",
         "Laderas del norte",
@@ -212,7 +211,6 @@ export default {
     };
   },
   props: [
-    "defaultDate",
     "minDate",
     "maxDate",
     "calendarLng",
@@ -223,6 +221,7 @@ export default {
     "SingleDateText",
     "rangeDateText",
     "overlay",
+    "date"
     // 'hideMenu'
   ],
   created() {
