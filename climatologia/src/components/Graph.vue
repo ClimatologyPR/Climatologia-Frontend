@@ -270,16 +270,23 @@ export default {
                 animationDuration: 0,
               },
               responsiveAnimationDuration: 0,
+              
               scales: {
                 xAxes: [
                   {
+                    
                     display: true,
+                    
                     scaleLabel: {
                       display: true,
                       labelString: "Día",
                       fontStyle: "bold",
                       fontColor: "white",
                       fontSize: 20,
+                    },
+                    gridLines:{
+                      zeroLineColor:'rgba(255, 255, 255, 0.3)',
+                      display:true
                     },
                     ticks: {
                       source: "labels",
@@ -315,7 +322,8 @@ export default {
                       fontColor: "white",
                       fontSize: 20,
                     },
-                    gridLines: { color: "rgba(255, 255, 255, 0.3)" },
+                    gridLines: { color: "rgba(255, 255, 255, 0.3)",
+                    zeroLineColor:'rgba(255, 255, 255, 0.3)' },
                   },
                 ],
               },
@@ -435,7 +443,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 .chartContent {
-  border: 4px var(--tableHeader) solid;
+  border: 4px var(--strong) solid;
   background: var(--codeBackground);
   border-radius: 10px;
   padding: 10px;
@@ -452,7 +460,7 @@ export default {
 
 .dContent {
   background: var(--codeBackground);
-  border: 4px var(--tableHeader) solid;
+  border: 4px var(--strong) solid;
   padding: 20px;
   border-radius: 10px;
   margin-top: 24px;

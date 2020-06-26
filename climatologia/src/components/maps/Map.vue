@@ -1,492 +1,533 @@
 <template>
-<div class="mapContainer2">
-  <SmallWindow />
-<div class="mapContainer">
-<div class="map">
-  <div style="height: 100%;display:flex;">
-    <div
-      style="background-color: #e1e2e1; display:flex; height:100%; width:100%;"
-    >
-      <v-card tile elevation="1" height="100%" width="100%">
-        <div class="date">
-          <div class="dateContent">
-            <div class="date2" id="date2" @click="calendarOpen">
-              <h2>
-                {{
-                  date && selectedDateType === "Por Día"
-                    ? SingleDateText
-                    : rangeDateText
-                }}
-              </h2>
-            </div>
-            <div class="calendar" @mouseleave="calendarClose()">
-              <v-date-picker
-                dark
-                v-if="selectedDateType === 'Por Día'"
-                id="calendar"
-                locale="es-ES"
-                v-model="date"
-                color="#2bbbbb"
-                @input="calendarClose()"
-                no-title
-                :show-current="false"
-                scrollable
-                :min="minDate"
-                :max="maxDate"
-              >
-              </v-date-picker>
-              <v-date-picker
-                v-if="selectedDateType === 'Por Rango'"
-                id="calendar"
-                dark
-                locale="es-ES"
-                v-model="date"
-                color="#2bbbbb"
-                @input="calendarClose()"
-                no-title
-                :show-current="false"
-                scrollable
-                :min="minDate"
-                :max="maxDate"
-                range
-              >
-              </v-date-picker>
-            </div>
-          </div>
-        </div>
-
-        <div class="centerContent">
-          <a @click="recenter()" class="centerBtn" id="centerBtn"
-            ><v-icon color="white">mdi-map-marker-radius</v-icon></a
+  <div class="mapContainer2">
+    <SmallWindow />
+    <div class="mapContainer">
+      <div class="map">
+        <div style="height: 100%;display:flex;">
+          <div
+            style="background-color: #e1e2e1; display:flex; height:100%; width:100%;"
           >
-        </div>
-
-        <l-map
-          :key="mapChanged"
-          class="map"
-          ref="map"
-          v-if="showMap"
-          :zoom="zoom"
-          :center="center"
-          :options="mapOptions"
-          style="z-index: 0;"
-          @update:center="centerUpdate"
-          @update:zoom="zoomUpdate"
-          :max-bounds="maxBounds"
-          :min-zoom="minZoom"
-        >
-          <l-tile-layer :url="url" />
-          <l-control position="bottomleft" style="pointer-events: none;">
-            <div class="leyenda">
-              <h3>Leyenda</h3>
-              <div class="leyendaCol">
-                <span>
-                  <img
-                    :src="require('../../assets/nullIcon2.svg')"
-                    height="32px"
-                    width="32px"
-                  />
-                  <h4>Valor Nulo</h4>
-                </span>
-                <span>
-                  <img
-                    :src="require('../../assets/noaa2.svg')"
-                    height="32px"
-                    width="32px"
-                  />
-                  <h4>NOAA</h4>
-                </span>
-                <span>
-                  <img
-                    :src="require('../../assets/usgs2.svg')"
-                    height="32px"
-                    width="32px"
-                  />
-                  <h4>USGS</h4>
-                </span>
-              </div>
-            </div>
-          </l-control>
-          <l-control
-            position="bottomright"
-            style="pointer-events: none;margin-bottom:-10px;z-index:801;margin-right:10px"
-          >
-            <v-card width="100%" class="legendImage">
-              <img
-                v-if="currentPinView === 'prcp'"
-                :src="
-                  require('../../assets/horizontal_precipitation_legend_bar.svg')
-                "
-                style="width:450px; height: auto;"
-              />
-              <img
-                v-else
-                :src="
-                  require('../../assets/horizontal_temperature_legend_bar.svg')
-                "
-                style="width: 500px; height:auto;"
-              />
-            </v-card>
-          </l-control>
-          <v-container v-model="stationsList">
-            <div
-              v-for="(station, i) in stationsList"
-              :key="
-                `${station.DATE}-${Math.floor(
-                  Math.random() * Math.floor(100000)
-                )}-${station.STATIONID}`
-              "
-            >
-              <l-marker
-                :lat-lng="coordinates(station.LATITUDE, station.LONGITUDE)"
-                :icon="iconList[i]"
-              >
-                <l-popup class="popup"
-                :options='{autoPan:false}'
-                >
-                  <strong> Agencia: </strong>
-                  {{ station.AGENCYID }}
-                  <br />
-                  <strong>ID de Estación: </strong>
-                  {{ station.STATIONID.toString() }}
-                  <br />
-                  <strong>Municipio: </strong>
-                  {{ station.MUNICIPALITY.toString() }}
-                  <br />
-                  <strong>Zona Climática: </strong>
-                  {{ station.CLIMATEZONE.toString() }}
-                  <br />
-                  <div v-if="selectedDateType === 'Por Día'">
-                    <strong>
+            <v-card tile elevation="1" height="100%" width="100%">
+              <div class="date">
+                <div class="dateContent">
+                  <div class="date2" id="date2" @click="calendarOpen">
+                    <h2>
                       {{
-                        currentPinView === "prcp"
-                          ? "Precipitación:"
-                          : currentPinView === "tmax"
-                          ? "Temperatura Máxima"
-                          : "Temperatura Mínima"
-                      }}</strong
-                    >
-                    {{
-                      station.VALUE === null || station.VALUE === undefined
-                        ? "NULL"
-                        : station.VALUE.toString()
-                    }}
-                    {{
-                      currentPinView === "prcp" && station.VALUE !== null
-                        ? '"'
-                        : station.VALUE !== null
-                        ? "°F"
-                        : ""
-                    }}
-                    <br />
+                        date && selectedDateType === "Por Día"
+                          ? SingleDateText
+                          : rangeDateText
+                      }}
+                    </h2>
                   </div>
+                  <div class="calendar" @mouseleave="calendarClose()">
+                    <v-date-picker
+                      dark
+                      v-if="selectedDateType === 'Por Día'"
+                      id="calendar"
+                      locale="es-ES"
+                      v-model="date"
+                      color="#2bbbbb"
+                      @input="calendarClose()"
+                      no-title
+                      :show-current="false"
+                      scrollable
+                      :min="minDate"
+                      :max="maxDate"
+                    >
+                    </v-date-picker>
+                    <v-date-picker
+                      v-if="selectedDateType === 'Por Rango'"
+                      id="calendar"
+                      dark
+                      locale="es-ES"
+                      v-model="date"
+                      color="#2bbbbb"
+                      @input="calendarClose()"
+                      no-title
+                      :show-current="false"
+                      scrollable
+                      :min="minDate"
+                      :max="maxDate"
+                      range
+                    >
+                    </v-date-picker>
+                  </div>
+                </div>
+              </div>
+
+              <div class="centerContent">
+                <a @click="recenter()" class="centerBtn" id="centerBtn"
+                  ><v-icon color="white">mdi-map-marker-radius</v-icon></a
+                >
+              </div>
+
+              <l-map
+                id="map"
+                :key="mapChanged"
+                class="map"
+                ref="map"
+                v-if="showMap"
+                :zoom="zoom"
+                :center="center"
+                :options="mapOptions"
+                style="z-index: 0;"
+                @update:center="centerUpdate"
+                @update:zoom="zoomUpdate"
+                :max-bounds="maxBounds"
+                :min-zoom="minZoom"
+              >
+                <l-tile-layer :url="url" />
+                <l-control position="bottomleft" style="pointer-events: none;">
+                  <div class="leyenda">
+                    <h3>Leyenda</h3>
+                    <div class="leyendaCol">
+                      <span>
+                        <img
+                          :src="require('../../assets/nullIcon2.svg')"
+                          height="32px"
+                          width="32px"
+                        />
+                        <h4>Valor Nulo</h4>
+                      </span>
+                      <span>
+                        <img
+                          :src="require('../../assets/noaa2.svg')"
+                          height="32px"
+                          width="32px"
+                        />
+                        <h4>NOAA</h4>
+                      </span>
+                      <span>
+                        <img
+                          :src="require('../../assets/usgs2.svg')"
+                          height="32px"
+                          width="32px"
+                        />
+                        <h4>USGS</h4>
+                      </span>
+                    </div>
+                  </div>
+                </l-control>
+                <l-control
+                  position="bottomright"
+                  style="pointer-events: none;margin-bottom:-10px;z-index:801;margin-right:10px"
+                >
+                  <v-card width="100%" class="legendImage">
+                    <img
+                      v-if="currentPinView === 'prcp'"
+                      :src="
+                        require('../../assets/horizontal_precipitation_legend_bar.svg')
+                      "
+                      style="width:450px; height: auto;"
+                    />
+                    <img
+                      v-else
+                      :src="
+                        require('../../assets/horizontal_temperature_legend_bar.svg')
+                      "
+                      style="width: 500px; height:auto;"
+                    />
+                  </v-card>
+                </l-control>
+                <v-container v-model="stationsList">
                   <div
-                    v-else-if="
-                      selectedDateType === 'Por Rango' &&
-                        station.AVGVALUE != undefined
+                    v-for="(station, i) in stationsList"
+                    :key="
+                      `${station.DATE}-${Math.floor(
+                        Math.random() * Math.floor(100000)
+                      )}-${station.STATIONID}`
                     "
                   >
-                    <strong v-if="currentPinView === 'prcp'">
-                      Precipitación Promedio:
-                    </strong>
-                    <strong v-else-if="currentPinView === 'tmax'">
-                      Temperatura Máxima Promedio:
-                    </strong>
-                    <strong v-else> Temperatura Mínima Promedio: </strong>
-                    {{ station.AVGVALUE.toString() }}
-                    <span v-if="currentPinView === 'prcp'">"</span
-                    ><span v-else>ºF</span>
-                    <br />
-                    <strong>Máximo: </strong>
-                    {{ station.MAXVALUE.toString() }}
-                    <span v-if="currentPinView === 'prcp'">"</span
-                    ><span v-else>ºF</span>
-                    <br />
-                    <strong>Mínimo: </strong>
-                    {{ station.MINVALUE.toString() }}
-                    <span v-if="currentPinView === 'prcp'">"</span
-                    ><span v-else>ºF</span>
-                    <br />
-                    <strong>Desviación Estándar: </strong
-                    >{{ station.STDDEVVALUE.toString() }}
-                    <span v-if="currentPinView === 'prcp'">"</span
-                    ><span v-else>ºF</span>
-                    <br />
-                    <strong>Error Estándar: </strong
-                    >{{ station.STDERRVALUE.toString() }}
-                    <span v-if="currentPinView === 'prcp'">"</span
-                    ><span v-else>ºF</span>
-                    <br />
-                    <div class="popupBtns">
-                      <v-btn
-                        style="background:#2bbbbb;color:white;margin-bottom:10px"
-                        @click="recenter(),
-                          OpenChart(
-                            currentPinView,
-                            'rangeModal',
-                            'close',
-                            'line',
-                            currentPinView === 'prcp'
-                              ? 'Precipitación '
-                              : currentPinView === 'tmax'
-                              ? 'Temperatura Máxima'
-                              : 'Temperatura Mínima',
-                            station.STATIONID,
-                            station.MUNICIPALITY,
-                            startdate,
-                            enddate,
-                            station.MAXVALUE,
-                            station.MINVALUE,
-                            station.STDDEVVALUE,
-                            station.STDERRVALUE,
-                            station.AVGVALUE
-                          )
-                        "
-                      >
-                        <v-icon>{{
-                          currentPinView === "prcp"
-                            ? "mdi-chart-bar"
-                            : "mdi-chart-line"
-                        }}</v-icon>
-                        Graficar
-                      </v-btn>
-                    
-                      <v-btn  style="background:#2bbbbb;color:white;"
-                      @click="downloadToCsv(station.STATIONID)"
-                      >
-                        <v-icon color="white">mdi-download</v-icon>Descargar
-                      </v-btn>
-                      </div>
-                  </div>
-                </l-popup>
-              </l-marker>
-            </div>
-          </v-container>
-          <v-container>
-            <v-container>
-              <l-polygon
-                v-if="EI"
-                :lat-lngs="EasternInterior.latlngs"
-                :color="EasternInterior.color"
-                :fillColor="EasternInterior.color"
-              >
-                <l-popup class="popup">Interior oriental</l-popup>
-              </l-polygon>
-            </v-container>
-            <v-container>
-              <l-polygon
-                v-if="NC"
-                :lat-lngs="NorthernCoastal.latlngs"
-                :color="NorthernCoastal.color"
-                :fillColor="NorthernCoastal.color"
-              >
-                <l-popup class="popup">Costa del norte</l-popup>
-              </l-polygon>
-            </v-container>
-            <v-container>
-              <l-polygon
-                v-if="NS"
-                :lat-lngs="NorthernSlopes.latlngs"
-                :color="NorthernSlopes.color"
-                :fillColor="NorthernSlopes.color"
-              >
-                <l-popup class="popup">Laderas del norte</l-popup>
-              </l-polygon>
-            </v-container>
-            <v-container>
-              <l-polygon
-                v-if="OI"
-                :lat-lngs="OutlyingIsland.latlngs"
-                :color="OutlyingIsland.color"
-                :fillColor="OutlyingIsland.color"
-              >
-                <l-popup class="popup">Islas periféricas</l-popup>
-              </l-polygon>
-            </v-container>
-            <v-container>
-              <l-polygon
-                v-if="OI"
-                :lat-lngs="OutlyingIsland1.latlngs"
-                :color="OutlyingIsland1.color"
-                :fillColor="OutlyingIsland1.color"
-              >
-                <l-popup class="popup">Islas periféricas</l-popup>
-              </l-polygon>
-            </v-container>
-            <v-container>
-              <l-polygon
-                v-if="OI"
-                :lat-lngs="OutlyingIsland2.latlngs"
-                :color="OutlyingIsland2.color"
-                :fillColor="OutlyingIsland2.color"
-              >
-                <l-popup class="popup">Islas periféricas</l-popup>
-              </l-polygon>
-            </v-container>
-            <v-container>
-              <l-polygon
-                v-if="OI"
-                :lat-lngs="OutlyingIsland3.latlngs"
-                :color="OutlyingIsland3.color"
-                :fillColor="OutlyingIsland3.color"
-              >
-                <l-popup class="popup">Islas periféricas</l-popup>
-              </l-polygon>
-            </v-container>
-            <v-container>
-              <l-polygon
-                v-if="OI"
-                :lat-lngs="OutlyingIsland4.latlngs"
-                :color="OutlyingIsland4.color"
-                :fillColor="OutlyingIsland4.color"
-              >
-                <l-popup class="popup">Islas periféricas</l-popup>
-              </l-polygon>
-            </v-container>
-            <v-container>
-              <l-polygon
-                v-if="SC"
-                :lat-lngs="SouthernCoastal.latlngs"
-                :color="SouthernCoastal.color"
-                :fillColor="SouthernCoastal.color"
-              >
-                <l-popup class="popup">Costa del sur</l-popup>
-              </l-polygon>
-            </v-container>
-            <v-container>
-              <l-polygon
-                v-if="SS"
-                :lat-lngs="SouthernSlopes.latlngs"
-                :color="SouthernSlopes.color"
-                :fillColor="SouthernSlopes.color"
-              >
-                <l-popup class="popup">Laderas del sur</l-popup>
-              </l-polygon>
-            </v-container>
-            <v-container>
-              <l-polygon
-                v-if="WI"
-                :lat-lngs="WesternInterior.latlngs"
-                :color="WesternInterior.color"
-                :fillColor="WesternInterior.color"
-              >
-                <l-popup class="popup">Interior occidental</l-popup>
-              </l-polygon>
-            </v-container>
-          </v-container>
-        </l-map>
-        <v-overlay absolute :value="overlay">
-          <v-progress-circular indeterminate size="128"></v-progress-circular>
-        </v-overlay>
-      </v-card>
-
-      <v-dialog
-        v-model="dialog"
-        fullscreen
-        hide-overlay
-        transition="dialog-bottom-transition"
-      >
-        <div
-          style="z-index: 3; position: absolute; background:rgba(56, 56, 56, 0.96);height:100%;"
-        >
-          <div class="graphContainer">
-            <div class="toolbar">
-              <h2>
-                Grafica para rango de fecha seleccionado
-              </h2>
-              <v-btn icon dark @click="(dialog = false), myChart.destroy()">
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-            </div>
-            <div class="chartContent">
-              <canvas id="myChart" width="400" height="100"></canvas>
-            </div>
-            <div class="graphOptions">
-              <div class="extraInfo">
-                <div class="infoContent">
-                  <strong>ID de Estación: </strong>
-                  {{ estacion }}
-                  <br />
-                  <strong>Municipio: </strong>
-                  {{ municipality }}
-                  <br />
-                  <strong>Rango de Fecha: </strong>
-                  {{ fecha }}
-                  <br />
-                  <strong v-if="currentPinView === 'prcp'">
-                    Precipitación Promedio:
-                  </strong>
-                  <strong v-else-if="currentPinView === 'tmax'">
-                    Temperatura Máxima Promedio:
-                  </strong>
-                  <strong v-else> Temperatura Mínima Promedio: </strong>
-                  {{ avg }}
-                  <span v-if="currentPinView === 'prcp'">"</span
-                  ><span v-else>ºF</span>
-                  <br />
-                  <strong>Máximo: </strong>
-                  {{ max }}
-                  <span v-if="currentPinView === 'prcp'">"</span
-                  ><span v-else>ºF</span>
-                  <br />
-                  <strong>Mínimo: </strong>
-                  {{ min }}
-                  <span v-if="currentPinView === 'prcp'">"</span
-                  ><span v-else>ºF</span>
-                  <br />
-                  <strong>Desviación Estándar: </strong>{{ des }}
-                  <span v-if="currentPinView === 'prcp'">"</span
-                  ><span v-else>ºF</span>
-                  <br />
-                  <strong>Error Estándar: </strong>{{ er }}
-                  <span v-if="currentPinView === 'prcp'">"</span
-                  ><span v-else>ºF</span>
-                </div>
-              </div>
-              <div class="download">
-                <h3>Descargar data de gráfica</h3>
-                <div class="downloadSettings">
-                  <div>
-                    <strong>Información del archivo para descarga:</strong>
-                    <ul>
-                      <li>El contenido solo incluye los valores que están
-                      reprecentados por la gráfica</li>
-                      <li>El archivo es de formato ".csv"</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="downloadBtnLocation">
-                    <a class="downloadBtn" @click="objectToCsv()"
-                      ><v-icon color="white">mdi-download</v-icon>Descargar</a
+                    <l-marker
+                      :lat-lng="
+                        coordinates(station.LATITUDE, station.LONGITUDE)
+                      "
+                      :icon="iconList[i]"
+                      @popupclose="recenterPopup()"
+                      :options="{}"
                     >
+                      <l-popup class="popup" :options="{ closeButton: false }">
+                        <strong> Agencia: </strong>
+                        {{ station.AGENCYID }}
+                        <br />
+                        <strong>ID de Estación: </strong>
+                        {{ station.STATIONID.toString() }}
+                        <br />
+                        <strong>Municipio: </strong>
+                        {{ station.MUNICIPALITY.toString() }}
+                        <br />
+                        <strong>Zona Climática: </strong>
+                        {{ station.CLIMATEZONE.toString() }}
+                        <br />
+                        <div v-if="selectedDateType === 'Por Día'">
+                          <strong>
+                            {{
+                              currentPinView === "prcp"
+                                ? "Precipitación:"
+                                : currentPinView === "tmax"
+                                ? "Temperatura Máxima"
+                                : "Temperatura Mínima"
+                            }}</strong
+                          >
+                          {{
+                            station.VALUE === null ||
+                            station.VALUE === undefined
+                              ? "NULL"
+                              : station.VALUE.toString()
+                          }}
+                          {{
+                            currentPinView === "prcp" && station.VALUE !== null
+                              ? '"'
+                              : station.VALUE !== null
+                              ? "°F"
+                              : ""
+                          }}
+                          <br />
+                        </div>
+                        <div
+                          v-else-if="
+                            selectedDateType === 'Por Rango' &&
+                              station.AVGVALUE != undefined
+                          "
+                        >
+                          <strong v-if="currentPinView === 'prcp'">
+                            Precipitación Promedio:
+                          </strong>
+                          <strong v-else-if="currentPinView === 'tmax'">
+                            Temperatura Máxima Promedio:
+                          </strong>
+                          <strong v-else> Temperatura Mínima Promedio: </strong>
+                          {{ station.AVGVALUE.toString() }}
+                          <span v-if="currentPinView === 'prcp'">"</span
+                          ><span v-else>ºF</span>
+                          <br />
+                          <strong>Máximo: </strong>
+                          {{ station.MAXVALUE.toString() }}
+                          <span v-if="currentPinView === 'prcp'">"</span
+                          ><span v-else>ºF</span>
+                          <br />
+                          <strong>Mínimo: </strong>
+                          {{ station.MINVALUE.toString() }}
+                          <span v-if="currentPinView === 'prcp'">"</span
+                          ><span v-else>ºF</span>
+                          <br />
+                          <strong>Desviación Estándar: </strong
+                          >{{ station.STDDEVVALUE.toString() }}
+                          <span v-if="currentPinView === 'prcp'">"</span
+                          ><span v-else>ºF</span>
+                          <br />
+                          <strong>Error Estándar: </strong
+                          >{{ station.STDERRVALUE.toString() }}
+                          <span v-if="currentPinView === 'prcp'">"</span
+                          ><span v-else>ºF</span>
+                          <br />
+                          <div class="popupBtns">
+                            <v-btn
+                              style="background:#2bbbbb;color:white;margin-bottom:10px"
+                              @click="
+                                recenter(),
+                                  OpenChart(
+                                    currentPinView,
+                                    'rangeModal',
+                                    'close',
+                                    'line',
+                                    currentPinView === 'prcp'
+                                      ? 'Precipitación '
+                                      : currentPinView === 'tmax'
+                                      ? 'Temperatura Máxima'
+                                      : 'Temperatura Mínima',
+                                    station.STATIONID,
+                                    station.MUNICIPALITY,
+                                    startdate,
+                                    enddate,
+                                    station.MAXVALUE,
+                                    station.MINVALUE,
+                                    station.STDDEVVALUE,
+                                    station.STDERRVALUE,
+                                    station.AVGVALUE
+                                  )
+                              "
+                            >
+                              <v-icon>{{
+                                currentPinView === "prcp"
+                                  ? "mdi-chart-bar"
+                                  : "mdi-chart-line"
+                              }}</v-icon>
+                              Graficar
+                            </v-btn>
+
+                            <v-btn
+                              style="background:#2bbbbb;color:white;"
+                              @click="downloadToCsv(station.STATIONID)"
+                            >
+                              <v-icon color="white">mdi-download</v-icon
+                              >Descargar
+                            </v-btn>
+                          </div>
+                        </div>
+                      </l-popup>
+                    </l-marker>
                   </div>
+                </v-container>
+                <v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="EI"
+                      :lat-lngs="EasternInterior.latlngs"
+                      :color="EasternInterior.color"
+                      :fillColor="EasternInterior.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Interior oriental</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="NC"
+                      :lat-lngs="NorthernCoastal.latlngs"
+                      :color="NorthernCoastal.color"
+                      :fillColor="NorthernCoastal.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Costa del norte</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="NS"
+                      :lat-lngs="NorthernSlopes.latlngs"
+                      :color="NorthernSlopes.color"
+                      :fillColor="NorthernSlopes.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Laderas del norte</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="OI"
+                      :lat-lngs="OutlyingIsland.latlngs"
+                      :color="OutlyingIsland.color"
+                      :fillColor="OutlyingIsland.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Islas periféricas</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="OI"
+                      :lat-lngs="OutlyingIsland1.latlngs"
+                      :color="OutlyingIsland1.color"
+                      :fillColor="OutlyingIsland1.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Islas periféricas</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="OI"
+                      :lat-lngs="OutlyingIsland2.latlngs"
+                      :color="OutlyingIsland2.color"
+                      :fillColor="OutlyingIsland2.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Islas periféricas</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="OI"
+                      :lat-lngs="OutlyingIsland3.latlngs"
+                      :color="OutlyingIsland3.color"
+                      :fillColor="OutlyingIsland3.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Islas periféricas</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="OI"
+                      :lat-lngs="OutlyingIsland4.latlngs"
+                      :color="OutlyingIsland4.color"
+                      :fillColor="OutlyingIsland4.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Islas periféricas</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="SC"
+                      :lat-lngs="SouthernCoastal.latlngs"
+                      :color="SouthernCoastal.color"
+                      :fillColor="SouthernCoastal.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Costa del sur</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="SS"
+                      :lat-lngs="SouthernSlopes.latlngs"
+                      :color="SouthernSlopes.color"
+                      :fillColor="SouthernSlopes.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Laderas del sur</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                  <v-container>
+                    <l-polygon
+                      v-if="WI"
+                      :lat-lngs="WesternInterior.latlngs"
+                      :color="WesternInterior.color"
+                      :fillColor="WesternInterior.color"
+                    >
+                      <l-popup class="popup" :options="{ closeButton: false }"
+                        >Interior occidental</l-popup
+                      >
+                    </l-polygon>
+                  </v-container>
+                </v-container>
+              </l-map>
+              <v-overlay absolute :value="overlay">
+                <v-progress-circular
+                  indeterminate
+                  size="128"
+                ></v-progress-circular>
+              </v-overlay>
+            </v-card>
+
+            <v-dialog
+              v-model="dialog"
+              fullscreen
+              hide-overlay
+              transition="dialog-bottom-transition"
+            >
+              <div
+                style="z-index: 3; position: absolute; background:rgba(56, 56, 56, 0.96);height:100%;"
+              >
+                <div class="graphContainer">
+                  <div class="toolbar">
+                    <h2>
+                      Grafica para rango de fecha seleccionado
+                    </h2>
+                    <v-btn
+                      icon
+                      dark
+                      @click="(dialog = false), myChart.destroy()"
+                    >
+                      <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                  </div>
+                  <div class="chartContent">
+                    <canvas id="myChart" width="400" height="100"></canvas>
+                  </div>
+                  <div class="graphOptions">
+                    <div class="extraInfo">
+                      <div class="infoContent">
+                        <strong>ID de Estación: </strong>
+                        {{ estacion }}
+                        <br />
+                        <strong>Municipio: </strong>
+                        {{ municipality }}
+                        <br />
+                        <strong>Rango de Fecha: </strong>
+                        {{ fecha }}
+                        <br />
+                        <strong v-if="currentPinView === 'prcp'">
+                          Precipitación Promedio:
+                        </strong>
+                        <strong v-else-if="currentPinView === 'tmax'">
+                          Temperatura Máxima Promedio:
+                        </strong>
+                        <strong v-else> Temperatura Mínima Promedio: </strong>
+                        {{ avg }}
+                        <span v-if="currentPinView === 'prcp'">"</span
+                        ><span v-else>ºF</span>
+                        <br />
+                        <strong>Máximo: </strong>
+                        {{ max }}
+                        <span v-if="currentPinView === 'prcp'">"</span
+                        ><span v-else>ºF</span>
+                        <br />
+                        <strong>Mínimo: </strong>
+                        {{ min }}
+                        <span v-if="currentPinView === 'prcp'">"</span
+                        ><span v-else>ºF</span>
+                        <br />
+                        <strong>Desviación Estándar: </strong>{{ des }}
+                        <span v-if="currentPinView === 'prcp'">"</span
+                        ><span v-else>ºF</span>
+                        <br />
+                        <strong>Error Estándar: </strong>{{ er }}
+                        <span v-if="currentPinView === 'prcp'">"</span
+                        ><span v-else>ºF</span>
+                      </div>
+                    </div>
+                    <div class="download">
+                      <h3>Descargar data de gráfica</h3>
+                      <div class="downloadSettings">
+                        <div>
+                          <strong
+                            >Información del archivo para descarga:</strong
+                          >
+                          <ul>
+                            <li>
+                              El contenido solo incluye los valores que están
+                              reprecentados por la gráfica
+                            </li>
+                            <li>El archivo es de formato ".csv"</li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="downloadBtnLocation">
+                        <a class="downloadBtn" @click="objectToCsv()"
+                          ><v-icon color="white">mdi-download</v-icon
+                          >Descargar</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            </v-dialog>
           </div>
+          <Menu
+            :defaultDate="date"
+            :minDate="minDate"
+            :maxDate="maxDate"
+            :calendarLng="calendarLng"
+            :calendarColor="calendarColor"
+            :selectedFilters="selectedFilters"
+            :filters="filters"
+            :disable="disable"
+            :rangeDate="rangeDate"
+            :singleDatePicker="singleDatePicker"
+            :rangeDatePicker="rangeDatePicker"
+            :SingleDateText="SingleDateText"
+            :rangeDateText="rangeDateText"
+            :overlay="overlay"
+            :hideMenu="hideMenu"
+          />
         </div>
-      </v-dialog>
+      </div>
     </div>
-    <Menu
-      :defaultDate="date"
-      :minDate="minDate"
-      :maxDate="maxDate"
-      :calendarLng="calendarLng"
-      :calendarColor="calendarColor"
-      :selectedFilters="selectedFilters"
-      :filters="filters"
-      :disable="disable"
-      :rangeDate="rangeDate"
-      :singleDatePicker="singleDatePicker"
-      :rangeDatePicker="rangeDatePicker"
-      :SingleDateText="SingleDateText"
-      :rangeDateText="rangeDateText"
-      :overlay="overlay"
-      :hideMenu="hideMenu"
-    />
   </div>
-</div>
-</div>
-</div>
 </template>
 
 <script>
@@ -518,7 +559,7 @@ import { SouthernCoastal } from "../layers/climatezones/SouthernCoastal.js";
 import { SouthernSlopes } from "../layers/climatezones/SouthernSlopes.js";
 import { WesternInterior } from "../layers/climatezones/WesternInterior.js";
 import Chart from "chart.js";
-import SmallWindow from '../SmallWindow';
+import SmallWindow from "../SmallWindow";
 export default {
   name: "Example",
   components: {
@@ -529,7 +570,7 @@ export default {
     LPolygon,
     LControl,
     Menu,
-    SmallWindow
+    SmallWindow,
   },
   data() {
     return {
@@ -560,23 +601,14 @@ export default {
       mapOptions: {
         zoomSnap: 0.01,
       },
-      showMap: true,// This turns the map on or off
+      showMap: true, // This turns the map on or off
       dialog: false,
       disable: false,
-      loader: null,// This can be deleted
-      loading: false,// This can be deleted
-      loading1: false,// This can be deleted
-      loading2: false,// This can be deleted
-      menu: false,// This can be deleted
-      modal1: false,// This can be deleted
-      modal2: false,// This can be deleted
-      modal3: false,// This can be deleted
-      modal4: false,// This can be deleted
       singleDatePicker: false,
       rangeDatePicker: false,
       selectedDateType: "Por Día",
       minDate: "2000-01-01",
-      maxDate: "2020-06-01",
+      maxDate: "2020-06-24",
       date: "2020-06-01",
       drawer: false,
       startdate: null,
@@ -791,7 +823,11 @@ export default {
       }
     },
     date: function() {
-      if (this.selectedDateType === "Por Rango" && this.date[0] && this.date[1]) {
+      if (
+        this.selectedDateType === "Por Rango" &&
+        this.date[0] &&
+        this.date[1]
+      ) {
         this.iconList = [];
         this.fetchStations(this.currentPinView, this.date[0], this.date[1]);
       } else if (this.selectedDateType === "Por Día") {
@@ -906,34 +942,34 @@ export default {
      **/
     getPrecipitationPinColors: function(rgb, prcp) {
       if (prcp >= 0 && prcp <= 0.75) {
-        rgb.r = 255-(255*(prcp/0.75));
+        rgb.r = 255 - 255 * (prcp / 0.75);
         rgb.g = 255;
         rgb.b = 255;
       } else if (prcp > 0.75 && prcp <= 1.0) {
         rgb.r = 0;
-        rgb.g = 255-(230*((prcp-0.75)/(1.0-0.75)));
+        rgb.g = 255 - 230 * ((prcp - 0.75) / (1.0 - 0.75));
         rgb.b = 255;
       } else if (prcp > 1 && prcp <= 2) {
-        rgb.r = 125*((prcp-1.0)/(2.0-1.0));
+        rgb.r = 125 * ((prcp - 1.0) / (2.0 - 1.0));
         rgb.g = 125;
         rgb.b = 255;
       } else if (prcp > 2 && prcp <= 4) {
         rgb.r = 125;
-        rgb.g = 125-(125*((prcp-2)/(4.0-2.0)));
+        rgb.g = 125 - 125 * ((prcp - 2) / (4.0 - 2.0));
         rgb.b = 255;
-      }else if (prcp > 4 && prcp <= 8) {
+      } else if (prcp > 4 && prcp <= 8) {
         rgb.r = 125;
         rgb.g = 0;
-        rgb.b = 255-(230*((prcp-4.0)/(8.0-4.0)));
-      }else if (prcp > 8 && prcp <= 16) {
-        rgb.r = 125-(125*((prcp-8.0)/(16.0-8.0)));
+        rgb.b = 255 - 230 * ((prcp - 4.0) / (8.0 - 4.0));
+      } else if (prcp > 8 && prcp <= 16) {
+        rgb.r = 125 - 125 * ((prcp - 8.0) / (16.0 - 8.0));
         rgb.g = 0;
         rgb.b = 125;
-      }else if (prcp > 16 && prcp <= 30) {
+      } else if (prcp > 16 && prcp <= 30) {
         rgb.r = 0;
         rgb.g = 0;
-        rgb.b = 125-(125*((prcp-16.0)/(30.0-16.0)));
-      }else if (prcp == null) {
+        rgb.b = 125 - 125 * ((prcp - 16.0) / (30.0 - 16.0));
+      } else if (prcp == null) {
         rgb.r = 0;
         rgb.g = 0;
         rgb.b = 0;
@@ -1038,7 +1074,7 @@ export default {
         }
       };
     },
-    downloadToCsv:async function(stationID){
+    downloadToCsv: async function(stationID) {
       var dataSetResponse = await fetch(
         "http://climatologia.uprm.edu:8008/api?" +
           "q=data&" +
@@ -1091,7 +1127,6 @@ export default {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-
     },
 
     setChart: async function(
@@ -1405,6 +1440,18 @@ export default {
       document.getElementById("centerBtn").style.pointerEvents = "none";
     },
 
+    recenterPopup: function() {
+      if (this.selectedDateType === "Por Rango") {
+        this.mapChanged = this.mapChanged + 1;
+        this.zoom = 9.9;
+        this.center = latLng(18.213698, -66.348032);
+        document.getElementById("centerBtn").style.transform =
+          "translateY(10px)";
+        document.getElementById("centerBtn").style.opacity = 0;
+        document.getElementById("centerBtn").style.pointerEvents = "none";
+      }
+    },
+
     calendarOpen: function() {
       document.getElementById("date2").style.display = "none";
       document.getElementById("calendar").style.display = "block";
@@ -1415,7 +1462,7 @@ export default {
         document.getElementById("date2").style.display = "block";
       }
     },
-    OpenChart: function (
+    OpenChart: function(
       varType,
       modalId,
       spanClass,
@@ -1429,8 +1476,9 @@ export default {
       min,
       des,
       err,
-      avg) {
-        this.estacion = stationID;
+      avg
+    ) {
+      this.estacion = stationID;
       this.municipality = municipality;
       this.max = max;
       this.min = min;
@@ -1438,17 +1486,19 @@ export default {
       this.er = err;
       this.avg = avg;
 
-      let routeData = this.$router.resolve({name: 'routeName', path: `/graph/${varType}/${modalId}/${spanClass}/${chartType}/${labelName}/${stationID}/${municipality}/${startdate}/${enddate}/${max}/${min}/${des}/${err}/${avg}/` });
+      let routeData = this.$router.resolve({
+        name: "routeName",
+        path: `/graph/${varType}/${modalId}/${spanClass}/${chartType}/${labelName}/${stationID}/${municipality}/${startdate}/${enddate}/${max}/${min}/${des}/${err}/${avg}/`,
+      });
 
-       window.open(routeData.href, '_blank');
-
-    }
+      window.open(routeData.href, "_blank");
+    },
   },
 };
 /* eslint-enable */
 </script>
 <style scoped>
-.mapContainer2{
+.mapContainer2 {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -1467,7 +1517,6 @@ export default {
   padding-top: 20px;
   padding-bottom: 20px;
   padding: 20px;
-  
 }
 
 .date {
@@ -1480,6 +1529,7 @@ export default {
   z-index: 1;
   pointer-events: none;
   cursor: none;
+  top: -60px;
 }
 #calendar {
   margin-top: 5px;
@@ -1495,8 +1545,8 @@ export default {
   backdrop-filter: blur(10px);
   box-shadow: inset 0px 0px 200px rgba(36, 36, 36, 0.911),
     0px 5px 10px rgba(0, 0, 0, 0.26);
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   color: white;
   pointer-events: stroke;
   cursor: pointer;
@@ -1508,7 +1558,7 @@ export default {
 }
 
 .date2 h2 {
-  font-size: 2vh;
+  font-size: 20px;
 }
 
 .map {
@@ -1620,7 +1670,7 @@ export default {
 .popup strong {
   color: #56ddd2;
 }
-.popupBtns{
+.popupBtns {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1657,7 +1707,7 @@ export default {
   align-items: center;
   overflow: hidden;
   width: 100%;
-  height:100%;
+  height: 100%;
 }
 
 .extraInfo {
@@ -1680,22 +1730,19 @@ export default {
   color: #56ddd2;
 }
 
-
-
 /*
 This witll be the end of the nav bar
 */
 
-@media only screen and (max-height:719px) {
-  .extraInfo{
+@media only screen and (max-height: 719px) {
+  .extraInfo {
     font-size: 2vh;
   }
 }
 
-@media only screen and (max-width: 1023px), (max-height: 549px){
-  .mapContainer{
+@media only screen and (max-width: 1023px), (max-height: 549px) {
+  .mapContainer {
     display: none;
   }
 }
-
 </style>
