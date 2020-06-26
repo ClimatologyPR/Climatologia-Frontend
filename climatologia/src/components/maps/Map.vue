@@ -607,9 +607,9 @@ export default {
       singleDatePicker: false,
       rangeDatePicker: false,
       selectedDateType: "Por Día",
-      minDate: "1943-01-01",
-      maxDate: "2020-06-24",
-      date: "2020-06-01",
+      minDate: "1943-06-01",
+      maxDate: "",
+      date: "",
       drawer: false,
       startdate: null,
       enddate: null,
@@ -723,8 +723,9 @@ export default {
     });
   },
   mounted: async function() {
-
-
+    this.date = await this.fetchLastDate();
+    this.maxDate = await this.fetchLastDate();
+    console.log(this.date);
   },
   watch: {
     selectedDateType: function() {
@@ -840,6 +841,24 @@ export default {
     },
   },
   methods: {
+    fetchLastDate: async function() {
+      var lastDate = "";
+      // await fetch(
+      //     "api link here"
+      //   ).catch(function(error) {
+      //     alert(error);
+      //   })
+      //   .then (response => {
+      //     lastDate = response.date  // date : 'yyyy-mm-dd'
+      //   });
+
+      await setTimeout(() => {
+        lastDate = "2020-06-24";
+      }, 2000);
+      this.mapChanged = this.mapChanged + 1;
+      return '2020-06-24';
+    },
+
     remove(item) {
       this.selectedFilters.splice(this.selectedFilters.indexOf(item), 1);
       this.selectedFilters = [...this.selectedFilters];
@@ -1423,7 +1442,7 @@ export default {
     },
     centerUpdate(center) {
       this.currentCenter = center;
-      this.isCentered = false
+      this.isCentered = false;
 
       if (center !== this.center) {
         document.getElementById("centerBtn").style.opacity = 1;
@@ -1443,7 +1462,7 @@ export default {
 
     recenterPopup: function() {
       if (this.selectedDateType === "Por Rango" && !this.isCentered) {
-        console.log(this.center+' '+ this.currentCenter);
+        console.log(this.center + " " + this.currentCenter);
         this.mapChanged = this.mapChanged + 1;
         this.zoom = 9.9;
         this.center = latLng(18.213698, -66.348032);
