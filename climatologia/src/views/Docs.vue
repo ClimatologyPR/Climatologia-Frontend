@@ -1,7 +1,6 @@
 <template>
   <div class="about">
-    <h1 class="alert"><v-icon size="50" color="white">mdi-message-alert</v-icon> About page is currently under construction</h1>
-    
+    <h1 class="alert"><v-icon size="50" color="white">mdi-message-alert</v-icon> Docs page is currently under construction</h1>
   </div>
 </template>
 

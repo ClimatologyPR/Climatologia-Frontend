@@ -15,7 +15,7 @@
           <div class="links">
             <router-link to="/about">About</router-link>
             <router-link to="/api">API</router-link>
-            <a>Docs</a>
+            <router-link to="/documents">Docs</router-link>
           </div>
         </div>
       </div>

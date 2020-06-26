@@ -596,8 +596,8 @@ export default {
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
 
       currentZoom: 11.5,
-      currentCenter: latLng(18.193869, -66.626308),
-      showParagraph: false,
+      currentCenter: latLng(18.213698, -66.348032),
+      isCentered: true,
       mapOptions: {
         zoomSnap: 0.01,
       },
@@ -1420,6 +1420,7 @@ export default {
     },
     centerUpdate(center) {
       this.currentCenter = center;
+      this.isCentered = false
 
       if (center !== this.center) {
         document.getElementById("centerBtn").style.opacity = 1;
@@ -1427,9 +1428,6 @@ export default {
         document.getElementById("centerBtn").style.transform =
           "translateY(0px)";
       }
-    },
-    showLongText() {
-      this.showParagraph = !this.showParagraph;
     },
     recenter: function() {
       this.mapChanged = this.mapChanged + 1;
@@ -1441,7 +1439,8 @@ export default {
     },
 
     recenterPopup: function() {
-      if (this.selectedDateType === "Por Rango") {
+      if (this.selectedDateType === "Por Rango" && !this.isCentered) {
+        console.log(this.center+' '+ this.currentCenter);
         this.mapChanged = this.mapChanged + 1;
         this.zoom = 9.9;
         this.center = latLng(18.213698, -66.348032);
@@ -1449,6 +1448,7 @@ export default {
           "translateY(10px)";
         document.getElementById("centerBtn").style.opacity = 0;
         document.getElementById("centerBtn").style.pointerEvents = "none";
+        this.isCentered = true;
       }
     },
 

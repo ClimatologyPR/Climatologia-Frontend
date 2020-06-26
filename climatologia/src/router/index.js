@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import About from '../views/About.vue'
 import Map from '../components/maps/Map.vue';
 import Api from '../views/Api.vue';
-import Graph from '../components/Graph.vue'
+import Graph from '../components/Graph.vue';
+import Docs from '../views/Docs.vue'
 
 Vue.use(VueRouter)
 
@@ -17,9 +18,6 @@ Vue.use(VueRouter)
     path: '/about',
     name: 'About',
     component: About
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
   },
   {
     path:'/api',
@@ -30,6 +28,11 @@ Vue.use(VueRouter)
     path: '/graph/:varType/:modalId/:spanClass/:chartType/:labelName/:stationID/:municipality/:startdate/:enddate/:max/:min/:des/:err/:avg',
     name:'graph',
     component: Graph,
+  },
+  {
+    path: '/documents',
+    name: 'Docs',
+    component: Docs
   }
 ]
 
