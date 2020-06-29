@@ -145,8 +145,9 @@
                       :icon="iconList[i]"
                       @popupclose="recenterPopup()"
                       :options="{}"
+                      @popupopen="lastLocation()"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }">
+                      <l-popup class="popup" :options="{ closeButton: true }">
                         <strong> Agencia: </strong>
                         {{ station.AGENCYID }}
                         <br />
@@ -276,8 +277,10 @@
                       :lat-lngs="EasternInterior.latlngs"
                       :color="EasternInterior.color"
                       :fillColor="EasternInterior.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Interior oriental</l-popup
                       >
                     </l-polygon>
@@ -288,8 +291,10 @@
                       :lat-lngs="NorthernCoastal.latlngs"
                       :color="NorthernCoastal.color"
                       :fillColor="NorthernCoastal.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Costa del norte</l-popup
                       >
                     </l-polygon>
@@ -300,8 +305,10 @@
                       :lat-lngs="NorthernSlopes.latlngs"
                       :color="NorthernSlopes.color"
                       :fillColor="NorthernSlopes.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Laderas del norte</l-popup
                       >
                     </l-polygon>
@@ -312,8 +319,10 @@
                       :lat-lngs="OutlyingIsland.latlngs"
                       :color="OutlyingIsland.color"
                       :fillColor="OutlyingIsland.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Islas periféricas</l-popup
                       >
                     </l-polygon>
@@ -324,8 +333,10 @@
                       :lat-lngs="OutlyingIsland1.latlngs"
                       :color="OutlyingIsland1.color"
                       :fillColor="OutlyingIsland1.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Islas periféricas</l-popup
                       >
                     </l-polygon>
@@ -336,8 +347,10 @@
                       :lat-lngs="OutlyingIsland2.latlngs"
                       :color="OutlyingIsland2.color"
                       :fillColor="OutlyingIsland2.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Islas periféricas</l-popup
                       >
                     </l-polygon>
@@ -348,8 +361,10 @@
                       :lat-lngs="OutlyingIsland3.latlngs"
                       :color="OutlyingIsland3.color"
                       :fillColor="OutlyingIsland3.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Islas periféricas</l-popup
                       >
                     </l-polygon>
@@ -360,8 +375,10 @@
                       :lat-lngs="OutlyingIsland4.latlngs"
                       :color="OutlyingIsland4.color"
                       :fillColor="OutlyingIsland4.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Islas periféricas</l-popup
                       >
                     </l-polygon>
@@ -372,8 +389,10 @@
                       :lat-lngs="SouthernCoastal.latlngs"
                       :color="SouthernCoastal.color"
                       :fillColor="SouthernCoastal.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Costa del sur</l-popup
                       >
                     </l-polygon>
@@ -384,8 +403,10 @@
                       :lat-lngs="SouthernSlopes.latlngs"
                       :color="SouthernSlopes.color"
                       :fillColor="SouthernSlopes.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Laderas del sur</l-popup
                       >
                     </l-polygon>
@@ -396,8 +417,10 @@
                       :lat-lngs="WesternInterior.latlngs"
                       :color="WesternInterior.color"
                       :fillColor="WesternInterior.color"
+                      @popupopen="zonePopup = true"
+                      @popupclose="zonePopup = false"
                     >
-                      <l-popup class="popup" :options="{ closeButton: false }"
+                      <l-popup class="popup" :options="{ closeButton: true }"
                         >Interior occidental</l-popup
                       >
                     </l-polygon>
@@ -663,6 +686,9 @@ export default {
       er: null,
       avg: null,
       csv: null,
+
+      locationUpdate: null,
+      zonePopup: false,
     };
   },
   computed: {
@@ -852,9 +878,9 @@ export default {
       //     lastDate = response.date  // date : 'yyyy-mm-dd'
       //   });
 
-      await setTimeout(() => {
-        lastDate = "2020-06-24";
-      }, 2000);
+      // await setTimeout(() => {
+      //   lastDate = "2020-06-24";
+      // }, 2000);
       this.mapChanged = this.mapChanged + 1;
       return '2020-06-24';
     },
@@ -1442,14 +1468,25 @@ export default {
     },
     centerUpdate(center) {
       this.currentCenter = center;
-      this.isCentered = false;
 
       if (center !== this.center) {
         document.getElementById("centerBtn").style.opacity = 1;
         document.getElementById("centerBtn").style.pointerEvents = "all";
         document.getElementById("centerBtn").style.transform =
           "translateY(0px)";
+      } else {
+        document.getElementById("centerBtn").style.transform =
+          "translateY(10px)";
+        document.getElementById("centerBtn").style.opacity = 0;
+        document.getElementById("centerBtn").style.pointerEvents = "none";
       }
+    },
+
+    lastLocation: function() {
+      if (!this.zonePopup) {
+        this.locationUpdate = this.currentCenter;
+      }
+      this.zonePopup = false;
     },
     recenter: function() {
       this.mapChanged = this.mapChanged + 1;
@@ -1461,15 +1498,11 @@ export default {
     },
 
     recenterPopup: function() {
-      if (this.selectedDateType === "Por Rango" && !this.isCentered) {
-        console.log(this.center + " " + this.currentCenter);
-        this.mapChanged = this.mapChanged + 1;
-        this.zoom = 9.9;
-        this.center = latLng(18.213698, -66.348032);
-        document.getElementById("centerBtn").style.transform =
-          "translateY(10px)";
-        document.getElementById("centerBtn").style.opacity = 0;
-        document.getElementById("centerBtn").style.pointerEvents = "none";
+      if (this.selectedDateType === "Por Rango" && !this.zonePopup) {
+        console.log(this.locationUpdate + " " + this.currentCenter);
+        //this.mapChanged = this.mapChanged + 1;
+        this.zoom = this.currentZoom;
+        this.center = this.locationUpdate;
         this.isCentered = true;
       }
     },
