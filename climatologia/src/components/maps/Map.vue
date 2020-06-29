@@ -633,6 +633,7 @@ export default {
       minDate: "1943-06-01",
       maxDate: "",
       date: "",
+      currentDate:'',
       drawer: false,
       startdate: null,
       enddate: null,
@@ -750,17 +751,17 @@ export default {
   },
   mounted: async function() {
     this.date = await this.fetchLastDate();
-    this.maxDate = await this.fetchLastDate();
-    console.log(this.date);
+    this.maxDate = this.date;
+    this.currentDate = this.date;
   },
   watch: {
     selectedDateType: function() {
       if (this.selectedDateType === "Por Día") {
         this.dateType("singleDate");
-        this.date = "2020-06-01";
+        this.date = this.currentDate;
       } else if (this.selectedDateType === "Por Rango") {
         this.dateType("rangeDate");
-        this.date = ["2020-05-25", "2020-06-01"];
+        this.date = ["2020-05-25", this.currentDate]; // need to make a function that calculates 7 days before the current date to set as the default range date.
       }
       eventBus.$emit("defaultDate", this.date);
     },
@@ -868,21 +869,13 @@ export default {
   },
   methods: {
     fetchLastDate: async function() {
-      var lastDate = "";
-      // await fetch(
-      //     "api link here"
-      //   ).catch(function(error) {
-      //     alert(error);
-      //   })
-      //   .then (response => {
-      //     lastDate = response.date  // date : 'yyyy-mm-dd'
-      //   });
-
-      // await setTimeout(() => {
-      //   lastDate = "2020-06-24";
-      // }, 2000);
-      this.mapChanged = this.mapChanged + 1;
-      return '2020-06-24';
+      var date = await fetch(
+          "http://climatologia.uprm.edu:8008/api/lastDate?lastDate=lastDate"
+        ).catch(function(error) {
+          alert(error);
+        });
+        date = await date.json(); 
+      return date.lastDate;
     },
 
     remove(item) {
@@ -1499,7 +1492,7 @@ export default {
 
     recenterPopup: function() {
       if (this.selectedDateType === "Por Rango" && !this.zonePopup) {
-        console.log(this.locationUpdate + " " + this.currentCenter);
+        //console.log(this.locationUpdate + " " + this.currentCenter);
         //this.mapChanged = this.mapChanged + 1;
         this.zoom = this.currentZoom;
         this.center = this.locationUpdate;
