@@ -13,24 +13,27 @@
       >
         <div class="content">
           <div class="zone">
+            <div class="zoneTitle">
             <p class="ztext">Zonas Climáticas</p>
-            <a @mousedown="allSelected" class="selectAll" id="selectAll">Remover todo</a>
+            <a @mousedown="allSelected" class="selectAll" id="selectAll">✔</a>
+            </div>
             <v-select
-              class="picker"
+              class="picker grey--text caption"
               v-model="selectedFilters"
               :items="filters"
               :disabled="disable"
               prepend-icon="mdi-layers"
               multiple
               dense
-                solo
+              solo
               color="#2bbbbb"
               dark
               item-color="#2bbbbb"
+              placeholder="0 Zonas Seleccionadas"
             >
               <template v-slot:selection="{ item, index }">
-                <span v-if="index === 0" class="grey--text caption"
-                  >{{ selectedFilters.length }} Seleccionado</span
+                <span v-if="index === 0"
+                  >{{ selectedFilters.length }} Zonas Seleccionadas</span
                 >
               </template>
             </v-select>
@@ -221,7 +224,7 @@ export default {
     "SingleDateText",
     "rangeDateText",
     "overlay",
-    "date"
+    "date",
     // 'hideMenu'
   ],
   created() {
@@ -270,20 +273,20 @@ export default {
 
     allSelected: function() {
       this.selectAll = !this.selectAll;
-      if(this.selectAll){
+      if (this.selectAll) {
         this.selectedFilters = [
-        "Costa del norte",
-        "Laderas del norte",
-        "Interior occidental",
-        "Interior oriental",
-        "Laderas del sur",
-        "Costa del sur",
-        "Islas periféricas",
-      ];
-      document.getElementById('selectAll').innerText = 'Remover todo';
-      }else{
+          "Costa del norte",
+          "Laderas del norte",
+          "Interior occidental",
+          "Interior oriental",
+          "Laderas del sur",
+          "Costa del sur",
+          "Islas periféricas",
+        ];
+        document.getElementById("selectAll").innerText = "✔";
+      } else {
         this.selectedFilters = [];
-        document.getElementById('selectAll').innerText = 'Seleccionar todo';
+        document.getElementById("selectAll").innerText = "";
       }
       eventBus.$emit("selectedFiltersChange", this.selectedFilters);
     },
@@ -311,7 +314,7 @@ export default {
       eventBus.$emit("fetchStationRequest", type, start, end);
     },
     menuOpen: function() {
-      document.getElementById('container').style.visibility = 'visible';
+      document.getElementById("container").style.visibility = "visible";
       document.getElementById("menuSlide").style.transition = "0.3s";
       document.getElementById("menuSlide").style.transform =
         "translateX(-280px)";
@@ -319,15 +322,13 @@ export default {
     menuClose: function() {
       document.getElementById("menuSlide").style.transition = "0.3s";
       document.getElementById("menuSlide").style.transform = "translateX(0px)";
-      document.getElementById('container').style.visibility = 'hidden';
-
+      document.getElementById("container").style.visibility = "hidden";
     },
     containerOpen: function() {
       document.getElementById("container").style.background = "#4f5b66d2";
     },
     containerClose: function() {
-      document.getElementById("container").style.background =
-        "#4f5b66a1";
+      document.getElementById("container").style.background = "#4f5b66a1";
     },
   },
 };
@@ -368,7 +369,7 @@ export default {
   background: #4f5b66a1;
   transition: 1s;
   visibility: hidden;
-  color: white;
+  color: var(--h1);
   padding-right: 10px;
 }
 .content {
@@ -376,32 +377,44 @@ export default {
   width: auto;
 }
 
-.selectAll{
-  background: #2bbbbb;
-  color: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-radius: 10px;
-  box-shadow: 3px 2px #239494;
+.selectAll {
+  border: #1E1E1E 2px solid;
+  min-width: 34px;
+  min-height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(54, 238, 125);
+  font-weight: 900;
+  font-family: "Lato", sans-serif;
+  font-size: 20px;
+  border-radius: 5px;
+  /* box-shadow: 3px 2px #239494; */
   width: fit-content;
   margin-bottom: 10px;
   user-select: none;
 }
-.selectAll:hover{
-  background: #32cfcf;
+.selectAll:hover {
+  background: #32cfcf62;
 }
-.selectAll:active{
-  background: #2bbbbb;
+.selectAll:active {
+  background: #2bbbbb98;
   transition: 0.1s;
   text-decoration: none !important;
   transform: translate(3px, 2px) !important;
   box-shadow: inset 3px 2px 5px rgb(139, 139, 139) !important;
   user-select: none;
 }
+.zoneTitle{
+  display: flex;
+}
 
-.zone{
+.zoneTitle a{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.zone {
   display: flex;
   flex-direction: column;
 }

@@ -620,7 +620,6 @@ export default {
 
       currentZoom: 11.5,
       currentCenter: latLng(18.213698, -66.348032),
-      isCentered: true,
       mapOptions: {
         zoomSnap: 0.01,
       },
@@ -751,10 +750,6 @@ export default {
   },
   mounted: async function() {
     this.date = await this.fetchLastDate();
-    
-    
-    console.log (this.nDaysBeforeDate(8, this.date));
-    
     this.maxDate = this.date;
     this.currentDate = this.date;
   },
@@ -1483,13 +1478,6 @@ export default {
         document.getElementById("centerBtn").style.pointerEvents = "none";
       }
     },
-
-    lastLocation: function() {
-      if (!this.zonePopup) {
-        this.locationUpdate = this.currentCenter;
-      }
-      this.zonePopup = false;
-    },
     recenter: function() {
       this.mapChanged = this.mapChanged + 1;
       this.zoom = 9.9;
@@ -1498,14 +1486,15 @@ export default {
       document.getElementById("centerBtn").style.opacity = 0;
       document.getElementById("centerBtn").style.pointerEvents = "none";
     },
-
+    lastLocation: function() {
+      if (!this.zonePopup) {
+        this.locationUpdate = this.currentCenter;
+      }
+      this.zonePopup = false;
+    },
     recenterPopup: function() {
       if (this.selectedDateType === "Por Rango" && !this.zonePopup) {
-        //console.log(this.locationUpdate + " " + this.currentCenter);
-        //this.mapChanged = this.mapChanged + 1;
-        this.zoom = this.currentZoom;
         this.center = this.locationUpdate;
-        this.isCentered = true;
       }
     },
 
