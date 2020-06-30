@@ -765,7 +765,7 @@ export default {
         this.date = this.currentDate;
       } else if (this.selectedDateType === "Por Rango") {
         this.dateType("rangeDate");
-        this.date = ["2020-05-25", this.currentDate]; // need to make a function that calculates 7 days before the current date to set as the default range date.
+        this.date = [this.nDaysBeforeDate(8, this.date), this.currentDate]; // need to make a function that calculates 7 days before the current date to set as the default range date.
       }
       eventBus.$emit("defaultDate", this.date);
     },
@@ -875,7 +875,7 @@ export default {
     nDaysBeforeDate: function (days, date) {
       var NewDate = new Date(date);
       var last = new Date(NewDate.getTime() - (days * 24 * 60 * 60 * 1000));
-      return last.getFullYear() + '-' + (last.getMonth()+1) + '-' + last.getDate();
+      return last.getFullYear() + '-' + (last.getMonth() + 1 >= 10?  last.getMonth() + 1 : '0' + (last.getMonth() + 1) ) + '-' + (last.getDate() >= 10?  last.getDate() : '0' + last.getDate() );
     },
     fetchLastDate: async function() {
       var date = await fetch(
