@@ -751,6 +751,10 @@ export default {
   },
   mounted: async function() {
     this.date = await this.fetchLastDate();
+    
+    
+    console.log (this.nDaysBeforeDate(8, this.date));
+    
     this.maxDate = this.date;
     this.currentDate = this.date;
   },
@@ -868,13 +872,18 @@ export default {
     },
   },
   methods: {
+    nDaysBeforeDate: function (days, date) {
+      var NewDate = new Date(date);
+      var last = new Date(NewDate.getTime() - (days * 24 * 60 * 60 * 1000));
+      return last.getFullYear() + '-' + (last.getMonth()+1) + '-' + last.getDate();
+    },
     fetchLastDate: async function() {
       var date = await fetch(
           "http://climatologia.uprm.edu:8008/api/lastDate?lastDate=lastDate"
         ).catch(function(error) {
           alert(error);
         });
-        date = await date.json(); 
+        date = await date.json();
       return date.lastDate;
     },
 
