@@ -20,7 +20,9 @@
         </div>
       </div>
       <transition name="fade" mode="out-in">
-        <router-view class="router" />
+        <keep-alive>
+          <router-view class="router" />
+        </keep-alive>
       </transition>
     </div>
   </v-app>
