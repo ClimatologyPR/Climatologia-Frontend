@@ -453,8 +453,9 @@ export default {
   background: var(--main);
   color: var(--text) !important;
   font-family: "Lato", sans-serif;
-  padding: 32px;
+  padding: 32px 32px 0px 32px;
   font-size: 2vh;
+  display: flex;
   height: 100%;
 }
 
@@ -463,7 +464,6 @@ export default {
   border: 4px var(--strong) solid;
   padding: 20px;
   border-radius: 10px;
-  margin-top: 24px;
 }
 
 .downloadBtnLocation {
@@ -489,6 +489,8 @@ export default {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  height: 100%;
+  align-items: center;
 }
 
 .graphContent {
@@ -541,11 +543,9 @@ export default {
 
 .content-table {
   border-collapse: collapse;
-  margin-top: 24px;
-  font-size: 1em;
-  border-radius: 5px 5px 0 0;
-  overflow: hidden;
-  color: black;
+  font-size: 1.7vh;
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 .content-table thead tr {
@@ -639,6 +639,11 @@ export default {
 @media only screen and (max-width: 1450px) {
   .options {
     flex-direction: column;
+  }
+
+  .content-table{
+    margin-top: 24px;
+    margin-bottom: 24px;
   }
 }
 

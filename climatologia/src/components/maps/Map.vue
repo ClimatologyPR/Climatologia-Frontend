@@ -112,7 +112,7 @@
                   position="bottomright"
                   style="pointer-events: none;margin-bottom:-10px;z-index:801;margin-right:10px"
                 >
-                  <v-card width="100%" class="legendImage">
+                  <v-card  class="legendImage">
                     <img
                       v-if="currentPinView === 'prcp'"
                       :src="
@@ -125,7 +125,7 @@
                       :src="
                         require('../../assets/horizontal_temperature_legend_bar.svg')
                       "
-                      style="width: 500px; height:auto;"
+                      style="width: 450px; height:auto;"
                     />
                   </v-card>
                 </l-control>
@@ -1697,8 +1697,8 @@ export default {
 .legendImage {
   justify-content: center;
   display: flex;
+  margin-right: 20px;
   background: inherit;
-  height: auto;
   backdrop-filter: blur(10px);
   box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836);
 }
