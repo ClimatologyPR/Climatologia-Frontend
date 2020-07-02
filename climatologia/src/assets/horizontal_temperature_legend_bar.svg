@@ -1,218 +1,130 @@
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 465.6 132.3" style="enable-background:new 0 0 465.6 132.3;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:url(#SVGID_1_);}
-	.st1{fill:none;stroke:white;stroke-miterlimit:10;}
-	.st2{fill:none;}
-	.st3{stroke:white;stroke-width:0.5;stroke-miterlimit:10;fill:white;}
-	.st4{font-family:'ArialMT';}
-	.st5{font-size:10.5311px;}
-	.st6{font-size:16px;}
-	.st7{fill:none;stroke:#000000;stroke-width:12;stroke-miterlimit:10;}
-	.st8{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_2_);}
-	.st9{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_3_);}
-	.st10{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_4_);}
-</style>
-<g>
-	
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-1651.4646" y1="-833.5941" x2="-1201.4646" y2="-833.5941" gradientTransform="matrix(-1 0 0 1 -1199.9692 912.455)">
-		<stop  offset="0" style="stop-color:#007DFF"/>
-		<stop  offset="1.000000e-02" style="stop-color:#0481FF"/>
-		<stop  offset="1.860000e-02" style="stop-color:#0887FF"/>
-		<stop  offset="3.000000e-02" style="stop-color:#0C8AFF"/>
-		<stop  offset="3.820000e-02" style="stop-color:#108EFF"/>
-		<stop  offset="5.100000e-02" style="stop-color:#1492FF"/>
-		<stop  offset="6.500000e-02" style="stop-color:#1997FF"/>
-		<stop  offset="7.630000e-02" style="stop-color:#1D9BFF"/>
-		<stop  offset="8.950000e-02" style="stop-color:#219FFF"/>
-		<stop  offset="0.1031" style="stop-color:#25A4FF"/>
-		<stop  offset="0.1145" style="stop-color:#29A8FF"/>
-		<stop  offset="0.125" style="stop-color:#2DACFF"/>
-		<stop  offset="0.1378" style="stop-color:#32B1FF"/>
-		<stop  offset="0.1495" style="stop-color:#36B5FF"/>
-		<stop  offset="0.1605" style="stop-color:#3AB9FF"/>
-		<stop  offset="0.1726" style="stop-color:#3EBEFF"/>
-		<stop  offset="0.1847" style="stop-color:#42C2FF"/>
-		<stop  offset="0.1983" style="stop-color:#46C6FF"/>
-		<stop  offset="0.2079" style="stop-color:#4BCBFF"/>
-		<stop  offset="0.222" style="stop-color:#4FCFFF"/>
-		<stop  offset="0.2339" style="stop-color:#53D3FF"/>
-		<stop  offset="0.2481" style="stop-color:#57D8FF"/>
-		<stop  offset="0.2622" style="stop-color:#5BDCFF"/>
-		<stop  offset="0.2764" style="stop-color:#5FE0FF"/>
-		<stop  offset="0.2873" style="stop-color:#64E5FF"/>
-		<stop  offset="0.2968" style="stop-color:#68E9FF"/>
-		<stop  offset="0.3064" style="stop-color:#6CE9FF"/>
-		<stop  offset="0.3166" style="stop-color:#70F2FF"/>
-		<stop  offset="0.3296" style="stop-color:#74F6FF"/>
-		<stop  offset="0.3432" style="stop-color:#78FAFF"/>
-		<stop  offset="0.3545" style="stop-color:#7DFFFF"/>
-		<stop  offset="0.3669" style="stop-color:#8AFFF2"/>
-		<stop  offset="0.3788" style="stop-color:#97FFE5"/>
-		<stop  offset="0.3896" style="stop-color:#A4FFD8"/>
-		<stop  offset="0.3992" style="stop-color:#B1FFCB"/>
-		<stop  offset="0.4117" style="stop-color:#BEFFBE"/>
-		<stop  offset="0.4264" style="stop-color:#CBFFB1"/>
-		<stop  offset="0.4388" style="stop-color:#D8FFA4"/>
-		<stop  offset="0.4519" style="stop-color:#E5FF97"/>
-		<stop  offset="0.4632" style="stop-color:#F2FF8A"/>
-		<stop  offset="0.4768" style="stop-color:#FFFF7D"/>
-		<stop  offset="0.4875" style="stop-color:#FFF270"/>
-		<stop  offset="0.5005" style="stop-color:#FFE564"/>
-		<stop  offset="0.5136" style="stop-color:#FFD857"/>
-		<stop  offset="0.5249" style="stop-color:#FFCB4B"/>
-		<stop  offset="0.5356" style="stop-color:#FFBE3E"/>
-		<stop  offset="0.5492" style="stop-color:#FFB132"/>
-		<stop  offset="0.5611" style="stop-color:#FFA425"/>
-		<stop  offset="0.5747" style="stop-color:#FF9719"/>
-		<stop  offset="0.586" style="stop-color:#FF8A0C"/>
-		<stop  offset="0.5946" style="stop-color:#FF7D00"/>
-		<stop  offset="0.6075" style="stop-color:#FF7800"/>
-		<stop  offset="0.6206" style="stop-color:#FF7400"/>
-		<stop  offset="0.6313" style="stop-color:#FF7000"/>
-		<stop  offset="0.6443" style="stop-color:#FF6C00"/>
-		<stop  offset="0.6547" style="stop-color:#FF6800"/>
-		<stop  offset="0.6668" style="stop-color:#FF6400"/>
-		<stop  offset="0.6778" style="stop-color:#FF5F00"/>
-		<stop  offset="0.6896" style="stop-color:#FF5B00"/>
-		<stop  offset="0.6998" style="stop-color:#FF5700"/>
-		<stop  offset="0.7117" style="stop-color:#FF5300"/>
-		<stop  offset="0.7213" style="stop-color:#FF4F00"/>
-		<stop  offset="0.7338" style="stop-color:#FF4B00"/>
-		<stop  offset="0.7463" style="stop-color:#FF4600"/>
-		<stop  offset="0.7587" style="stop-color:#FF4200"/>
-		<stop  offset="0.77" style="stop-color:#FF3E00"/>
-		<stop  offset="0.7784" style="stop-color:#FF3A00"/>
-		<stop  offset="0.7894" style="stop-color:#FF3600"/>
-		<stop  offset="0.8019" style="stop-color:#FF3200"/>
-		<stop  offset="0.8174" style="stop-color:#FF2D00"/>
-		<stop  offset="0.8306" style="stop-color:#FF2900"/>
-		<stop  offset="0.8397" style="stop-color:#FF2500"/>
-		<stop  offset="0.849" style="stop-color:#FF2100"/>
-		<stop  offset="0.8615" style="stop-color:#FF1D00"/>
-		<stop  offset="0.8775" style="stop-color:#FF1900"/>
-		<stop  offset="0.8909" style="stop-color:#FF1400"/>
-		<stop  offset="0.9019" style="stop-color:#FF1000"/>
-		<stop  offset="0.917" style="stop-color:#FF0C00"/>
-		<stop  offset="0.9308" style="stop-color:#FF0800"/>
-		<stop  offset="0.9427" style="stop-color:#FF0400"/>
-		<stop  offset="0.9534" style="stop-color:#FF0000"/>
-	</linearGradient>
-	<rect x="4.6" y="58.4" class="st0" width="450" height="41"/>
-	<path d="M5.1,58.9h449v40H5.1V58.9 M4.1,57.9v42h451v-42H4.1L4.1,57.9z"/>
-</g>
-<g>
-	<line class="st1" x1="428.6" y1="50.8" x2="428.6" y2="44.2"/>
-	<line class="st2" x1="428.6" y1="50.8" x2="428.6" y2="44.2"/>
-</g>
-<g>
-	<line class="st1" x1="454.6" y1="50.8" x2="454.6" y2="44.2"/>
-	<line class="st2" x1="454.6" y1="50.8" x2="454.6" y2="44.2"/>
-</g>
-<text transform="matrix(0.3819 -1.0736 0.9422 0.3352 454.4594 44.0309)" class="st3 st4 st5">40 ºF</text>
-<rect x="75.6" y="81.6" class="st2" width="204.3" height="41.9"/>
-<text transform="matrix(1 0 0 1 183.668 115.5441)" class="st3 st4 st6">Temperatura</text>
-<g>
-	<line class="st1" x1="400.5" y1="51.3" x2="400.5" y2="44.7"/>
-	<line class="st2" x1="400.5" y1="51.3" x2="400.5" y2="44.7"/>
-</g>
-<g>
-	<line class="st1" x1="373.7" y1="50.9" x2="373.7" y2="44.3"/>
-	<line class="st2" x1="373.7" y1="50.9" x2="373.7" y2="44.3"/>
-</g>
-<g>
-	<line class="st1" x1="346.7" y1="50.8" x2="346.7" y2="44.2"/>
-	<line class="st2" x1="346.7" y1="50.8" x2="346.7" y2="44.2"/>
-</g>
-<g>
-	<line class="st1" x1="319.5" y1="51.1" x2="319.5" y2="44.5"/>
-	<line class="st2" x1="319.5" y1="51.1" x2="319.5" y2="44.5"/>
-</g>
-<g>
-	<line class="st1" x1="292.4" y1="51.2" x2="292.4" y2="44.6"/>
-	<line class="st2" x1="292.4" y1="51.2" x2="292.4" y2="44.6"/>
-</g>
-<g>
-	<line class="st1" x1="265.7" y1="51.3" x2="265.7" y2="44.7"/>
-	<line class="st2" x1="265.7" y1="51.3" x2="265.7" y2="44.7"/>
-</g>
-<g>
-	<line class="st1" x1="238.6" y1="51.9" x2="238.6" y2="45.3"/>
-	<line class="st2" x1="238.6" y1="51.9" x2="238.6" y2="45.3"/>
-</g>
-<g>
-	<line class="st1" x1="211.5" y1="50.9" x2="211.5" y2="44.3"/>
-	<line class="st2" x1="211.5" y1="50.9" x2="211.5" y2="44.3"/>
-</g>
-<g>
-	<line class="st1" x1="184.5" y1="51.1" x2="184.5" y2="44.5"/>
-	<line class="st2" x1="184.5" y1="51.1" x2="184.5" y2="44.5"/>
-</g>
-<g>
-	<path class="st7" d="M157.6,24.9"/>
-	
-		<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="278.8723" y1="147.1808" x2="278.8723" y2="147.1808" gradientTransform="matrix(4.489659e-11 -1 -1 -4.489659e-11 304.7332 303.7332)">
-		<stop  offset="0" style="stop-color:#FFFFFF"/>
-		<stop  offset="0" style="stop-color:#000000"/>
-	</linearGradient>
-	<path class="st8" d="M157.6,24.9"/>
-</g>
-<g>
-	<line class="st1" x1="130.7" y1="52.1" x2="130.7" y2="45.5"/>
-	<line class="st2" x1="130.7" y1="52.1" x2="130.7" y2="45.5"/>
-</g>
-<g>
-	<line class="st1" x1="103.4" y1="51.9" x2="103.4" y2="45.3"/>
-	<line class="st2" x1="103.4" y1="51.9" x2="103.4" y2="45.3"/>
-</g>
-<g>
-	<line class="st1" x1="75.4" y1="51.2" x2="75.4" y2="44.6"/>
-	<line class="st2" x1="75.4" y1="51.2" x2="75.4" y2="44.6"/>
-</g>
-<g>
-	<path class="st7" d="M49.6,28.9"/>
-	
-		<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="274.8723" y1="255.1808" x2="274.8723" y2="255.1808" gradientTransform="matrix(4.489659e-11 -1 -1 -4.489659e-11 304.7332 303.7332)">
-		<stop  offset="0" style="stop-color:#FFFFFF"/>
-		<stop  offset="0" style="stop-color:#000000"/>
-	</linearGradient>
-	<path class="st9" d="M49.6,28.9"/>
-</g>
-<g>
-	<path class="st1" d="M49.6,49.9"/>
-	
-		<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="253.8723" y1="255.1808" x2="253.8723" y2="255.1808" gradientTransform="matrix(4.489659e-11 -1 -1 -4.489659e-11 304.7332 303.7332)">
-		<stop  offset="0" style="stop-color:#FFFFFF"/>
-		<stop  offset="0" style="stop-color:#000000"/>
-	</linearGradient>
-	<path class="st10" d="M49.6,49.9"/>
-</g>
-<text transform="matrix(0.3803 -1.0742 0.9427 0.3337 428.2472 44.0309)" class="st3 st4 st5">45 ºF</text>
-<text transform="matrix(0.3864 -1.072 0.9408 0.3391 400.1876 44.0309)" class="st3 st4 st5">50 ºF</text>
-<text transform="matrix(0.4024 -1.0661 0.9356 0.3531 373.3157 44.0309)" class="st3 st4 st5">55 ºF</text>
-<text transform="matrix(0.3008 -1.0991 0.9645 0.2639 346.6367 44.0309)" class="st3 st4 st5">60 ºF</text>
-<text transform="matrix(0.3861 -1.0721 0.9408 0.3389 319.1765 44.0309)" class="st3 st4 st5">65 ºF</text>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 290.8668 44.0309)" class="st3 st4 st5">70 ºF</text>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 264.8881 44.0309)" class="st3 st4 st5"> 75 ºF</text>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 236.8669 44.0309)" class="st3 st4 st5"> 80 ºF</text>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 209.8669 44.0309)" class="st3 st4 st5"> 85 ºF</text>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 182.42 44.0309)" class="st3 st4 st5"> 90 ºF</text>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 157.0158 44.0309)" class="st3 st4 st5"> 95 ºF</text>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 130.7392 46.8392)" class="st3 st4 st5">100 ºF</text>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 103.0584 46.6691)" class="st3 st4 st5">105 ºF</text>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 75.2286 45.4773)" class="st3 st4 st5">110 ºF</text>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 49.3987 46.8387)" class="st3 st4 st5">115 ºF</text>
-<g>
-	<line class="st1" x1="22.4" y1="52.2" x2="22.4" y2="45.6"/>
-	<line class="st2" x1="22.4" y1="52.2" x2="22.4" y2="45.6"/>
-</g>
-<text transform="matrix(0.3897 -1.0708 0.9397 0.342 22.0584 46.8395)" class="st3 st4 st5">120 ºF</text>
-<g>
-	<line class="st1" x1="157.5" y1="51.1" x2="157.5" y2="44.5"/>
-	<line class="st2" x1="157.5" y1="51.1" x2="157.5" y2="44.5"/>
-</g>
-<g>
-	<line class="st1" x1="49.3" y1="52" x2="49.3" y2="45.4"/>
-	<line class="st2" x1="49.3" y1="52" x2="49.3" y2="45.4"/>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 420 66" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:10;">
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <rect x="4.6" y="58.4" width="450" height="41" style="fill:url(#_Linear1);"/>
+        <path d="M5.1,58.9L454.1,58.9L454.1,98.9L5.1,98.9L5.1,58.9M4.1,57.9L4.1,99.9L455.1,99.9L455.1,57.9L4.1,57.9Z" style="fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M428.6,50.8L428.6,44.2" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M428.6,50.8L428.6,44.2" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M454.6,50.8L454.6,44.2" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M454.6,50.8L454.6,44.2" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.344374,-0.678687,0.849618,0.2119,409.474,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">40 ºF</text>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M400.5,51.3L400.5,44.7" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M400.5,51.3L400.5,44.7" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M373.7,50.9L373.7,44.3" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M373.7,50.9L373.7,44.3" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M346.7,50.8L346.7,44.2" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M346.7,50.8L346.7,44.2" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M319.5,51.1L319.5,44.5" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M319.5,51.1L319.5,44.5" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M292.4,51.2L292.4,44.6" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M292.4,51.2L292.4,44.6" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M265.7,51.3L265.7,44.7" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M265.7,51.3L265.7,44.7" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M238.6,51.9L238.6,45.3" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M238.6,51.9L238.6,45.3" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M211.5,50.9L211.5,44.3" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M211.5,50.9L211.5,44.3" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M184.5,51.1L184.5,44.5" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M184.5,51.1L184.5,44.5" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M130.7,52.1L130.7,45.5" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M130.7,52.1L130.7,45.5" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M103.4,51.9L103.4,45.3" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M103.4,51.9L103.4,45.3" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M75.4,51.2L75.4,44.6" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M75.4,51.2L75.4,44.6" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.342931,-0.679067,0.850069,0.210952,385.838,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">45 ºF</text>
+    </g>
+    <g transform="matrix(0.348432,-0.677676,0.848356,0.214366,360.535,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">50 ºF</text>
+    </g>
+    <g transform="matrix(0.36286,-0.673946,0.843667,0.223216,336.304,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">55 ºF</text>
+    </g>
+    <g transform="matrix(0.271243,-0.694807,0.869727,0.166827,312.246,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">60 ºF</text>
+    </g>
+    <g transform="matrix(0.348161,-0.677739,0.848356,0.214239,287.485,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">65 ºF</text>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,261.957,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">70 ºF</text>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,238.531,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">75 ºF</text>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,213.263,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">80 ºF</text>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,188.916,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">85 ºF</text>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,164.166,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">90 ºF</text>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,141.258,26.7321)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">95 ºF</text>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,117.563,28.5074)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">100 ºF</text>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,92.6025,28.3999)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">105 ºF</text>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,67.5073,27.6465)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">1<tspan x="5.075px 10.932px " y="0px 0px ">10</tspan> ºF</text>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,44.2155,28.5071)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">1<tspan x="5.075px 10.932px " y="0px 0px ">15</tspan> ºF</text>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M22.4,52.2L22.4,45.6" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M22.4,52.2L22.4,45.6" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.351407,-0.676917,0.847364,0.216199,19.5617,28.5076)">
+        <text x="0px" y="0px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:10.531px;fill:white;stroke:white;stroke-width:0.5px;">120 ºF</text>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M157.5,51.1L157.5,44.5" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M157.5,51.1L157.5,44.5" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(0.901738,0,0,0.63216,-0.329174,-1.10245)">
+        <path d="M49.3,52L49.3,45.4" style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"/>
+        <path d="M49.3,52L49.3,45.4" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-450,5.51091e-14,-5.51091e-14,-450,451.495,78.8609)"><stop offset="0" style="stop-color:rgb(0,125,255);stop-opacity:1"/><stop offset="0.01" style="stop-color:rgb(4,129,255);stop-opacity:1"/><stop offset="0.02" style="stop-color:rgb(8,135,255);stop-opacity:1"/><stop offset="0.03" style="stop-color:rgb(12,138,255);stop-opacity:1"/><stop offset="0.04" style="stop-color:rgb(16,142,255);stop-opacity:1"/><stop offset="0.05" style="stop-color:rgb(20,146,255);stop-opacity:1"/><stop offset="0.07" style="stop-color:rgb(25,151,255);stop-opacity:1"/><stop offset="0.08" style="stop-color:rgb(29,155,255);stop-opacity:1"/><stop offset="0.09" style="stop-color:rgb(33,159,255);stop-opacity:1"/><stop offset="0.1" style="stop-color:rgb(37,164,255);stop-opacity:1"/><stop offset="0.11" style="stop-color:rgb(41,168,255);stop-opacity:1"/><stop offset="0.13" style="stop-color:rgb(45,172,255);stop-opacity:1"/><stop offset="0.14" style="stop-color:rgb(50,177,255);stop-opacity:1"/><stop offset="0.15" style="stop-color:rgb(54,181,255);stop-opacity:1"/><stop offset="0.16" style="stop-color:rgb(58,185,255);stop-opacity:1"/><stop offset="0.17" style="stop-color:rgb(62,190,255);stop-opacity:1"/><stop offset="0.18" style="stop-color:rgb(66,194,255);stop-opacity:1"/><stop offset="0.2" style="stop-color:rgb(70,198,255);stop-opacity:1"/><stop offset="0.21" style="stop-color:rgb(75,203,255);stop-opacity:1"/><stop offset="0.22" style="stop-color:rgb(79,207,255);stop-opacity:1"/><stop offset="0.23" style="stop-color:rgb(83,211,255);stop-opacity:1"/><stop offset="0.25" style="stop-color:rgb(87,216,255);stop-opacity:1"/><stop offset="0.26" style="stop-color:rgb(91,220,255);stop-opacity:1"/><stop offset="0.28" style="stop-color:rgb(95,224,255);stop-opacity:1"/><stop offset="0.29" style="stop-color:rgb(100,229,255);stop-opacity:1"/><stop offset="0.3" style="stop-color:rgb(104,233,255);stop-opacity:1"/><stop offset="0.31" style="stop-color:rgb(108,233,255);stop-opacity:1"/><stop offset="0.32" style="stop-color:rgb(112,242,255);stop-opacity:1"/><stop offset="0.33" style="stop-color:rgb(116,246,255);stop-opacity:1"/><stop offset="0.34" style="stop-color:rgb(120,250,255);stop-opacity:1"/><stop offset="0.35" style="stop-color:rgb(125,255,255);stop-opacity:1"/><stop offset="0.37" style="stop-color:rgb(138,255,242);stop-opacity:1"/><stop offset="0.38" style="stop-color:rgb(151,255,229);stop-opacity:1"/><stop offset="0.39" style="stop-color:rgb(164,255,216);stop-opacity:1"/><stop offset="0.4" style="stop-color:rgb(177,255,203);stop-opacity:1"/><stop offset="0.41" style="stop-color:rgb(190,255,190);stop-opacity:1"/><stop offset="0.43" style="stop-color:rgb(203,255,177);stop-opacity:1"/><stop offset="0.44" style="stop-color:rgb(216,255,164);stop-opacity:1"/><stop offset="0.45" style="stop-color:rgb(229,255,151);stop-opacity:1"/><stop offset="0.46" style="stop-color:rgb(242,255,138);stop-opacity:1"/><stop offset="0.48" style="stop-color:rgb(255,255,125);stop-opacity:1"/><stop offset="0.49" style="stop-color:rgb(255,242,112);stop-opacity:1"/><stop offset="0.5" style="stop-color:rgb(255,229,100);stop-opacity:1"/><stop offset="0.51" style="stop-color:rgb(255,216,87);stop-opacity:1"/><stop offset="0.52" style="stop-color:rgb(255,203,75);stop-opacity:1"/><stop offset="0.54" style="stop-color:rgb(255,190,62);stop-opacity:1"/><stop offset="0.55" style="stop-color:rgb(255,177,50);stop-opacity:1"/><stop offset="0.56" style="stop-color:rgb(255,164,37);stop-opacity:1"/><stop offset="0.57" style="stop-color:rgb(255,151,25);stop-opacity:1"/><stop offset="0.59" style="stop-color:rgb(255,138,12);stop-opacity:1"/><stop offset="0.59" style="stop-color:rgb(255,125,0);stop-opacity:1"/><stop offset="0.61" style="stop-color:rgb(255,120,0);stop-opacity:1"/><stop offset="0.62" style="stop-color:rgb(255,116,0);stop-opacity:1"/><stop offset="0.63" style="stop-color:rgb(255,112,0);stop-opacity:1"/><stop offset="0.64" style="stop-color:rgb(255,108,0);stop-opacity:1"/><stop offset="0.65" style="stop-color:rgb(255,104,0);stop-opacity:1"/><stop offset="0.67" style="stop-color:rgb(255,100,0);stop-opacity:1"/><stop offset="0.68" style="stop-color:rgb(255,95,0);stop-opacity:1"/><stop offset="0.69" style="stop-color:rgb(255,91,0);stop-opacity:1"/><stop offset="0.7" style="stop-color:rgb(255,87,0);stop-opacity:1"/><stop offset="0.71" style="stop-color:rgb(255,83,0);stop-opacity:1"/><stop offset="0.72" style="stop-color:rgb(255,79,0);stop-opacity:1"/><stop offset="0.73" style="stop-color:rgb(255,75,0);stop-opacity:1"/><stop offset="0.75" style="stop-color:rgb(255,70,0);stop-opacity:1"/><stop offset="0.76" style="stop-color:rgb(255,66,0);stop-opacity:1"/><stop offset="0.77" style="stop-color:rgb(255,62,0);stop-opacity:1"/><stop offset="0.78" style="stop-color:rgb(255,58,0);stop-opacity:1"/><stop offset="0.79" style="stop-color:rgb(255,54,0);stop-opacity:1"/><stop offset="0.8" style="stop-color:rgb(255,50,0);stop-opacity:1"/><stop offset="0.82" style="stop-color:rgb(255,45,0);stop-opacity:1"/><stop offset="0.83" style="stop-color:rgb(255,41,0);stop-opacity:1"/><stop offset="0.84" style="stop-color:rgb(255,37,0);stop-opacity:1"/><stop offset="0.85" style="stop-color:rgb(255,33,0);stop-opacity:1"/><stop offset="0.86" style="stop-color:rgb(255,29,0);stop-opacity:1"/><stop offset="0.88" style="stop-color:rgb(255,25,0);stop-opacity:1"/><stop offset="0.89" style="stop-color:rgb(255,20,0);stop-opacity:1"/><stop offset="0.9" style="stop-color:rgb(255,16,0);stop-opacity:1"/><stop offset="0.92" style="stop-color:rgb(255,12,0);stop-opacity:1"/><stop offset="0.93" style="stop-color:rgb(255,8,0);stop-opacity:1"/><stop offset="0.94" style="stop-color:rgb(255,4,0);stop-opacity:1"/><stop offset="0.95" style="stop-color:rgb(255,0,0);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(255,0,0);stop-opacity:1"/></linearGradient>
+    </defs>
 </svg>

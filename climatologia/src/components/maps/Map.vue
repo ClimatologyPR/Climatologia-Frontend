@@ -109,9 +109,11 @@
                   </div>
                 </l-control>
                 <l-control
-                  position="bottomright"
+                  position="bottomright" class="rightLegend"
                   style="pointer-events: none;margin-bottom:-10px;z-index:801;margin-right:10px"
                 >
+                  <h2 v-if="currentPinView === 'prcp'">Precipitación</h2>
+                  <h2 v-else>Temperatura</h2>
                   <v-card  class="legendImage">
                     <img
                       v-if="currentPinView === 'prcp'"
@@ -1629,11 +1631,12 @@ export default {
 }
 
 .centerBtn {
-  padding-top: 20px;
+  width: 48px;
+  height: 48px;
   pointer-events: all;
-  padding-bottom: 20px;
-  padding-left: 25px;
-  padding-right: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
   background: #2bbbbb;
   color: rgb(255, 255, 255);
@@ -1659,13 +1662,13 @@ export default {
 .leyenda {
   background-color: white;
   font-size: 1.5vh;
-  width: 255px;
+  width: 225px;
   background: inherit;
   backdrop-filter: blur(10px);
   box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836);
   color: white;
   border-radius: 10px;
-  padding: 10px;
+  
   font-family: "Lato", sans-serif;
   text-align: center;
 }
@@ -1701,6 +1704,12 @@ export default {
   background: inherit;
   backdrop-filter: blur(10px);
   box-shadow: inset 0px 0px 200px rgba(56, 56, 56, 0.836);
+}
+
+.rightLegend h2{
+  color: var(--h1);
+  text-shadow: 0px 0px 3px black;
+  text-align: center;
 }
 
 .popup {
