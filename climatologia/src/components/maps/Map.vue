@@ -1493,7 +1493,7 @@ export default {
       this.zonePopup = false;
     },
     recenterPopup: function() {
-      if (this.selectedDateType === "Por Rango" && !this.zonePopup) {
+      if (!this.zonePopup) {
         this.center = this.locationUpdate;
       }
     },
