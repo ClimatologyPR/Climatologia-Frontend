@@ -214,7 +214,7 @@
         average prcp value across the date interval per station.
       </p>
       <h6>Example 3:</h6>
-      <pre>http://climatologia.uprm.edu:8008/api?<b>q</b>=<b>data</b>&<b>elem</b>data&>=<strong>tmax</strong>&<b>calc</b>=<strong>avg</strong>&<b>startdate</b>=<strong>2018-03-01</strong>&<b>enddate</b>=<strong>2018-03-31</strong></pre>
+      <pre>http://climatologia.uprm.edu:8008/api?<b>q</b>=<b>data</b>&<b>elem</b>=<strong>tmax</strong>&<b>calc</b>=<strong>avg</strong>&<b>startdate</b>=<strong>2018-03-01</strong>&<b>enddate</b>=<strong>2018-03-31</strong></pre>
       <p>
         This query is asking the data base to bring back data of the maximum
         temperature. Then it will calculate the average value from the date
