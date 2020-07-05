@@ -279,8 +279,7 @@
                       :lat-lngs="EasternInterior.latlngs"
                       :color="EasternInterior.color"
                       :fillColor="EasternInterior.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+            
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Interior oriental</l-popup
@@ -293,8 +292,7 @@
                       :lat-lngs="NorthernCoastal.latlngs"
                       :color="NorthernCoastal.color"
                       :fillColor="NorthernCoastal.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+               
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Costa del norte</l-popup
@@ -307,8 +305,7 @@
                       :lat-lngs="NorthernSlopes.latlngs"
                       :color="NorthernSlopes.color"
                       :fillColor="NorthernSlopes.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+                
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Laderas del norte</l-popup
@@ -321,8 +318,7 @@
                       :lat-lngs="OutlyingIsland.latlngs"
                       :color="OutlyingIsland.color"
                       :fillColor="OutlyingIsland.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+                     
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Islas periféricas</l-popup
@@ -335,8 +331,7 @@
                       :lat-lngs="OutlyingIsland1.latlngs"
                       :color="OutlyingIsland1.color"
                       :fillColor="OutlyingIsland1.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+                     
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Islas periféricas</l-popup
@@ -349,8 +344,7 @@
                       :lat-lngs="OutlyingIsland2.latlngs"
                       :color="OutlyingIsland2.color"
                       :fillColor="OutlyingIsland2.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+                
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Islas periféricas</l-popup
@@ -363,8 +357,7 @@
                       :lat-lngs="OutlyingIsland3.latlngs"
                       :color="OutlyingIsland3.color"
                       :fillColor="OutlyingIsland3.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+            
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Islas periféricas</l-popup
@@ -377,8 +370,7 @@
                       :lat-lngs="OutlyingIsland4.latlngs"
                       :color="OutlyingIsland4.color"
                       :fillColor="OutlyingIsland4.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+          
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Islas periféricas</l-popup
@@ -391,8 +383,7 @@
                       :lat-lngs="SouthernCoastal.latlngs"
                       :color="SouthernCoastal.color"
                       :fillColor="SouthernCoastal.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+           
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Costa del sur</l-popup
@@ -405,8 +396,7 @@
                       :lat-lngs="SouthernSlopes.latlngs"
                       :color="SouthernSlopes.color"
                       :fillColor="SouthernSlopes.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+                
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Laderas del sur</l-popup
@@ -419,8 +409,7 @@
                       :lat-lngs="WesternInterior.latlngs"
                       :color="WesternInterior.color"
                       :fillColor="WesternInterior.color"
-                      @popupopen="zonePopup = true"
-                      @popupclose="zonePopup = false"
+             
                     >
                       <l-popup class="popup" :options="{ closeButton: true }"
                         >Interior occidental</l-popup
@@ -690,7 +679,7 @@ export default {
       csv: null,
 
       locationUpdate: null,
-      zonePopup: false,
+      zonePopup: true,
     };
   },
   computed: {
@@ -1481,23 +1470,18 @@ export default {
       }
     },
     recenter: function() {
-      this.mapChanged = this.mapChanged + 1;
-      this.zoom = 9.9;
-      this.center = latLng(18.213698, -66.348032);
+      this.zoom = 9.9;//this does nothing
+      this.center = latLng(18.213698, -66.348032);// this does nothing
+      this.mapChanged = this.mapChanged + 1;// this is what is recentering the page
       document.getElementById("centerBtn").style.transform = "translateY(10px)";
       document.getElementById("centerBtn").style.opacity = 0;
       document.getElementById("centerBtn").style.pointerEvents = "none";
     },
     lastLocation: function() {
-      if (!this.zonePopup) {
         this.locationUpdate = this.currentCenter;
-      }
-      this.zonePopup = false;
     },
     recenterPopup: function() {
-      if (!this.zonePopup) {
         this.center = this.locationUpdate;
-      }
     },
 
     calendarOpen: function() {
